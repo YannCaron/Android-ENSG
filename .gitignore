@@ -1,2 +1,30 @@
-**/build/
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Android studio
+.idea/
+.build/
+*.iml
+*.iws
 *.keystore
+
+# Backup, tmp and logs
+log/
+target/
+.~lock.*
+*.*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# virtual machine crash
+hs_err_pid*
+
