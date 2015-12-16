@@ -34,6 +34,9 @@ sudo apt-get install libpng-dev
 sudo apt-get install libcairo2-dev 
 sudo apt-get install libwxgtk2.8-dev
 
+sudo apt-get install libopenjp2-7-dev
+sudo apt-get install libwebp-dev
+
 # install lib gaia graphics
 wget http://www.gaia-gis.it/gaia-sins/libgaiagraphics-0.5.tar.gz
 tar -xvzf libgaiagraphics-0.5.tar.gz 
