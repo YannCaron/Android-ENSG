@@ -17,6 +17,9 @@ https://www.gaia-gis.it/spatialite-2.3.1/resources.html
 http://www.mygpsfiles.com/app/
 http://www.gpsvisualizer.com/
 
+## Shapefiles
+http://www.apur.org/article/donnees-disponibles-open-data
+
 ## GPX files
 http://www.visugpx.com/
 http://www.tracegps.com/fr/reccircuit.htm

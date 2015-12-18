@@ -1,0 +1,1 @@
+include ':app', ':eu.ensg.spatialite.geom'
