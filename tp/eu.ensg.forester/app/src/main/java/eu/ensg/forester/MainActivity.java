@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                // !!!! Utilisation d'une string (localisation)
+                // TODO:  Utilisation d'une string (localisation)
                 Snackbar.make(view, getResources().getString(R.string.info_record), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 recordPoi(view);
             }
@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity
 
     private boolean checkGPSPermission() {
 
-        // !!!! Permission management in API 23 see http://stackoverflow.com/questions/33460603/running-targeting-sdk-22-app-in-android-6-sdk-23
-        // !!!!
+        // TODO:  Permission management in API 23 see http://stackoverflow.com/questions/33460603/running-targeting-sdk-22-app-in-android-6-sdk-23
+        // TODO: 
         if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, PERMISSIONS_REQUEST_FINE_LOCATION))
             return false;
         if (!checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, PERMISSIONS_REQUEST_COARSE_LOCATION))
@@ -162,6 +162,15 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // TODO: stopper le GPS lorsque l'app est en pause
+        stopGPS();
+        shape = null;
     }
 
     @Override
@@ -238,8 +247,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
 
-        // !!!! Désactive le GPS
-        // !!!! Faire avant le saveInstanceState
+        // TODO:  Désactive le GPS
+        // TODO:  Faire avant le saveInstanceState
         stopGPS();
         super.onSaveInstanceState(outState, outPersistentState);
     }
@@ -275,11 +284,11 @@ public class MainActivity extends AppCompatActivity
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, false);
 
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             checkGPSPermission();
             return null;
         }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         return locationManager.getLastKnownLocation(provider);
     }
 
@@ -292,6 +301,12 @@ public class MainActivity extends AppCompatActivity
         database.insert(MySpatialiteHelper.TABLE_INTEREST, null, values);*/
 
         try {
+            if (currentLocation == null) {
+                Toast.makeText(this, "Position not available !", Toast.LENGTH_LONG).show();
+                Log.e(this.getClass().getName(), "GPS does not work or is not authorized, current position not available !");
+                return;
+            }
+
             Point point = new Point(MySpatialiteHelper.GPS_SRID, MySpatialiteHelper.coordFactory(currentLocation));
             helper.exec(
                     "insert into " + MySpatialiteHelper.TABLE_INTEREST +
@@ -380,7 +395,7 @@ public class MainActivity extends AppCompatActivity
             shape.addCoordinate(new XY(location.getLongitude(), location.getLatitude()));
         }
 
-        Toast.makeText(MainActivity.this, "GPS Location changed: " + new Point(MySpatialiteHelper.GPS_SRID ,MySpatialiteHelper.coordFactory(location)).toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "GPS Location changed: " + new Point(MySpatialiteHelper.GPS_SRID, MySpatialiteHelper.coordFactory(location)).toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
