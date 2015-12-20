@@ -34,3 +34,8 @@ http://www.tracegps.com/fr/reccircuit.htm
 ## Webservices
 http://www.geonames.org/export/ws-overview.html
 http://api.geonames.org/findNearByWeatherJSON?lat=43&lng=-2&username=demo
+
+# Misc
+Android file system // TODO
+http://android.stackexchange.com/questions/46926/android-folder-hierarchy/46934#46934
+
