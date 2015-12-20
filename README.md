@@ -3,7 +3,10 @@ An Android course given at ENSG Paris Marne la Vallée
 
 # Ressources
 ## HelloSpacialite example
+The example project:
 https://github.com/kristina-hager/HelloToSpatialite
+
+The Spatialite compiled library
 https://github.com/kristina-hager/Spatialite-Database-Driver
 
 ## Spacialite cookbook
@@ -11,6 +14,10 @@ https://www.gaia-gis.it/spatialite-3.0.0-BETA/spatialite-cookbook-fr/index.html#
 
 ## spacialite db
 https://www.gaia-gis.it/spatialite-2.3.1/resources.html
+
+## JSON & XML
+Jackson library:
+https://github.com/FasterXML/jackson
 
 # Tools
 ## GPS visualizer

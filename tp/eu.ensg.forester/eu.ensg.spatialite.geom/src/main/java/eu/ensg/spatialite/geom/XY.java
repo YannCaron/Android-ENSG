@@ -12,22 +12,22 @@ package eu.ensg.spatialite.geom; /**
  */
 public class XY implements Marshallable {
 
-	private final float x, y;
+	private final double x, y;
 
-	public float getX() {
+	public double getX() {
 		return x;
 	}
 
-	public float getY() {
+	public double getY() {
 		return y;
 	}
 
-	public XY(float x, float y) {
+	public XY(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	private void marshallNumber(StringBuilder string, float number) {
+	private void marshallNumber(StringBuilder string, double number) {
 		if (number == Math.round(number))
 			string.append((int)number);
 		else

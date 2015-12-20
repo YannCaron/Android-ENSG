@@ -14,18 +14,13 @@ import java.util.List;
 /**
  * The eu.ensg.spatialite.geom.LineString definition.
  */
-public class Polygon implements Marshallable {
+public class Polygon extends LineString {
 
-	private final XYList exterior;
 	private final List<XYList> interiors;
 
 	public Polygon() {
-		this.exterior = new XYList();
+		super();
 		this.interiors = new ArrayList<>();
-	}
-
-	public XYList getExterior() {
-		return exterior;
 	}
 
 	public int interiorsSize() {
@@ -45,7 +40,7 @@ public class Polygon implements Marshallable {
 		string.append("POLYGON");
 		string.append(' ');
 		string.append('(');
-		exterior.marshall(string);
+		getCoordinates().marshall(string);
 
 		for (XYList interior : interiors) {
 			string.append(", ");
@@ -55,10 +50,4 @@ public class Polygon implements Marshallable {
 		string.append(')');
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder string = new StringBuilder();
-		marshall(string);
-		return string.toString();
-	}
 }

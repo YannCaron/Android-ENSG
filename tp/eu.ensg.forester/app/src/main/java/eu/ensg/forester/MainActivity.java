@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -22,7 +23,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +30,14 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import eu.ensg.spatialite.geom.Polygon;
+import eu.ensg.spatialite.geom.XY;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LocationListener {
 
     TextView textBox;
     LocationManager locationManager;
-    ImageButton fab;
 
     public static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     public static final int PERMISSIONS_REQUEST_COARSE_LOCATION = 2;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,8 +60,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                // !!!! Utilisation d'une string (localisation)
+                Snackbar.make(view, getResources().getString(R.string.info_record), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                recordShape(view);
             }
         });
 
@@ -75,27 +80,23 @@ public class MainActivity extends AppCompatActivity
 
         textBox = (TextView) findViewById(R.id.textBox);
 
-        this.fab = (ImageButton) findViewById(R.id.fab);
-        this.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recordShape(v);
-            }
-        });
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void recordShape(View v) {
+    // region GPS management (API23)
 
-        // for permission manager in API 23 see http://stackoverflow.com/questions/33460603/running-targeting-sdk-22-app-in-android-6-sdk-23
-        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, PERMISSIONS_REQUEST_FINE_LOCATION)
-                && checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, PERMISSIONS_REQUEST_COARSE_LOCATION)) {
-            recordLocation();
-        }
+    private boolean checkGPSPermission() {
 
+        // !!!! Permission management in API 23 see http://stackoverflow.com/questions/33460603/running-targeting-sdk-22-app-in-android-6-sdk-23
+        // !!!!
+        if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, PERMISSIONS_REQUEST_FINE_LOCATION))
+            return false;
+        if (!checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, PERMISSIONS_REQUEST_COARSE_LOCATION))
+            return false;
 
+        return true;
     }
 
     private boolean checkPermission(String permission, int code) {
@@ -121,11 +122,9 @@ public class MainActivity extends AppCompatActivity
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    recordLocation();
-
+                    Toast.makeText(MainActivity.this, getResources().getText(R.string.info_restart), Toast.LENGTH_SHORT).show();
                 } else {
-                    textBox.setText("PERMISSION DENIED BY USER");
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.info_not_authorized), Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -135,28 +134,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void recordLocation() {
-        Toast.makeText(MainActivity.this, "Record shape STARTED", Toast.LENGTH_SHORT).show();
-        textBox.setText("INIT");
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            textBox.setText("NOT YET AUTHORIZED");
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, MainActivity.this);
-
-    }
+    // endregion
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            locationManager.removeUpdates(MainActivity.this);
-            super.onBackPressed();
         }
     }
 
@@ -207,6 +191,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    // region application manager
+
     @Override
     public void onStart() {
         super.onStart();
@@ -225,6 +211,21 @@ public class MainActivity extends AppCompatActivity
                 Uri.parse("android-app://eu.ensg.forester/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+
+        // !!!! Désactive le GPS
+        // !!!! Faire avant le saveInstanceState
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            checkGPSPermission();
+            return;
+        }
+        locationManager.removeUpdates(MainActivity.this);
+        super.onBackPressed();
+
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
@@ -247,9 +248,28 @@ public class MainActivity extends AppCompatActivity
         client.disconnect();
     }
 
+    // endregion
+
+    // region location
+    private Location currentLocation;
+    private Polygon shape;
+
+    private void recordShape(View v) {
+
+        textBox.setText("INIT");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            checkGPSPermission();
+            return;
+        }
+        shape = new Polygon();
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, MainActivity.this);
+    }
+
     @Override
     public void onLocationChanged(Location location) {
-        Log.i(MainActivity.class.getName(), "LOCATION CHANGED");
+        currentLocation = location;
+        shape.addCoordinate(new XY(location.getLongitude(), location.getLatitude()));
+
         textBox.setText("LOCATION CHANGED:" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()));
     }
 
@@ -268,4 +288,7 @@ public class MainActivity extends AppCompatActivity
     public void onProviderDisabled(String provider) {
         Toast.makeText(MainActivity.this, "GPS Disabled", Toast.LENGTH_SHORT).show();
     }
+
+    // endregion
+
 }

@@ -10,7 +10,7 @@ package eu.ensg.spatialite.geom; /**
 /**
  * The eu.ensg.spatialite.geom.LineString definition.
  */
-public class LineString implements Marshallable {
+public class LineString extends Geometry {
 
 	private final XYList coordinates;
 
@@ -22,18 +22,15 @@ public class LineString implements Marshallable {
 		return coordinates;
 	}
 
+	public void addCoordinate(XY coordinate) {
+		coordinates.add(coordinate);
+	}
+
 	@Override
 	public void marshall(StringBuilder string) {
 		string.append("LINESTRING");
 		string.append(' ');
 		coordinates.marshall(string);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder string = new StringBuilder();
-		marshall(string);
-		return string.toString();
 	}
 
 }

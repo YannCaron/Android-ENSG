@@ -10,7 +10,7 @@ package eu.ensg.spatialite.geom; /**
 /**
  * The eu.ensg.spatialite.geom.Point definition.
  */
-public class Point implements Marshallable {
+public class Point extends Geometry {
 
 	private final XY coordinate;
 
@@ -27,10 +27,4 @@ public class Point implements Marshallable {
 		string.append(')');
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder string = new StringBuilder();
-		marshall(string);
-		return string.toString();
-	}
 }
