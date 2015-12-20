@@ -14,7 +14,8 @@ public class Point extends Geometry {
 
 	private final XY coordinate;
 
-	public Point(XY coordinate) {
+	public Point(int srid, XY coordinate) {
+		super(srid);
 		this.coordinate = coordinate;
 	}
 
@@ -23,7 +24,7 @@ public class Point extends Geometry {
 		string.append("POINT");
 		string.append(' ');
 		string.append('(');
-		string.append(coordinate);
+		coordinate.marshall(string);
 		string.append(')');
 	}
 

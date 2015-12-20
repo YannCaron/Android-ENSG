@@ -3,6 +3,7 @@ package eu.ensg.forester;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -30,14 +31,22 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.lang.Exception;
+
+import eu.ensg.spatialite.geom.Point;
 import eu.ensg.spatialite.geom.Polygon;
 import eu.ensg.spatialite.geom.XY;
+import jsqlite.*;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LocationListener {
 
     TextView textBox;
     LocationManager locationManager;
+
+    // TODO mettre dans une class à part
+    Database database;
+    SpatialiteOpenHelper helper;
 
     public static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     public static final int PERMISSIONS_REQUEST_COARSE_LOCATION = 2;
@@ -63,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
                 // !!!! Utilisation d'une string (localisation)
                 Snackbar.make(view, getResources().getString(R.string.info_record), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                recordShape(view);
+                recordPoi(view);
             }
         });
 
@@ -83,6 +92,16 @@ public class MainActivity extends AppCompatActivity
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        try {
+            helper = new MySpatialiteHelper(this);
+            database = helper.getDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(getApplicationContext(), database.dbversion(), Toast.LENGTH_LONG).show();
+
+        textBox.setText(queryPointInPolygon());
     }
 
     // region GPS management (API23)
@@ -142,6 +161,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
+        super.onBackPressed();
     }
 
     @Override
@@ -196,6 +216,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
+        currentLocation = getLastLocation();
+        startGPS();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -218,13 +240,7 @@ public class MainActivity extends AppCompatActivity
 
         // !!!! Désactive le GPS
         // !!!! Faire avant le saveInstanceState
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            checkGPSPermission();
-            return;
-        }
-        locationManager.removeUpdates(MainActivity.this);
-        super.onBackPressed();
-
+        stopGPS();
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
@@ -254,23 +270,117 @@ public class MainActivity extends AppCompatActivity
     private Location currentLocation;
     private Polygon shape;
 
-    private void recordShape(View v) {
+    private Location getLastLocation() {
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria, false);
 
-        textBox.setText("INIT");
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            checkGPSPermission();
+            return null;
+        }
+        return locationManager.getLastKnownLocation(provider);
+    }
+
+    private void recordPoi(View v) {
+        /*ContentValues values = new ContentValues();
+        values.put(MySpatialiteHelper.COLUMN_NAME, "My first point");
+        values.put(MySpatialiteHelper.COLUMN_COMMENT, "A comment");
+        values.put(MySpatialiteHelper.COLUMN_COORDINATE, "GeomFromText('POINT(1.01 2.02)', 4326)");
+
+        database.insert(MySpatialiteHelper.TABLE_INTEREST, null, values);*/
+
+        try {
+            Point point = new Point(MySpatialiteHelper.GPS_SRID, MySpatialiteHelper.coordFactory(currentLocation));
+            helper.exec(
+                    "insert into " + MySpatialiteHelper.TABLE_INTEREST +
+                            "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ") " +
+                            " values ('" + "My coord" + "', " + point.toSpatialiteQuery() + ");");
+            textBox.setText(queryPointInPolygon());
+        } catch (jsqlite.Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public String queryVersions() throws Exception {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Check versions...\n");
+
+        Stmt stmt01 = database.prepare("SELECT spatialite_version();");
+        if (stmt01.step()) {
+            sb.append("\t").append("SPATIALITE_VERSION: " + stmt01.column_string(0));
+            sb.append("\n");
+        }
+
+        stmt01 = database.prepare("SELECT proj4_version();");
+        if (stmt01.step()) {
+            sb.append("\t").append("PROJ4_VERSION: " + stmt01.column_string(0));
+            sb.append("\n");
+        }
+
+        stmt01 = database.prepare("SELECT geos_version();");
+        if (stmt01.step()) {
+            sb.append("\t").append("GEOS_VERSION: " + stmt01.column_string(0));
+            sb.append("\n");
+        }
+        stmt01.close();
+
+        sb.append("Done...\n");
+        return sb.toString();
+    }
+
+    public String queryPointInPolygon() {
+
+        // select * from districts where within(ST_Transform(GeomFromText('POINT(-97.837543 30.418986)', 4326), 2277),districts.Geometry);
+        //String query = "select * from " + MySpatialiteHelper.TABLE_INTEREST + ";";
+        String query = "select " + MySpatialiteHelper.COLUMN_ID + ", " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT + ", AsText(" + MySpatialiteHelper.COLUMN_COORDINATE + ") as coord from " + MySpatialiteHelper.TABLE_INTEREST + ";";
+        //String query = "PRAGMA table_info(" + MySpatialiteHelper.TABLE_INTEREST + ");";
+
+        String result = "";
+        try {
+            result = helper.dumpQuery(query);
+        } catch (jsqlite.Exception e) {
+            Log.e(this.getClass().getSimpleName(), e.getMessage());
+        }
+
+        Log.i(this.getClass().getName(), result);
+
+        return result;
+    }
+
+    private void startGPS() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             checkGPSPermission();
             return;
         }
-        shape = new Polygon();
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, MainActivity.this);
+    }
+
+    private void stopGPS() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            checkGPSPermission();
+            return;
+        }
+        locationManager.removeUpdates(MainActivity.this);
+    }
+
+    private void startRecordShape() {
+
+        Toast.makeText(MainActivity.this, "GPS recording started", Toast.LENGTH_SHORT).show();
+        shape = new Polygon(MySpatialiteHelper.GPS_SRID);
     }
 
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;
-        shape.addCoordinate(new XY(location.getLongitude(), location.getLatitude()));
 
-        textBox.setText("LOCATION CHANGED:" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()));
+        if (shape != null) {
+            shape.addCoordinate(new XY(location.getLongitude(), location.getLatitude()));
+        }
+
+        Toast.makeText(MainActivity.this, "GPS Location changed: " + new Point(MySpatialiteHelper.GPS_SRID ,MySpatialiteHelper.coordFactory(location)).toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -280,8 +390,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onProviderEnabled(String provider) {
-        Log.i(MainActivity.class.getName(), "PROVIDER ENABLED");
-        textBox.setText("PROVIDER ENABLED");
+        Toast.makeText(MainActivity.this, "GPS Provider Enabled", Toast.LENGTH_SHORT).show();
     }
 
     @Override
