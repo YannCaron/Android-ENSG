@@ -14,7 +14,6 @@ import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity
 
     TextView textBox;
     LocationManager locationManager;
-    MapsActivity map;
+    MapsFragment mapsFragment;
 
     // TODO mettre dans une class à part
     Database database;
@@ -94,7 +93,9 @@ public class MainActivity extends AppCompatActivity
         // TODO: récupérer les controles
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         textBox = (TextView) findViewById(R.id.textBox);
-        map = (MapsActivity) getSupportFragmentManager().findFragmentById(R.id.map).getActivity();
+        mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+
+        Log.e(this.getClass().getName(), "Maps Fragment: " + mapsFragment);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -328,6 +329,8 @@ public class MainActivity extends AppCompatActivity
                 return;
             }
 
+            mapsFragment.addMarker(currentLocation, "My coord");
+
             Point point = new Point(MySpatialiteHelper.GPS_SRID, MySpatialiteHelper.coordFactory(currentLocation));
             helper.exec(
                     "insert into " + MySpatialiteHelper.TABLE_INTEREST +
@@ -337,6 +340,7 @@ public class MainActivity extends AppCompatActivity
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
         }
+
 
     }
 
