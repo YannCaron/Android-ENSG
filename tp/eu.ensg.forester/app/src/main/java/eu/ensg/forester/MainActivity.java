@@ -14,6 +14,7 @@ import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity
 
     TextView textBox;
     LocationManager locationManager;
+    MapsActivity map;
 
     // TODO mettre dans une class à part
     Database database;
@@ -89,9 +91,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // TODO: récupérer les controles
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
         textBox = (TextView) findViewById(R.id.textBox);
+        map = (MapsActivity) getSupportFragmentManager().findFragmentById(R.id.map).getActivity();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

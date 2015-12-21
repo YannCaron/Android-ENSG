@@ -1,4 +1,5 @@
 import com.android.build.gradle.tasks.PackageApplication
+
 apply plugin: 'com.android.application'
 
 android {
@@ -28,12 +29,14 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
     compile project(':eu.ensg.spatialite.geom')
-    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile project(':..:Spatialite-Database-Driver:spatialite-db-driver')
     compile project(':eu.ensg.commons')
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
 }
 
 // for spatialite db driver JNI
