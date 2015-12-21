@@ -15,9 +15,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import eu.ensg.spatialite.geom.Point;
+
 public class MapsFragment extends Fragment {
 
-    GoogleMap map;
+    GoogleMap googleMap;
+    MapReadyListener mapReadyListener;
+
+    public interface MapReadyListener {
+
+        void onMapReady(GoogleMap googleMap);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,17 +42,28 @@ public class MapsFragment extends Fragment {
         fragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                map = googleMap;
+                MapsFragment.this.googleMap = googleMap;
+                fireMapReady(googleMap);
             }
         });
     }
 
+    public void setMapReadyListener(MapReadyListener mapReadyListener) {
+        this.mapReadyListener = mapReadyListener;
+    }
+
+    private void fireMapReady(GoogleMap googleMap) {
+        if (mapReadyListener != null) {
+            mapReadyListener.onMapReady(googleMap);
+        }
+    }
+
     public void moveTo(Location location) {
-        if (map != null) {
+        if (googleMap != null) {
             LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
 
-            map.moveCamera(CameraUpdateFactory.newLatLng(position));
-            map.animateCamera(CameraUpdateFactory.zoomTo(10f));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(position));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15f));
 
         } else {
             Toast.makeText(getContext(), "Google maps not yet initialized !", Toast.LENGTH_LONG).show();
@@ -51,12 +71,21 @@ public class MapsFragment extends Fragment {
     }
 
     public void addMarker(Location location, String name) {
-        if (map != null) {
+        if (googleMap != null) {
             LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
 
-            map.addMarker(new MarkerOptions().position(position).title(name));
-            map.moveCamera(CameraUpdateFactory.newLatLng(position));
-            map.animateCamera(CameraUpdateFactory.zoomTo(15f));
+            googleMap.addMarker(new MarkerOptions().position(position).title(name));
+
+        } else {
+            Toast.makeText(getContext(), "Google maps not yet initialized !", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void addMarker(Point location, String name) {
+        if (googleMap != null) {
+            LatLng position = new LatLng(location.getCoordinate().getY(), location.getCoordinate().getX());
+
+            googleMap.addMarker(new MarkerOptions().position(position).title(name));
 
         } else {
             Toast.makeText(getContext(), "Google maps not yet initialized !", Toast.LENGTH_LONG).show();

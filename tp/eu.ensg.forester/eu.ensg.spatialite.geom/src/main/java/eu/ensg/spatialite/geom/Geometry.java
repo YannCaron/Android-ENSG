@@ -5,12 +5,6 @@ package eu.ensg.spatialite.geom;
  */
 public abstract class Geometry implements Marshallable {
 
-    private final int srid;
-
-    public Geometry(int srid) {
-        this.srid = srid;
-    }
-
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
@@ -18,7 +12,7 @@ public abstract class Geometry implements Marshallable {
         return string.toString();
     }
 
-    public String toSpatialiteQuery() {
+    public String toSpatialiteQuery(int srid) {
         StringBuilder string = new StringBuilder();
         string.append("GeomFromText('");
         marshall(string);

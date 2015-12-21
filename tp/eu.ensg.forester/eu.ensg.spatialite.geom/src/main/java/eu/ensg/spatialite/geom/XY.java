@@ -41,4 +41,14 @@ public class XY implements Marshallable {
 		marshallNumber(string, y);
 	}
 
+	public static XY unMarshall(StringBuilder string) {
+		Utils.removeBlanks(string);
+		Double x = Utils.consumeDouble(string);
+		if (x == null) return null;
+		Utils.removeBlanks(string);
+		Double y = Utils.consumeDouble(string);
+		if (y == null) return null;
+		return new XY(x, y);
+	}
+
 }

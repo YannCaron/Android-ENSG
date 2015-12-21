@@ -7,6 +7,7 @@ package eu.ensg.spatialite.geom; /**
  * ou écrivez à Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
  **/
 
+
 /**
  * The eu.ensg.spatialite.geom.Point definition.
  */
@@ -14,9 +15,12 @@ public class Point extends Geometry {
 
 	private final XY coordinate;
 
-	public Point(int srid, XY coordinate) {
-		super(srid);
+	public Point(XY coordinate) {
 		this.coordinate = coordinate;
+	}
+
+	public XY getCoordinate() {
+		return coordinate;
 	}
 
 	@Override
@@ -26,6 +30,19 @@ public class Point extends Geometry {
 		string.append('(');
 		coordinate.marshall(string);
 		string.append(')');
+	}
+
+
+	public static Point unMarshall(StringBuilder string) {
+		Utils.removeBlanks(string);
+		if (!Utils.consumeSymbol(string, "POINT")) return null;
+		Utils.removeBlanks(string);
+		if (!Utils.consumeSymbol(string, "(")) return null;
+		XY xy = XY.unMarshall(string);
+		if (xy == null) return null;
+		Utils.removeBlanks(string);
+		if (!Utils.consumeSymbol(string, ")")) return null;
+		return new Point(xy);
 	}
 
 }

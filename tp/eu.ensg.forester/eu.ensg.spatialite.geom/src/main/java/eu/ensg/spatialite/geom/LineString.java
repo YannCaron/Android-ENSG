@@ -14,8 +14,7 @@ public class LineString extends Geometry {
 
 	private final XYList coordinates;
 
-	public LineString(int srid) {
-		super(srid);
+	public LineString() {
 		this.coordinates = new XYList();
 	}
 

@@ -12,112 +12,61 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.GoogleMap;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.Exception;
 
 import eu.ensg.commons.io.FileSystem;
 import eu.ensg.spatialite.geom.Point;
 import eu.ensg.spatialite.geom.Polygon;
 import eu.ensg.spatialite.geom.XY;
-import jsqlite.*;
+import jsqlite.Database;
+import jsqlite.Stmt;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LocationListener {
 
-    TextView textBox;
+    public static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
+    public static final int PERMISSIONS_REQUEST_COARSE_LOCATION = 2;
     LocationManager locationManager;
     MapsFragment mapsFragment;
-
     // TODO mettre dans une class à part
     Database database;
     SpatialiteOpenHelper helper;
-
-    public static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
-    public static final int PERMISSIONS_REQUEST_COARSE_LOCATION = 2;
-
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // TODO:  Utilisation d'une string (localisation)
-                Snackbar.make(view, getResources().getString(R.string.info_record), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                recordPoi();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // TODO: récupérer les controles
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        textBox = (TextView) findViewById(R.id.textBox);
-        mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
-
-        Log.e(this.getClass().getName(), "Maps Fragment: " + mapsFragment);
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
-        try {
-            helper = new MySpatialiteHelper(this);
-            database = helper.getDatabase();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Toast.makeText(getApplicationContext(), database.dbversion(), Toast.LENGTH_LONG).show();
-
-        textBox.setText(queryPointInPolygon());
-    }
+    private Location currentLocation;
 
     // region GPS management (API23)
+    private Polygon shape;
 
     private boolean checkGPSPermission() {
 
         // TODO:  Permission management in API 23 see http://stackoverflow.com/questions/33460603/running-targeting-sdk-22-app-in-android-6-sdk-23
-        // TODO: 
+        // TODO:
         if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, PERMISSIONS_REQUEST_FINE_LOCATION))
             return false;
         if (!checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, PERMISSIONS_REQUEST_COARSE_LOCATION))
@@ -125,6 +74,8 @@ public class MainActivity extends AppCompatActivity
 
         return true;
     }
+
+    // endregion
 
     private boolean checkPermission(String permission, int code) {
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -161,7 +112,63 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // endregion
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // TODO:  Utilisation d'une string (localisation)
+                Snackbar.make(view, getResources().getString(R.string.info_record), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                recordPoi();
+            }
+        });
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // TODO: récupérer les controles
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+
+        Log.e(this.getClass().getName(), "Maps Fragment: " + mapsFragment);
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        try {
+            helper = new MySpatialiteHelper(this);
+            database = helper.getDatabase();
+        } catch (jsqlite.Exception | IOException e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(getApplicationContext(), database.dbversion(), Toast.LENGTH_LONG).show();
+
+        mapsFragment.setMapReadyListener(new MapsFragment.MapReadyListener() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                queryPointOfInterest();
+
+            }
+        });
+
+    }
 
     @Override
     public void onBackPressed() {
@@ -203,6 +210,8 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    // region application manager
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -242,8 +251,6 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this, String.format("Database copied to: %s", sdcard), Toast.LENGTH_LONG).show();
     }
 
-    // region application manager
-
     @Override
     public void onStart() {
         super.onStart();
@@ -265,6 +272,8 @@ public class MainActivity extends AppCompatActivity
         );
         AppIndex.AppIndexApi.start(client, viewAction);
     }
+
+    // endregion
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
@@ -295,11 +304,7 @@ public class MainActivity extends AppCompatActivity
         client.disconnect();
     }
 
-    // endregion
-
     // region location
-    private Location currentLocation;
-    private Polygon shape;
 
     private Location getLastLocation() {
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -330,13 +335,13 @@ public class MainActivity extends AppCompatActivity
             }
 
             mapsFragment.addMarker(currentLocation, "My coord");
+            mapsFragment.moveTo(currentLocation);
 
-            Point point = new Point(MySpatialiteHelper.GPS_SRID, MySpatialiteHelper.coordFactory(currentLocation));
+            Point point = new Point(MySpatialiteHelper.coordFactory(currentLocation));
             helper.exec(
                     "insert into " + MySpatialiteHelper.TABLE_INTEREST +
                             "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ") " +
-                            " values ('" + "My coord" + "', " + point.toSpatialiteQuery() + ");");
-            textBox.setText(queryPointInPolygon());
+                            " values ('" + "My coord" + "', " + point.toSpatialiteQuery(MySpatialiteHelper.GPS_SRID) + ");");
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
         }
@@ -344,7 +349,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public String queryVersions() throws Exception {
+    public String queryVersions() throws jsqlite.Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("Check versions...\n");
 
@@ -371,23 +376,32 @@ public class MainActivity extends AppCompatActivity
         return sb.toString();
     }
 
-    public String queryPointInPolygon() {
+    public void queryPointOfInterest() {
 
         // select * from districts where within(ST_Transform(GeomFromText('POINT(-97.837543 30.418986)', 4326), 2277),districts.Geometry);
         //String query = "select * from " + MySpatialiteHelper.TABLE_INTEREST + ";";
-        String query = "select " + MySpatialiteHelper.COLUMN_ID + ", " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT + ", AsText(" + MySpatialiteHelper.COLUMN_COORDINATE + ") as coord from " + MySpatialiteHelper.TABLE_INTEREST + ";";
+        String query = "select " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT + ", AsText(" + MySpatialiteHelper.COLUMN_COORDINATE + ") as coord from " + MySpatialiteHelper.TABLE_INTEREST + ";";
         //String query = "PRAGMA table_info(" + MySpatialiteHelper.TABLE_INTEREST + ");";
 
-        String result = "";
+        Stmt stmt = null;
         try {
-            result = helper.dumpQuery(query);
+            stmt = database.prepare(query);
+
+            while (stmt.step()) {
+                String name = stmt.column_string(0);
+                String comment = stmt.column_string(1);
+                Point coord = Point.unMarshall(new StringBuilder(stmt.column_string(2)));
+                Log.w(this.getClass().getName(), "Coordinate: " + stmt.column_string(2));
+
+                mapsFragment.addMarker(coord, name);
+            }
+
         } catch (jsqlite.Exception e) {
-            Log.e(this.getClass().getSimpleName(), e.getMessage());
+            Log.e(this.getClass().getName(), String.format("Cannot execute query %s ", query));
+            e.printStackTrace();
         }
 
-        Log.i(this.getClass().getName(), result);
 
-        return result;
     }
 
     private void startGPS() {
@@ -409,7 +423,7 @@ public class MainActivity extends AppCompatActivity
     private void startRecordShape() {
 
         Toast.makeText(MainActivity.this, "GPS recording started", Toast.LENGTH_SHORT).show();
-        shape = new Polygon(MySpatialiteHelper.GPS_SRID);
+        shape = new Polygon();
     }
 
     @Override
@@ -420,7 +434,7 @@ public class MainActivity extends AppCompatActivity
             shape.addCoordinate(new XY(location.getLongitude(), location.getLatitude()));
         }
 
-        Toast.makeText(MainActivity.this, "GPS Location changed: " + new Point(MySpatialiteHelper.GPS_SRID, MySpatialiteHelper.coordFactory(location)).toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "GPS Location changed: " + new Point(MySpatialiteHelper.coordFactory(location)).toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
