@@ -21,7 +21,7 @@ public abstract class SpatialiteOpenHelper {
     public static final String INIT_SPATIAL_METADATA = "SELECT InitSpatialMetaData();";
 
     private final Context context;
-    private final String name;
+    protected final String name;
     private final Database database;
 
     public SpatialiteOpenHelper(Context context, String name, int version) throws jsqlite.Exception, IOException {
@@ -29,8 +29,8 @@ public abstract class SpatialiteOpenHelper {
         this.name = name;
 
         // spatialite file
-        File sdcardDir = new File("/data/data/eu.ensg.forester/databases"); // your sdcard path
-        File spatialDbFile = new File(sdcardDir, name);
+        // TODO: Le path de la base de donnée [/data/data/[app_name]/databases/[name]]
+        File spatialDbFile = getDatabaseFile();
 
         if (!spatialDbFile.getParentFile().exists()) {
             File dirDb = spatialDbFile.getParentFile();
@@ -67,6 +67,14 @@ public abstract class SpatialiteOpenHelper {
         editor.apply();
     }
 
+    public final String getDatabaseName() {
+        return name;
+    }
+
+    public final File getDatabaseFile() {
+        return context.getDatabasePath(name);
+    }
+
     public Database getDatabase() {
         return database;
     }
@@ -96,7 +104,7 @@ public abstract class SpatialiteOpenHelper {
             }
             stringBuilder.append("\n");
 
-            if (rowIndex++ > 10) break;
+            if (rowIndex++ > 100) break;
         }
         stringBuilder.append("\n--------------------------------------------\n");
         stmt.close();

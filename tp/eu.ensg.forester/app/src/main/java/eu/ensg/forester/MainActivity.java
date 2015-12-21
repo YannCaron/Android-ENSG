@@ -9,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,8 +32,11 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.Exception;
 
+import eu.ensg.commons.io.FileSystem;
 import eu.ensg.spatialite.geom.Point;
 import eu.ensg.spatialite.geom.Polygon;
 import eu.ensg.spatialite.geom.XY;
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity
 
                 // TODO:  Utilisation d'une string (localisation)
                 Snackbar.make(view, getResources().getString(R.string.info_record), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                recordPoi(view);
+                recordPoi();
             }
         });
 
@@ -201,23 +205,37 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_map) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_poi) {
+            recordPoi();
+        } else if (id == R.id.nav_area) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_explorer) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_save) {
+            saveDatabase();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void saveDatabase() {
+        File database = helper.getDatabaseFile();
+        File sdcard = new File(Environment.getExternalStorageDirectory(), helper.getDatabaseName());
+
+        Log.i(this.getClass().getName(), String.format("Copy file [%s] to [%s].", database, sdcard));
+
+        try {
+            FileSystem.copyFile(database, sdcard);
+        } catch (IOException e) {
+            Log.e(this.getClass().getName(), String.format("Error during file copy [%s] to [%s].", database, sdcard));
+            e.printStackTrace();
+        }
+
+        Toast.makeText(this, String.format("Database copied to: %s", sdcard), Toast.LENGTH_LONG).show();
     }
 
     // region application manager
@@ -292,7 +310,7 @@ public class MainActivity extends AppCompatActivity
         return locationManager.getLastKnownLocation(provider);
     }
 
-    private void recordPoi(View v) {
+    private void recordPoi() {
         /*ContentValues values = new ContentValues();
         values.put(MySpatialiteHelper.COLUMN_NAME, "My first point");
         values.put(MySpatialiteHelper.COLUMN_COMMENT, "A comment");

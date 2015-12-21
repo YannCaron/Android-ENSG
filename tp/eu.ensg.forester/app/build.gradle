@@ -33,6 +33,7 @@ dependencies {
     compile project(':eu.ensg.spatialite.geom')
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile project(':..:Spatialite-Database-Driver:spatialite-db-driver')
+    compile project(':eu.ensg.commons')
 }
 
 // for spatialite db driver JNI

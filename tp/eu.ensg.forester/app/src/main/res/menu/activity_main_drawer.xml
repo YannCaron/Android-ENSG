@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- TODO: Icons downloaded from https://design.google.com/icons/ -->
+
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_map"
+            android:icon="@drawable/ic_map_black_24dp"
+            android:title="@string/title_map" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_explorer"
+            android:icon="@drawable/ic_event_note_black_24dp"
+            android:title="@string/title_explorer" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/title_manage">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_poi"
+                android:icon="@drawable/ic_add_location_black_24dp"
+                android:title="@string/title_poi" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_area"
+                android:icon="@drawable/ic_terrain_black_24dp"
+                android:title="@string/title_area" />
+            <item
+                android:id="@+id/nav_save"
+                android:icon="@drawable/ic_backup_black_24dp"
+                android:title="@string/title_save" />
         </menu>
     </item>
 

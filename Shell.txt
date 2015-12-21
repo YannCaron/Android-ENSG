@@ -1,0 +1,27 @@
+Shell
+
+Ajouter les Android-tools dans le path
+Sous ubuntu 
+> gedit ~/.bashrc
+
+Puis ajouter
+# path
+export PATH=$PATH:~/Android/Sdk/platform-tools
+
+Relancer un shell
+> adb --help
+
+Lorsque le device n'est pas connecté
+> adb kill-server
+> adb start-server
+> adb devices -l	# pour vérifier
+
+Acceder aux fichiers crées
+> adb shell
+> run-as eu.ensg.forester
+> ll 			# Liste les fichiers de notre application
+
+
+
+
+

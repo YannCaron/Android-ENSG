@@ -38,4 +38,11 @@ http://api.geonames.org/findNearByWeatherJSON?lat=43&lng=-2&username=demo
 # Misc
 Android file system // TODO
 http://android.stackexchange.com/questions/46926/android-folder-hierarchy/46934#46934
+and
+http://stackoverflow.com/questions/1998400/data-directory-has-no-read-write-permission-in-android
 
+get a file
+http://stackoverflow.com/questions/21062187/get-sqlite-database-from-android-app
+
+material design
+http://developer.android.com/design/downloads/index.html

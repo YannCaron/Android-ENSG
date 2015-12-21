@@ -1,2 +1,2 @@
-include ':app', ':eu.ensg.spatialite.geom', '..:Spatialite-Database-Driver:spatialite-db-driver'
+include ':app', ':eu.ensg.spatialite.geom', ':eu.ensg.commons', '..:Spatialite-Database-Driver:spatialite-db-driver'
 //project(':spatialite-db-driver').projectDir = new File('Spatialite-Database-Driver/app')

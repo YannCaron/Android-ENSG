@@ -9,5 +9,11 @@
     <string name="info_record">Store point of interest</string>
     <string name="info_not_authorized">Without authorisations, the application will run partially !</string>
     <string name="info_restart">Authorisation was granted, start you action again !</string>
+    <string name="title_map">Map</string>
+    <string name="title_poi">Point of interest</string>
+    <string name="title_area">Record area</string>
+    <string name="title_explorer">Database explorer</string>
+    <string name="title_manage">Manage</string>
+    <string name="title_save">Copy</string>
 
 </resources>
