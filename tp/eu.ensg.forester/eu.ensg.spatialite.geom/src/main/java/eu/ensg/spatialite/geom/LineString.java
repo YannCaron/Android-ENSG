@@ -15,7 +15,11 @@ public class LineString extends Geometry {
 	private final XYList coordinates;
 
 	public LineString() {
-		this.coordinates = new XYList();
+		this.coordinates = new XYList(false);
+	}
+
+	protected LineString(boolean closed) {
+		this.coordinates = new XYList(closed);
 	}
 
 	public XYList getCoordinates() {

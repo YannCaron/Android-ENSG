@@ -19,6 +19,7 @@ public class Polygon extends LineString {
 	private final List<XYList> interiors;
 
 	public Polygon() {
+		super(true);
 		this.interiors = new ArrayList<>();
 	}
 

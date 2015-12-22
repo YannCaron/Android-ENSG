@@ -93,9 +93,7 @@ public class MapsFragment extends Fragment {
         }
     }
 
-    public void drawPolygon(Polygon geom, int color) {
-
-        clearPolygon();
+    public com.google.android.gms.maps.model.Polygon addPolygon(Polygon geom, int color) {
 
         PolygonOptions options = new PolygonOptions();
 
@@ -107,7 +105,12 @@ public class MapsFragment extends Fragment {
 
         options.fillColor(color).geodesic(true);
 
-        currentPolygon = googleMap.addPolygon(options);
+        return googleMap.addPolygon(options);
+    }
+
+    public void drawPolygon(Polygon geom, int color) {
+        clearPolygon();
+        currentPolygon = addPolygon(geom, color);
     }
 
     public void clearPolygon() {

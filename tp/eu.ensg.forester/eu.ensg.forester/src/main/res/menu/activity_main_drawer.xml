@@ -9,9 +9,11 @@
             android:icon="@drawable/ic_map_black_24dp"
             android:title="@string/title_map" />
         <item
-            android:id="@+id/nav_explorer"
-            android:icon="@drawable/ic_event_note_black_24dp"
-            android:title="@string/title_explorer" />
+            android:id="@+id/nav_poi_table"
+            android:title="@string/title_poi_table" />
+        <item
+            android:id="@+id/nav_sector_table"
+            android:title="@string/title_sector_table" />
     </group>
 
     <item android:title="@string/title_manage">

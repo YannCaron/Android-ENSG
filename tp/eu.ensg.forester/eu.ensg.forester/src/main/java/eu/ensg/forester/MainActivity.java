@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity
             public void onMapReady(GoogleMap googleMap) {
                 googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
                 queryPointOfInterest();
+                querySector();
                 mapsFragment.moveTo(currentLocation, 8f);
             }
         });
@@ -228,7 +229,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             // Handle the camera action
-        } else if (id == R.id.nav_explorer) {
+        } else if (id == R.id.nav_poi_table) {
 
         } else if (id == R.id.nav_poi) {
             recordPoi();
@@ -386,6 +387,9 @@ public class MainActivity extends AppCompatActivity
                     "insert into " + MySpatialiteHelper.TABLE_INTEREST +
                             "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ") " +
                             " values ('" + "My coord" + "', " + point.toSpatialiteQuery(MySpatialiteHelper.GPS_SRID) + ");");
+
+            Toast.makeText(this, "Point of interest saved successfully !", Toast.LENGTH_SHORT).show();
+
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
         }
@@ -422,7 +426,6 @@ public class MainActivity extends AppCompatActivity
 
     public void queryPointOfInterest() {
 
-        // select * from districts where within(ST_Transform(GeomFromText('POINT(-97.837543 30.418986)', 4326), 2277),districts.Geometry);
         //String query = "select * from " + MySpatialiteHelper.TABLE_INTEREST + ";";
         String query = "select " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT + ", AsText(" + MySpatialiteHelper.COLUMN_COORDINATE + ") as coord from " + MySpatialiteHelper.TABLE_INTEREST + ";";
         //String query = "PRAGMA table_info(" + MySpatialiteHelper.TABLE_INTEREST + ");";
@@ -433,7 +436,7 @@ public class MainActivity extends AppCompatActivity
 
             while (stmt.step()) {
                 String name = stmt.column_string(0);
-                String comment = stmt.column_string(1);
+                // String comment = stmt.column_string(1);
                 Point coord = Point.unMarshall(new StringBuilder(stmt.column_string(2)));
                 Log.w(this.getClass().getName(), "Coordinate: " + stmt.column_string(2));
 
@@ -445,6 +448,31 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
+    }
+
+    public void querySector() {
+
+        // select * from districts where within(ST_Transform(GeomFromText('POINT(-97.837543 30.418986)', 4326), 2277),districts.Geometry);
+        //String query = "select * from " + MySpatialiteHelper.TABLE_INTEREST + ";";
+        String query = "select " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT + ", AsText(" + MySpatialiteHelper.COLUMN_COORDINATE + ") as coord from " + MySpatialiteHelper.TABLE_SECTOR + ";";
+
+        Stmt stmt = null;
+        try {
+            stmt = database.prepare(query);
+
+            while (stmt.step()) {
+                String name = stmt.column_string(0);
+                // String comment = stmt.column_string(1);
+                //Polygon coord = Polygon.unMarshall(new StringBuilder(stmt.column_string(2)));
+                Log.w(this.getClass().getName(), "Coordinate: " + stmt.column_string(2));
+
+                //mapsFragment.addPolygon(coord, Color.CYAN);
+            }
+
+        } catch (jsqlite.Exception e) {
+            Log.e(this.getClass().getName(), String.format("Cannot execute query %s ", query));
+            e.printStackTrace();
+        }
 
     }
 
@@ -501,7 +529,20 @@ public class MainActivity extends AppCompatActivity
 
     public void recordSave(View view) {
         recordControl.setVisibility(View.INVISIBLE);
+
+        try {
+            helper.exec(
+                    "insert into " + MySpatialiteHelper.TABLE_SECTOR +
+                            "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ")" +
+                            " values ('" + "My Sector" + "', " + shape.toSpatialiteQuery(MySpatialiteHelper.GPS_SRID) + ");");
+
+            Toast.makeText(this, "Shape saved successfully !", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         shape = null;
+
     }
 
     public void recordAbort(View view) {

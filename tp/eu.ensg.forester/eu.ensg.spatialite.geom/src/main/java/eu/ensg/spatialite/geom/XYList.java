@@ -17,9 +17,11 @@ import java.util.List;
 public class XYList implements Marshallable {
 
 	private final List<XY> coords;
+	private final boolean isClosed;
 
-	public XYList() {
+	public XYList(boolean closed) {
 		coords = new ArrayList<>();
+		this.isClosed = closed;
 	}
 
 	public List<XY> getCoords() {
@@ -49,6 +51,11 @@ public class XYList implements Marshallable {
 			tail = true;
 
 			coord.marshall(string);
+		}
+
+		if (isClosed && coords.size() > 0) {
+			string.append(", ");
+			coords.get(0).marshall(string);
 		}
 		string.append(')');
 	}

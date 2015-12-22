@@ -6,9 +6,10 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
-import jsqlite.*;
+import jsqlite.Callback;
+import jsqlite.Database;
+import jsqlite.Stmt;
 
 /**
  * Created by cyann on 20/12/15.
@@ -19,9 +20,8 @@ public abstract class SpatialiteOpenHelper {
     public static final String KEY_VERSION = "version";
 
     public static final String INIT_SPATIAL_METADATA = "SELECT InitSpatialMetaData();";
-
-    private final Context context;
     protected final String name;
+    private final Context context;
     private final Database database;
 
     public SpatialiteOpenHelper(Context context, String name, int version) throws jsqlite.Exception, IOException {
@@ -44,8 +44,7 @@ public abstract class SpatialiteOpenHelper {
         database = new Database();
         database.open(spatialDbFile.getAbsolutePath(), jsqlite.Constants.SQLITE_OPEN_READWRITE | jsqlite.Constants.SQLITE_OPEN_CREATE);
 
-        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        int oldVersion = preferences.getInt(KEY_VERSION, -1);
+        int oldVersion = getCurrentVersion();
 
         if (oldVersion == -1) {
             // !!!! Initialiser les metadata spacial, sinon ne fonctionne pas.
@@ -61,6 +60,16 @@ public abstract class SpatialiteOpenHelper {
         }
 
         // !!!! Sauve la version dans un conteneur persisté pour un prochain lancement
+        updateVersion(version);
+    }
+
+    public int getCurrentVersion() {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(KEY_VERSION, -1);
+    }
+
+    public void updateVersion(int version) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(KEY_VERSION, version);
         editor.commit();

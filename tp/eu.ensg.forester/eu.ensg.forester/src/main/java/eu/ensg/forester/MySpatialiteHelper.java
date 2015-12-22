@@ -1,15 +1,13 @@
 package eu.ensg.forester;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.util.Log;
 
 import java.io.IOException;
 
 import eu.ensg.spatialite.geom.XY;
-import jsqlite.*;
+import jsqlite.Database;
 
 /**
  * Created by cyann on 20/12/15.
@@ -17,7 +15,7 @@ import jsqlite.*;
 public class MySpatialiteHelper extends SpatialiteOpenHelper {
 
     public static final String DATABASE_NAME = "Spatial.sqlite";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     public static final int GPS_SRID = 4326;
 
@@ -35,8 +33,17 @@ public class MySpatialiteHelper extends SpatialiteOpenHelper {
                     COLUMN_NAME + " string NOT NULL, " +
                     COLUMN_COMMENT + " string" + ");";
 
-    public static final String CREATE_COLUMN_COORDINATE =
+    public static final String CREATE_INTEREST_COORDINATE =
             "SELECT AddGeometryColumn('" + TABLE_INTEREST + "', '" + COLUMN_COORDINATE + "', " + GPS_SRID + ", 'POINT', 'XY', 0);";
+
+    public static final String CREATE_SECTOR =
+            "create table " + TABLE_SECTOR +
+                    "(" + COLUMN_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_NAME + " string NOT NULL, " +
+                    COLUMN_COMMENT + " string" + ");";
+
+    public static final String CREATE_SECTOR_COORDINATE =
+            "SELECT AddGeometryColumn('" + TABLE_SECTOR + "', '" + COLUMN_COORDINATE + "', " + GPS_SRID + ", 'POLYGON', 'XY', 0);";
 
     public MySpatialiteHelper(Context context) throws jsqlite.Exception, IOException {
         super(context, DATABASE_NAME, DATABASE_VERSION);
@@ -49,7 +56,9 @@ public class MySpatialiteHelper extends SpatialiteOpenHelper {
     @Override
     public void onCreate(Database db) throws jsqlite.Exception {
         super.exec(CREATE_INTEREST);
-        super.exec(CREATE_COLUMN_COORDINATE);
+        super.exec(CREATE_INTEREST_COORDINATE);
+        super.exec(CREATE_SECTOR);
+        super.exec(CREATE_SECTOR_COORDINATE);
     }
 
     @Override
@@ -58,7 +67,14 @@ public class MySpatialiteHelper extends SpatialiteOpenHelper {
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
 
-        db.complete("DROP TABLE IF EXISTS " + TABLE_INTEREST);
-        onCreate(db);
+        int delta = newVersion - oldVersion;
+
+        if (newVersion == 2) {
+            if (delta <= 1) {
+                super.exec(CREATE_SECTOR);
+                super.exec(CREATE_SECTOR_COORDINATE);
+
+            }
+        }
     }
 }
