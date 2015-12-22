@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,18 +18,57 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            android:backgroundTint="#5bb523" />
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_poi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_location_white_24dp"/>
+        android:src="@drawable/ic_add_location_white_24dp"
+        app:backgroundTint="#5bb523" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/record_control"
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="@dimen/fab_margin"
+        android:visibility="invisible"
+        android:layout_height="wrap_content">
+
+        <android.widget.Button
+            android:text="save shape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:clickable="true"
+            android:enabled="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:allowUndo="false"
+            android:backgroundTintMode="multiply"
+            android:alpha="0.75"
+            android:onClick="recordSave"
+            android:backgroundTint="#5bb523" />
+
+        <android.widget.Button
+            android:text="abort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:backgroundTintMode="multiply"
+            android:onClick="recordAbort"
+            android:alpha="0.75" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+
+
 
 </android.support.design.widget.CoordinatorLayout>

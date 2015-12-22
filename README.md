@@ -46,3 +46,6 @@ http://stackoverflow.com/questions/21062187/get-sqlite-database-from-android-app
 
 material design
 http://developer.android.com/design/downloads/index.html
+
+apk mirror (to update google play services)
+http://www.apkmirror.com/

@@ -2,7 +2,9 @@ package eu.ensg.forester;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -19,7 +21,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -40,6 +44,7 @@ import eu.ensg.spatialite.geom.Point;
 import eu.ensg.spatialite.geom.Polygon;
 import eu.ensg.spatialite.geom.XY;
 import jsqlite.Database;
+import jsqlite.Exception;
 import jsqlite.Stmt;
 
 public class MainActivity extends AppCompatActivity
@@ -47,8 +52,10 @@ public class MainActivity extends AppCompatActivity
 
     public static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     public static final int PERMISSIONS_REQUEST_COARSE_LOCATION = 2;
-    LocationManager locationManager;
-    MapsFragment mapsFragment;
+    private LocationManager locationManager;
+    private MapsFragment mapsFragment;
+    private LinearLayoutCompat recordControl;
+
     // TODO mettre dans une class à part
     Database database;
     SpatialiteOpenHelper helper;
@@ -121,13 +128,13 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabPoi = (FloatingActionButton) findViewById(R.id.fab_poi);
+        fabPoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 // TODO:  Utilisation d'une string (localisation)
-                Snackbar.make(view, getResources().getString(R.string.info_record), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(view, getResources().getString(R.string.info_poi), Snackbar.LENGTH_LONG).setAction(R.string.title_action, null).show();
                 recordPoi();
             }
         });
@@ -142,6 +149,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // TODO: récupérer les controles
+        recordControl = (LinearLayoutCompat) this.findViewById(R.id.record_control);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
 
@@ -164,7 +172,7 @@ public class MainActivity extends AppCompatActivity
             public void onMapReady(GoogleMap googleMap) {
                 googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
                 queryPointOfInterest();
-
+                mapsFragment.moveTo(currentLocation, 8f);
             }
         });
 
@@ -220,12 +228,14 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             // Handle the camera action
+        } else if (id == R.id.nav_explorer) {
+
         } else if (id == R.id.nav_poi) {
             recordPoi();
         } else if (id == R.id.nav_area) {
-
-        } else if (id == R.id.nav_explorer) {
-
+            startRecordShape();
+        } else if (id == R.id.nav_clear) {
+            clearDatabase();
         } else if (id == R.id.nav_save) {
             saveDatabase();
         }
@@ -233,6 +243,40 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void clearDatabase() {
+
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(R.string.title_delete)
+                .setMessage(getString(R.string.msg_delete))
+                .setPositiveButton(getString(R.string.btn_yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            String query = "Delete from " + MySpatialiteHelper.TABLE_INTEREST + ";";
+                            helper.exec(query);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            String query = "Delete from " + MySpatialiteHelper.TABLE_INTEREST + ";";
+                            helper.exec(query);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        Toast.makeText(MainActivity.this, "Data cleared !", Toast.LENGTH_SHORT).show();
+                        mapsFragment.clear();
+
+                    }
+                })
+                .setCancelable(true).show();
+
     }
 
     private void saveDatabase() {
@@ -335,7 +379,7 @@ public class MainActivity extends AppCompatActivity
             }
 
             mapsFragment.addMarker(currentLocation, "My coord");
-            mapsFragment.moveTo(currentLocation);
+            mapsFragment.moveTo(currentLocation, 15f);
 
             Point point = new Point(MySpatialiteHelper.coordFactory(currentLocation));
             helper.exec(
@@ -424,6 +468,7 @@ public class MainActivity extends AppCompatActivity
 
         Toast.makeText(MainActivity.this, "GPS recording started", Toast.LENGTH_SHORT).show();
         shape = new Polygon();
+        recordControl.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -432,6 +477,8 @@ public class MainActivity extends AppCompatActivity
 
         if (shape != null) {
             shape.addCoordinate(new XY(location.getLongitude(), location.getLatitude()));
+            mapsFragment.drawPolygon(shape, Color.GREEN);
+            mapsFragment.moveTo(location, 15);
         }
 
         Toast.makeText(MainActivity.this, "GPS Location changed: " + new Point(MySpatialiteHelper.coordFactory(location)).toString(), Toast.LENGTH_SHORT).show();
@@ -450,6 +497,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onProviderDisabled(String provider) {
         Toast.makeText(MainActivity.this, "GPS Disabled", Toast.LENGTH_SHORT).show();
+    }
+
+    public void recordSave(View view) {
+        recordControl.setVisibility(View.INVISIBLE);
+        shape = null;
+    }
+
+    public void recordAbort(View view) {
+        recordControl.setVisibility(View.INVISIBLE);
+        shape = null;
+        mapsFragment.clearPolygon();
     }
 
     // endregion

@@ -6,7 +6,7 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="info_record">Store point of interest</string>
+    <string name="info_poi">Store point of interest</string>
     <string name="info_not_authorized">Without authorisations, the application will run partially !</string>
     <string name="info_restart">Authorisation was granted, start you action again !</string>
     <string name="title_map">Map</string>
@@ -16,5 +16,12 @@
     <string name="title_manage">Manage</string>
     <string name="title_save">Copy</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_clear">Clear</string>
+    <string name="title_delete">Delete</string>
+    <string name="msg_delete">Are you sure you want to delete all database\'s data ?</string>
+    <string name="btn_yes">yes</string>
+    <string name="btn_no">No</string>
+    <string name="info_record">Shape record started</string>
+    <string name="title_action">Action</string>
 
 </resources>

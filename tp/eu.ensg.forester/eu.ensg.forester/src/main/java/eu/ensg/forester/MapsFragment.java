@@ -14,18 +14,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
 
 import eu.ensg.spatialite.geom.Point;
+import eu.ensg.spatialite.geom.Polygon;
+import eu.ensg.spatialite.geom.XY;
 
 public class MapsFragment extends Fragment {
 
-    GoogleMap googleMap;
-    MapReadyListener mapReadyListener;
+    private GoogleMap googleMap;
+    private MapReadyListener mapReadyListener;
+    private com.google.android.gms.maps.model.Polygon currentPolygon;
 
-    public interface MapReadyListener {
-
-        void onMapReady(GoogleMap googleMap);
-
+    public MapsFragment() {
     }
 
     @Override
@@ -38,7 +39,7 @@ public class MapsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        SupportMapFragment fragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.maps);
+        SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.maps);
         fragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
@@ -58,12 +59,12 @@ public class MapsFragment extends Fragment {
         }
     }
 
-    public void moveTo(Location location) {
+    public void moveTo(Location location, float zoom) {
         if (googleMap != null) {
             LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
 
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(position));
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15f));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(zoom));
 
         } else {
             Toast.makeText(getContext(), "Google maps not yet initialized !", Toast.LENGTH_LONG).show();
@@ -90,5 +91,37 @@ public class MapsFragment extends Fragment {
         } else {
             Toast.makeText(getContext(), "Google maps not yet initialized !", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void drawPolygon(Polygon geom, int color) {
+
+        clearPolygon();
+
+        PolygonOptions options = new PolygonOptions();
+
+        XY first = null;
+        for (XY xy : geom.getCoordinates().getCoords()) {
+            if (first == null) first = xy;
+            options.add(new LatLng(xy.getY(), xy.getX()));
+        }
+
+        options.fillColor(color).geodesic(true);
+
+        currentPolygon = googleMap.addPolygon(options);
+    }
+
+    public void clearPolygon() {
+        if (currentPolygon != null) currentPolygon.remove();
+    }
+
+    public void clear() {
+        googleMap.clear();
+    }
+
+
+    public interface MapReadyListener {
+
+        void onMapReady(GoogleMap googleMap);
+
     }
 }
