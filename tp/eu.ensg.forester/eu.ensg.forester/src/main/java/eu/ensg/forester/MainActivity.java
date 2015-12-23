@@ -52,13 +52,19 @@ public class MainActivity extends AppCompatActivity
 
     public static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     public static final int PERMISSIONS_REQUEST_COARSE_LOCATION = 2;
-    private LocationManager locationManager;
-    private MapsFragment mapsFragment;
-    private LinearLayoutCompat recordControl;
+
+    // manager
+    private NavigationManager navigationManager;
+
+    // view
+
 
     // TODO mettre dans une class à part
     Database database;
     SpatialiteOpenHelper helper;
+    private LocationManager locationManager;
+    private MapsFragment mapsFragment;
+    private LinearLayoutCompat recordControl;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -124,6 +130,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        navigationManager = new NavigationManager(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -229,8 +237,11 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             // Handle the camera action
+            navigationManager.activityMap();
         } else if (id == R.id.nav_poi_table) {
-
+            navigationManager.activityData();
+        } else if (id == R.id.nav_sector_table) {
+            navigationManager.activityData();
         } else if (id == R.id.nav_poi) {
             recordPoi();
         } else if (id == R.id.nav_area) {

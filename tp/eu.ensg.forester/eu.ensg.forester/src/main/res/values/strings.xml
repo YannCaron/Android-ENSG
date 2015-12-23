@@ -25,4 +25,8 @@
     <string name="title_action">Action</string>
     <string name="title_sector_table">Sector table</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_data">DataActivity</string>
+
 </resources>
