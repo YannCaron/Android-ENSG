@@ -27,21 +27,30 @@ public class XYList implements Marshallable {
     }
 
     public static XYList unMarshall(StringBuilder string, boolean closed) {
-        Utils.removeBlanks(string);
-        if (!Utils.consumeSymbol(string, "(")) return null;
-        Utils.removeBlanks(string);
 
+        // '('
+        Parse.removeBlanks(string);
+        if (!Parse.consumeSymbol(string, "(")) return null;
+
+        // (<xy> (',' <xy>)*)?
         XYList list = new XYList(closed);
+        while (string.length() > 0 && !(Parse.nextSymbol(string, ")") || (Parse.nextSymbol(string, ",")))) {
 
-        while (string.length() > 0 && string.charAt(0) != ')') {
+            // <xy>
+            Parse.removeBlanks(string);
             XY xy = XY.unMarshall(string);
-            Utils.removeBlanks(string);
-            if (!Utils.consumeSymbol(string, ",")) break;
-            Utils.removeBlanks(string);
+            if (xy == null) return null;
+            list.add(xy);
+
+            // ','
+            Parse.removeBlanks(string);
+            if (!Parse.consumeSymbol(string, ",")) break;
+
         }
 
-        Utils.removeBlanks(string);
-        if (!Utils.consumeSymbol(string, ")")) return null;
+        // ')'
+        Parse.removeBlanks(string);
+        if (!Parse.consumeSymbol(string, ")")) return null;
         return list;
     }
 
@@ -77,7 +86,7 @@ public class XYList implements Marshallable {
             coord.marshall(string);
         }
 
-        if (isClosed && coords.size() > 0) {
+        if (isClosed && coords.size() > 0 && !coords.get(0).equals(coords.get(coords.size() - 1))) {
             string.append(", ");
             coords.get(0).marshall(string);
         }

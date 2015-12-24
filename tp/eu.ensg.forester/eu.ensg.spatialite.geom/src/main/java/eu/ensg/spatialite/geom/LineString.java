@@ -26,6 +26,17 @@ public class LineString extends Geometry {
         this.coordinates = new XYList(closed);
     }
 
+    public static LineString unMarshall(StringBuilder string) {
+
+        // 'LINESTRING'
+        Parse.removeBlanks(string);
+        if (!Parse.consumeSymbol(string, "LINESTRING")) return null;
+
+        XYList list = XYList.unMarshall(string, false);
+
+        return new LineString(list);
+    }
+
     public XYList getCoordinates() {
         return coordinates;
     }

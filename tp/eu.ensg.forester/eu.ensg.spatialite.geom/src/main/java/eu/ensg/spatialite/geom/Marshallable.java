@@ -12,14 +12,28 @@ package eu.ensg.spatialite.geom; /**
  */
 public interface Marshallable {
 
-	public static class Utils {
+	/**
+	 * Abstract class Parse that contains necessarily method for geometry parsing (unMarshalling)
+	 */
+	class Parse {
 
+		/**
+		 * Recognize symbol and consume it.
+		 * @param string the input string (string builder) to parse.
+		 * @param symbol the symbol to recognize
+		 * @return true if parsing is ok.
+		 */
 		public static boolean consumeSymbol(StringBuilder string, String symbol) {
 			if (string.indexOf(symbol) != 0) return false;
 			string.delete(0, symbol.length());
 			return true;
 		}
 
+		/**
+		 * Recognize double and consume it.
+		 * @param string the input string (string builder) to parse.
+		 * @return true if parsing is ok.
+		 */
 		public static Double consumeDouble(StringBuilder string) {
 			StringBuilder numString = new StringBuilder();
 			while (string.length() > 0) {
@@ -31,16 +45,34 @@ public interface Marshallable {
 			return Double.valueOf(numString.toString());
 		}
 
+		/**
+		 * Remove unnecessary blanks in the input string.
+		 * @param string the input string (string builder) to parse.
+		 */
 		public static void removeBlanks(StringBuilder string) {
 			while (string.indexOf(" ") == 0) {
 				string.deleteCharAt(0);
 			}
 		}
 
+		/**
+		 * Look at the next symbol and recognize it without consuming it. LL(1) parser, first symbol is deterministic for the choice.
+		 *
+		 * @param string the input string (string builder) to parse.
+		 * @param symbol the symbol to recognize
+		 * @return true if next symbol corresponding.
+		 */
+		public static boolean nextSymbol(StringBuilder string, String symbol) {
+			return string.indexOf(symbol) == 0;
+		}
+
 	}
 
-	// see at http://www.gaia-gis.it/gaia-sins/spatialite-cookbook/html/wkt-wkb.html
+	/**
+	 * The abstract method that transform Geometry structure into string understandable by GeomFromText() spatialite function.
+	 * see at http://www.gaia-gis.it/gaia-sins/spatialite-cookbook/html/wkt-wkb.html
+	 * @param string
+	 */
 	void marshall(StringBuilder string);
-	//boolean unMarshall(String string, int index);
 
 }

@@ -12,43 +12,66 @@ package eu.ensg.spatialite.geom; /**
  */
 public class XY implements Marshallable {
 
-	private final double x, y;
+    private final double x, y;
 
-	public double getX() {
-		return x;
-	}
+    public XY(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 
-	public double getY() {
-		return y;
-	}
+    public static XY unMarshall(StringBuilder string) {
+        Parse.removeBlanks(string);
+        Double x = Parse.consumeDouble(string);
+        if (x == null) return null;
+        Parse.removeBlanks(string);
+        Double y = Parse.consumeDouble(string);
+        if (y == null) return null;
+        return new XY(x, y);
+    }
 
-	public XY(double x, double y) {
-		this.x = x;
-		this.y = y;
-	}
+    public double getX() {
+        return x;
+    }
 
-	private void marshallNumber(StringBuilder string, double number) {
-		if (number == Math.round(number))
-			string.append((int)number);
-		else
-			string.append(number);
-	}
+    public double getY() {
+        return y;
+    }
 
-	@Override
-	public void marshall(StringBuilder string) {
-		marshallNumber(string, x);
-		string.append(' ');
-		marshallNumber(string, y);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-	public static XY unMarshall(StringBuilder string) {
-		Utils.removeBlanks(string);
-		Double x = Utils.consumeDouble(string);
-		if (x == null) return null;
-		Utils.removeBlanks(string);
-		Double y = Utils.consumeDouble(string);
-		if (y == null) return null;
-		return new XY(x, y);
-	}
+        XY xy = (XY) o;
+
+        if (Double.compare(xy.x, x) != 0) return false;
+        return Double.compare(xy.y, y) == 0;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(x);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    private void marshallNumber(StringBuilder string, double number) {
+        if (number == Math.round(number))
+            string.append((int) number);
+        else
+            string.append(number);
+    }
+
+    @Override
+    public void marshall(StringBuilder string) {
+        marshallNumber(string, x);
+        string.append(' ');
+        marshallNumber(string, y);
+    }
 
 }

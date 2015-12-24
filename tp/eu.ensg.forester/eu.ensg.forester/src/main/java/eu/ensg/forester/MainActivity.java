@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -178,7 +177,7 @@ public class MainActivity extends AppCompatActivity
                 googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
                 queryPointOfInterest();
                 querySector();
-                mapsFragment.moveTo(currentLocation, 8f);
+                mapsFragment.moveTo(currentLocation, 12f);
             }
         });
 
@@ -478,10 +477,12 @@ public class MainActivity extends AppCompatActivity
                 String coordStr = stmt.column_string(2);
 
                 if (coordStr != null) {
-                    //Polygon coord = Polygon.unMarshall(new StringBuilder());
-                    Log.w(this.getClass().getName(), "Coordinate: " + stmt.column_string(2));
+                    Polygon coord = Polygon.unMarshall(new StringBuilder(coordStr));
+                    Log.w(this.getClass().getName(), "Coordinate: " + coord.toString());
 
-                    //mapsFragment.addPolygon(coord, Color.CYAN);
+                    mapsFragment.addPolygon(coord,
+                            getResources().getColor(R.color.colorStrokePolygon),
+                            getResources().getColor(R.color.colorFillPolygon));
                 }
             }
 
@@ -521,7 +522,9 @@ public class MainActivity extends AppCompatActivity
 
         if (shape != null) {
             shape.addCoordinate(new XY(location.getLongitude(), location.getLatitude()));
-            mapsFragment.drawPolygon(shape, Color.GREEN);
+            mapsFragment.drawPolygon(shape,
+                    getResources().getColor(R.color.colorStrokePolygon),
+                    getResources().getColor(R.color.colorFillPolygon));
             mapsFragment.moveTo(location, 15);
         }
 

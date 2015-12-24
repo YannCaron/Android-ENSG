@@ -16,59 +16,78 @@ import java.util.List;
  */
 public class Polygon extends LineString {
 
-	private final List<XYList> interiors;
+    private final List<XYList> interiors;
 
-	public Polygon() {
-		super(true);
-		this.interiors = new ArrayList<>();
-	}
+    public Polygon() {
+        super(true);
+        this.interiors = new ArrayList<>();
+    }
 
-	Polygon(XYList exterior) {
-		super(exterior);
-		this.interiors = new ArrayList<>();
-	}
+    Polygon(XYList exterior) {
+        super(exterior);
+        this.interiors = new ArrayList<>();
+    }
 
-	public int interiorsSize() {
-		return interiors.size();
-	}
+    public static Polygon unMarshall(StringBuilder string) {
 
-	public boolean addInterior(XYList xyList) {
-		return interiors.add(xyList);
-	}
+        // 'POLYGON'
+        Parse.removeBlanks(string);
+        if (!Parse.consumeSymbol(string, "POLYGON")) return null;
 
-	public boolean removeAllInteriors(Collection<?> c) {
-		return interiors.removeAll(c);
-	}
+        // '('
+        Parse.removeBlanks(string);
+        if (!Parse.consumeSymbol(string, "(")) return null;
 
-	@Override
-	public void marshall(StringBuilder string) {
-		string.append("POLYGON");
-		string.append(' ');
-		string.append('(');
-		getCoordinates().marshall(string);
+        // <exterior>
+        XYList exterior = XYList.unMarshall(string, true);
+        if (exterior == null) return null;
+        Polygon polygon = new Polygon(exterior);
 
-		for (XYList interior : interiors) {
-			string.append(", ");
-			interior.marshall(string);
-		}
+        // <interior>*
+        while (string.length() > 0 && Parse.nextSymbol(string, ",")) {
 
-		string.append(')');
-	}
+            // ','
+            Parse.removeBlanks(string);
+            Parse.consumeSymbol(string, ",");
 
-	public static Polygon unMarshall(StringBuilder string) {
-		Utils.removeBlanks(string);
-		if (!Utils.consumeSymbol(string, "POLYGON")) return null;
-		Utils.removeBlanks(string);
-		if (!Utils.consumeSymbol(string, "(")) return null;
+            // <interior>
+            Parse.removeBlanks(string);
+            XYList interior = XYList.unMarshall(string, true);
+            if (interior == null) return null;
+            polygon.addInterior(interior);
 
-		XYList exterior = XYList.unMarshall(string, true);
-		if (exterior == null) return null;
-		Polygon polygon = new Polygon(exterior);
+        }
 
-		// TODO: Unmarshall interiors
+        // ')'
+        Parse.removeBlanks(string);
+        if (!Parse.consumeSymbol(string, ")")) return null;
+        return polygon;
+    }
 
-		Utils.removeBlanks(string);
-		if (!Utils.consumeSymbol(string, ")")) return null;
-		return polygon;
-	}
+    public int interiorsSize() {
+        return interiors.size();
+    }
+
+    public boolean addInterior(XYList xyList) {
+        return interiors.add(xyList);
+    }
+
+    public boolean removeAllInteriors(Collection<?> c) {
+        return interiors.removeAll(c);
+    }
+
+    @Override
+    public void marshall(StringBuilder string) {
+        string.append("POLYGON");
+        string.append(' ');
+        string.append('(');
+        getCoordinates().marshall(string);
+
+        for (XYList interior : interiors) {
+            string.append(", ");
+            interior.marshall(string);
+        }
+
+        string.append(')');
+    }
 }

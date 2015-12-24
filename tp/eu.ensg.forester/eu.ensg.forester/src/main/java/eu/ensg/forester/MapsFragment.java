@@ -93,7 +93,7 @@ public class MapsFragment extends Fragment {
         }
     }
 
-    public com.google.android.gms.maps.model.Polygon addPolygon(Polygon geom, int color) {
+    public com.google.android.gms.maps.model.Polygon addPolygon(Polygon geom, int strokecolor, int fillcolor) {
 
         PolygonOptions options = new PolygonOptions();
 
@@ -103,14 +103,14 @@ public class MapsFragment extends Fragment {
             options.add(new LatLng(xy.getY(), xy.getX()));
         }
 
-        options.fillColor(color).geodesic(true);
+        options.strokeColor(strokecolor).fillColor(fillcolor).geodesic(true);
 
         return googleMap.addPolygon(options);
     }
 
-    public void drawPolygon(Polygon geom, int color) {
+    public void drawPolygon(Polygon geom, int strokecolor, int fillcolor) {
         clearPolygon();
-        currentPolygon = addPolygon(geom, color);
+        currentPolygon = addPolygon(geom, strokecolor, fillcolor);
     }
 
     public void clearPolygon() {
