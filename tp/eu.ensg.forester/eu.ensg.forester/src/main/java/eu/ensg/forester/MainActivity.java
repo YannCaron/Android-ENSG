@@ -39,6 +39,7 @@ import java.io.File;
 import java.io.IOException;
 
 import eu.ensg.commons.io.FileSystem;
+import eu.ensg.spatialite.SpatialiteOpenHelper;
 import eu.ensg.spatialite.geom.Point;
 import eu.ensg.spatialite.geom.Polygon;
 import eu.ensg.spatialite.geom.XY;

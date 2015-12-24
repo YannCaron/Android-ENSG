@@ -1,7 +1,5 @@
-package eu.ensg.forester;
+package eu.ensg.spatialite;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.io.File;
@@ -16,21 +14,27 @@ import jsqlite.Stmt;
  */
 public abstract class SpatialiteOpenHelper {
 
-    public static final String PREFERENCE_NAME = "Spatialite";
-    public static final String KEY_VERSION = "version";
+    // constant
+    static final String PREFERENCE_NAME = "Spatialite";
+    static final String KEY_VERSION = "version";
 
-    public static final String INIT_SPATIAL_METADATA = "SELECT InitSpatialMetaData();";
-    protected final String name;
-    private final Context context;
+    static final String INIT_SPATIAL_METADATA = "SELECT InitSpatialMetaData();";
+
+    // attribure
     private final Database database;
 
-    public SpatialiteOpenHelper(Context context, String name, int version) throws jsqlite.Exception, IOException {
-        this.context = context;
-        this.name = name;
+    // constructor
+
+    /**
+     * Default constructor
+     * @param version the database version
+     * @throws jsqlite.Exception spatialite exception
+     * @throws IOException file exception
+     */
+    public SpatialiteOpenHelper(int version) throws jsqlite.Exception, IOException {
 
         // spatialite file
-        // TODO: Le path de la base de donnée [/data/data/[app_name]/databases/[name]]
-        File spatialDbFile = getDatabaseFile();
+        File spatialDbFile = getDatabasePath();
 
         if (!spatialDbFile.getParentFile().exists()) {
             File dirDb = spatialDbFile.getParentFile();
@@ -44,50 +48,43 @@ public abstract class SpatialiteOpenHelper {
         database = new Database();
         database.open(spatialDbFile.getAbsolutePath(), jsqlite.Constants.SQLITE_OPEN_READWRITE | jsqlite.Constants.SQLITE_OPEN_CREATE);
 
-        int oldVersion = getCurrentVersion();
+        int oldVersion = getPersistedVersion();
 
         if (oldVersion == -1) {
-            // !!!! Initialiser les metadata spacial, sinon ne fonctionne pas.
+            // TODO: !!!! Initialiser les metadata spacial, sinon ne fonctionne pas.
             exec(INIT_SPATIAL_METADATA);
-            // !!!! basé sur le pattern "Template method" du GoF
+            // TODO: !!!! basé sur le pattern "Template method" du GoF
             onCreate(database);
             Log.w(this.getClass().getName(), "Spatialite first installation, database created.");
         } else if (oldVersion != version) {
             Log.w(this.getClass().getName(), "UPDATE DATABASE");
-            // !!!! basé sur le pattern "Template method" du GoF
+            // TODO: !!!! basé sur le pattern "Template method" du GoF
             onUpgrade(database, oldVersion, version);
             Log.w(this.getClass().getName(), "Spatialite update installation from version [" + oldVersion + "] to [ " + version + " ].");
         }
 
         // !!!! Sauve la version dans un conteneur persisté pour un prochain lancement
-        updateVersion(version);
+        setPersistedVersion(version);
     }
 
-    public int getCurrentVersion() {
-        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(KEY_VERSION, -1);
-    }
+    // property
 
-    public void updateVersion(int version) {
-        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(KEY_VERSION, version);
-        editor.commit();
-        editor.apply();
-    }
-
-    public final String getDatabaseName() {
-        return name;
-    }
-
-    public final File getDatabaseFile() {
-        return context.getDatabasePath(name);
-    }
-
+    /**
+     * The database accessor
+     * @return the database object
+     */
     public Database getDatabase() {
         return database;
     }
 
+    // method
+
+    /**
+     * Dump the query result to string
+     * @param query sql query
+     * @return the data dump to string
+     * @throws jsqlite.Exception spatialite exception
+     */
     public String dumpQuery(String query) throws jsqlite.Exception {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -123,6 +120,11 @@ public abstract class SpatialiteOpenHelper {
         return stringBuilder.toString();
     }
 
+    /**
+     * Execute a sql query
+     * @param sql the sql query
+     * @throws jsqlite.Exception spatialite exception
+     */
     public void exec(String sql) throws jsqlite.Exception {
         Log.i(this.getClass().getName(), "Execute query: " + sql);
         database.exec(sql, new Callback() {
@@ -142,9 +144,33 @@ public abstract class SpatialiteOpenHelper {
         Log.i(this.getClass().getName(), "Query executed successfully !");
     }
 
+    /**
+     * Close the database
+     * @throws jsqlite.Exception spatialite exception
+     */
     public void close() throws jsqlite.Exception {
         database.close();
     }
+
+    // abstract method
+
+    /**
+     * Should return the path where database file is stored
+     * @return the database file
+     */
+    protected abstract File getDatabasePath();
+
+    /**
+     * Should return the persisted version (for version comparison mechanism)
+     * @return the persisted version
+     */
+    protected abstract int getPersistedVersion();
+
+    /**
+     * Should store the persisted version (for version comparison mechanism)
+     * @param version
+     */
+    protected abstract void setPersistedVersion(int version);
 
     /**
      * Called when the database is created for the first time. This is where the

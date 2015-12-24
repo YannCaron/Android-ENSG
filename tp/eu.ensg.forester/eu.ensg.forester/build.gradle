@@ -29,7 +29,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile project(':eu.ensg.spatialite.geom')
+    compile project(':eu.ensg.spatialite')
     compile project(':..:Spatialite-Database-Driver:spatialite-db-driver')
     compile project(':eu.ensg.commons')
     compile 'com.android.support:appcompat-v7:23.1.1'
@@ -39,6 +39,9 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    compile 'com.google.android.gms:play-services-identity:8.4.0'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
 }
 
 // for spatialite db driver JNI
