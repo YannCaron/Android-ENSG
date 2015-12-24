@@ -1,13 +1,11 @@
 package eu.ensg.spatialite.geom;
 
-import static org.junit.Assert.assertEquals;
-
+import junit.framework.TestCase;
 /**
  * Created by cyann on 18/12/15.
  */
-public class LineStringTest {
+public class LineStringTest extends TestCase {
 
-    @org.junit.Test
     public void testMarshall() throws Exception {
 
         LineString lineString = new LineString();
@@ -20,7 +18,6 @@ public class LineStringTest {
         assertEquals("LINESTRING (10 10, 20 10, 20 20, 10 20)", lineString.toString());
     }
 
-    @org.junit.Test
     public void testUnMarshall() throws Exception {
 
         String lineStringString = "LINESTRING (10 10, 20 10, 20 20, 10 20)";

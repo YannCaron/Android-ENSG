@@ -1,13 +1,11 @@
 package eu.ensg.spatialite.geom;
 
-import static org.junit.Assert.assertEquals;
-
+import junit.framework.TestCase;
 /**
  * Created by cyann on 18/12/15.
  */
-public class PointTest {
+public class PointTest extends TestCase {
 
-    @org.junit.Test
     public void testMarshall() throws Exception {
 
         Point point = new Point(new XY(10, 20));
@@ -16,7 +14,6 @@ public class PointTest {
         assertEquals("POINT (10 20)", point.toString());
     }
 
-    @org.junit.Test
     public void testUnMarshall() throws Exception {
 
         String pointString = "POINT (10 20)";

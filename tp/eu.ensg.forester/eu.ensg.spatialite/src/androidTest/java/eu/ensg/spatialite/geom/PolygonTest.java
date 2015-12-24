@@ -1,13 +1,12 @@
 package eu.ensg.spatialite.geom;
 
-import static org.junit.Assert.assertEquals;
+import junit.framework.TestCase;
 
 /**
  * Created by cyann on 18/12/15.
  */
-public class PolygonTest {
+public class PolygonTest extends TestCase {
 
-    @org.junit.Test
     public void testMarshall() throws Exception {
 
         Polygon polygon = new Polygon();
@@ -28,7 +27,6 @@ public class PolygonTest {
         assertEquals("POLYGON ((10 10, 20 10, 20 20, 10 20, 10 10), (14 14, 17 14, 17 17, 14 17, 14 14))", polygon.toString());
     }
 
-    @org.junit.Test
     public void testUnMarshall() throws Exception {
 
         String polyString = "POLYGON ((10 10, 20 10, 20 20, 10 20, 10 10), (14 14, 17 14, 17 17, 14 17, 14 14))";
