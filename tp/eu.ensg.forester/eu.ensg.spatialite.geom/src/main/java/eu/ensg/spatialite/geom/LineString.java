@@ -12,29 +12,33 @@ package eu.ensg.spatialite.geom; /**
  */
 public class LineString extends Geometry {
 
-	private final XYList coordinates;
+    private final XYList coordinates;
 
-	public LineString() {
-		this.coordinates = new XYList(false);
-	}
+    public LineString() {
+        this.coordinates = new XYList(false);
+    }
 
-	protected LineString(boolean closed) {
-		this.coordinates = new XYList(closed);
-	}
+    LineString(XYList coordinates) {
+        this.coordinates = coordinates;
+    }
 
-	public XYList getCoordinates() {
-		return coordinates;
-	}
+    protected LineString(boolean closed) {
+        this.coordinates = new XYList(closed);
+    }
 
-	public void addCoordinate(XY coordinate) {
-		coordinates.add(coordinate);
-	}
+    public XYList getCoordinates() {
+        return coordinates;
+    }
 
-	@Override
-	public void marshall(StringBuilder string) {
-		string.append("LINESTRING");
-		string.append(' ');
-		coordinates.marshall(string);
-	}
+    public void addCoordinate(XY coordinate) {
+        coordinates.add(coordinate);
+    }
+
+    @Override
+    public void marshall(StringBuilder string) {
+        string.append("LINESTRING");
+        string.append(' ');
+        coordinates.marshall(string);
+    }
 
 }

@@ -52,16 +52,13 @@ public class MainActivity extends AppCompatActivity
 
     public static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     public static final int PERMISSIONS_REQUEST_COARSE_LOCATION = 2;
-
-    // manager
-    private NavigationManager navigationManager;
-
-    // view
-
-
     // TODO mettre dans une class à part
     Database database;
+
+    // view
     SpatialiteOpenHelper helper;
+    // manager
+    private NavigationManager navigationManager;
     private LocationManager locationManager;
     private MapsFragment mapsFragment;
     private LinearLayoutCompat recordControl;
@@ -448,10 +445,14 @@ public class MainActivity extends AppCompatActivity
             while (stmt.step()) {
                 String name = stmt.column_string(0);
                 // String comment = stmt.column_string(1);
-                Point coord = Point.unMarshall(new StringBuilder(stmt.column_string(2)));
-                Log.w(this.getClass().getName(), "Coordinate: " + stmt.column_string(2));
+                String coordStr = stmt.column_string(2);
 
-                mapsFragment.addMarker(coord, name);
+                if (coordStr != null) {
+                    Point coord = Point.unMarshall(new StringBuilder(coordStr));
+                    Log.w(this.getClass().getName(), "Coordinate: " + stmt.column_string(2));
+
+                    mapsFragment.addMarker(coord, name);
+                }
             }
 
         } catch (jsqlite.Exception e) {
@@ -474,10 +475,14 @@ public class MainActivity extends AppCompatActivity
             while (stmt.step()) {
                 String name = stmt.column_string(0);
                 // String comment = stmt.column_string(1);
-                //Polygon coord = Polygon.unMarshall(new StringBuilder(stmt.column_string(2)));
-                Log.w(this.getClass().getName(), "Coordinate: " + stmt.column_string(2));
+                String coordStr = stmt.column_string(2);
 
-                //mapsFragment.addPolygon(coord, Color.CYAN);
+                if (coordStr != null) {
+                    //Polygon coord = Polygon.unMarshall(new StringBuilder());
+                    Log.w(this.getClass().getName(), "Coordinate: " + stmt.column_string(2));
+
+                    //mapsFragment.addPolygon(coord, Color.CYAN);
+                }
             }
 
         } catch (jsqlite.Exception e) {

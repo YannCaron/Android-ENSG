@@ -16,47 +16,71 @@ import java.util.List;
  */
 public class XYList implements Marshallable {
 
-	private final List<XY> coords;
-	private final boolean isClosed;
+    // attribute
+    private final List<XY> coords;
+    private final boolean isClosed;
 
-	public XYList(boolean closed) {
-		coords = new ArrayList<>();
-		this.isClosed = closed;
-	}
+    // constructor and factory
+    public XYList(boolean closed) {
+        coords = new ArrayList<>();
+        this.isClosed = closed;
+    }
 
-	public List<XY> getCoords() {
-		return coords;
-	}
+    public static XYList unMarshall(StringBuilder string, boolean closed) {
+        Utils.removeBlanks(string);
+        if (!Utils.consumeSymbol(string, "(")) return null;
+        Utils.removeBlanks(string);
 
-	public int size() {
-		return coords.size();
-	}
+        XYList list = new XYList(closed);
 
-	public boolean add(XY xy) {
-		return coords.add(xy);
-	}
+        while (string.length() > 0 && string.charAt(0) != ')') {
+            XY xy = XY.unMarshall(string);
+            Utils.removeBlanks(string);
+            if (!Utils.consumeSymbol(string, ",")) break;
+            Utils.removeBlanks(string);
+        }
 
-	public boolean removeAll(Collection<?> c) {
-		return coords.removeAll(c);
-	}
+        Utils.removeBlanks(string);
+        if (!Utils.consumeSymbol(string, ")")) return null;
+        return list;
+    }
 
-	@Override
-	public void marshall(StringBuilder string) {
-		string.append('(');
-		boolean tail = false;
-		for (XY coord : coords) {
-			if (tail) {
-				string.append(", ");
-			}
-			tail = true;
+    // accessor
+    public List<XY> getCoords() {
+        return coords;
+    }
 
-			coord.marshall(string);
-		}
+    public int size() {
+        return coords.size();
+    }
 
-		if (isClosed && coords.size() > 0) {
-			string.append(", ");
-			coords.get(0).marshall(string);
-		}
-		string.append(')');
-	}
+    // method
+    public boolean add(XY xy) {
+        return coords.add(xy);
+    }
+
+    public boolean removeAll(Collection<?> c) {
+        return coords.removeAll(c);
+    }
+
+    // method implement
+    @Override
+    public void marshall(StringBuilder string) {
+        string.append('(');
+        boolean tail = false;
+        for (XY coord : coords) {
+            if (tail) {
+                string.append(", ");
+            }
+            tail = true;
+
+            coord.marshall(string);
+        }
+
+        if (isClosed && coords.size() > 0) {
+            string.append(", ");
+            coords.get(0).marshall(string);
+        }
+        string.append(')');
+    }
 }

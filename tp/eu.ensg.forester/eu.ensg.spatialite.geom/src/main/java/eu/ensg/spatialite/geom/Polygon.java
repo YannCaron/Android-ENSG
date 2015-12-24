@@ -23,6 +23,11 @@ public class Polygon extends LineString {
 		this.interiors = new ArrayList<>();
 	}
 
+	Polygon(XYList exterior) {
+		super(exterior);
+		this.interiors = new ArrayList<>();
+	}
+
 	public int interiorsSize() {
 		return interiors.size();
 	}
@@ -50,4 +55,20 @@ public class Polygon extends LineString {
 		string.append(')');
 	}
 
+	public static Polygon unMarshall(StringBuilder string) {
+		Utils.removeBlanks(string);
+		if (!Utils.consumeSymbol(string, "POLYGON")) return null;
+		Utils.removeBlanks(string);
+		if (!Utils.consumeSymbol(string, "(")) return null;
+
+		XYList exterior = XYList.unMarshall(string, true);
+		if (exterior == null) return null;
+		Polygon polygon = new Polygon(exterior);
+
+		// TODO: Unmarshall interiors
+
+		Utils.removeBlanks(string);
+		if (!Utils.consumeSymbol(string, ")")) return null;
+		return polygon;
+	}
 }
