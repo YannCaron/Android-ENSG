@@ -14,9 +14,9 @@
     <string name="title_area">Record area</string>
     <string name="title_poi_table">Point of interest table</string>
     <string name="title_manage">Manage</string>
-    <string name="title_save">Copy</string>
+    <string name="title_save">Copy database to sdcard</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_clear">Clear</string>
+    <string name="title_clear">Clear database</string>
     <string name="title_delete">Delete</string>
     <string name="msg_delete">Are you sure you want to delete all database\'s data ?</string>
     <string name="btn_yes">yes</string>

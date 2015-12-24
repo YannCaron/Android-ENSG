@@ -95,8 +95,6 @@ public abstract class SpatialiteOpenHelper {
 
         Stmt stmt = database.prepare(query);
 
-        //in my example, num columns is 9
-        //I don't know if minus 1 is always needed here
         int maxColumns = stmt.column_count();
 
         for (int i = 0; i < maxColumns; i++) {
