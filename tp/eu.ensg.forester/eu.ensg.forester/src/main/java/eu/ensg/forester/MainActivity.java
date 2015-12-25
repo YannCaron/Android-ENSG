@@ -1,6 +1,7 @@
 package eu.ensg.forester;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PersistableBundle;
@@ -35,8 +37,12 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 import eu.ensg.commons.io.FileSystem;
 import eu.ensg.spatialite.SpatialiteOpenHelper;
@@ -244,6 +250,8 @@ public class MainActivity extends AppCompatActivity
             recordPoi();
         } else if (id == R.id.nav_area) {
             startRecordShape();
+        } else if (id == R.id.nav_meteo) {
+            requestMeteo();
         } else if (id == R.id.nav_clear) {
             clearDatabase();
         } else if (id == R.id.nav_save) {
@@ -570,6 +578,67 @@ public class MainActivity extends AppCompatActivity
         recordControl.setVisibility(View.INVISIBLE);
         shape = null;
         mapsFragment.clearPolygon();
+    }
+
+    // endregion
+
+    // region meteo
+
+    private static final String METEO_URL = "http://api.geonames.org/findNearByWeatherJSON?lat=%.4f&lng=%.4f&username=cyann";
+
+    private void requestMeteo() {
+
+        new AsyncTask<Location, Void, String>() {
+            ProgressDialog dialog;
+
+            @Override
+            protected void onPreExecute() {
+                dialog = ProgressDialog.show(MainActivity.this, "Load in dialog", "Wait ...", true, true);
+            }
+
+            @Override
+            protected String doInBackground(Location... params) {
+                if (params.length != 1) return null;
+                Location location = params[0];
+                String url = String.format(new Locale("en", "US"), METEO_URL, location.getLatitude(), location.getLongitude());
+                Log.i(this.getClass().getName(), "Query URL: " + url);
+
+                try {
+                    return WebServices.requestContent(url);
+                } catch (IOException e) {
+                    Log.e(MainActivity.this.getClass().getName(), "Unable to reach URL: " + url);
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String res) {
+                Log.i(this.getClass().getName(), "Webservice response: " + res);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(res);
+                    JSONObject jsonObservation = jsonObject.getJSONObject("weatherObservation");
+                    String condition = jsonObservation.getString("weatherCondition");
+                    String cloud = jsonObservation.getString("cloudsCode");
+                    Location location = new Location("");
+                    location.setLatitude(Double.valueOf(jsonObservation.getString("lat")));
+                    location.setLongitude(Double.valueOf(jsonObservation.getString("lng")));
+                    int temperature = Integer.valueOf(jsonObservation.getString("temperature"));
+                    int windSpeed = Integer.valueOf(jsonObservation.getString("windSpeed"));
+
+                    // find codes here: http://forum.geonames.org/gforum/posts/list/28.page
+                    WeatherObservation weatherObservation = new WeatherObservation(location, condition, cloud, temperature, windSpeed);
+                    Log.i(this.getClass().getName(), "Weather observation: " + weatherObservation.toString());
+
+                } catch (JSONException e) {
+                    Log.e(MainActivity.this.getClass().getName(), "Unable to parse JSON string " + res);
+                    e.printStackTrace();
+                }
+                dialog.dismiss();
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, currentLocation);
+
     }
 
     // endregion

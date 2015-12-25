@@ -27,6 +27,10 @@
                 android:icon="@drawable/ic_filter_hdr_black_24dp"
                 android:title="@string/title_area" />
             <item
+                android:id="@+id/nav_meteo"
+                android:icon="@drawable/ic_satellite_black_24dp"
+                android:title="@string/title_meteo" />
+            <item
                 android:id="@+id/nav_clear"
                 android:icon="@drawable/ic_delete_black_24dp"
                 android:title="@string/title_clear" />
