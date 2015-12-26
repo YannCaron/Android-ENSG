@@ -36,6 +36,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -250,7 +251,7 @@ public class MainActivity extends AppCompatActivity
             recordPoi();
         } else if (id == R.id.nav_area) {
             startRecordShape();
-        } else if (id == R.id.nav_meteo) {
+        } else if (id == R.id.nav_weather) {
             requestMeteo();
         } else if (id == R.id.nav_clear) {
             clearDatabase();
@@ -388,6 +389,8 @@ public class MainActivity extends AppCompatActivity
         values.put(MySpatialiteHelper.COLUMN_COORDINATE, "GeomFromText('POINT(1.01 2.02)', 4326)");
 
         database.insert(MySpatialiteHelper.TABLE_INTEREST, null, values);*/
+
+        // TODO: Custom dialog for title and comment http://examples.javacodegeeks.com/android/core/ui/alertdialog/android-prompt-user-input-dialog-example/
 
         try {
             if (currentLocation == null) {
@@ -590,6 +593,7 @@ public class MainActivity extends AppCompatActivity
 
         new AsyncTask<Location, Void, String>() {
             ProgressDialog dialog;
+            String url = null;
 
             @Override
             protected void onPreExecute() {
@@ -598,9 +602,11 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected String doInBackground(Location... params) {
+                // TODO: !!!! Exécuté dans un autre thread
+
                 if (params.length != 1) return null;
                 Location location = params[0];
-                String url = String.format(new Locale("en", "US"), METEO_URL, location.getLatitude(), location.getLongitude());
+                url = String.format(new Locale("en", "US"), METEO_URL, location.getLatitude(), location.getLongitude());
                 Log.i(this.getClass().getName(), "Query URL: " + url);
 
                 try {
@@ -614,6 +620,14 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected void onPostExecute(String res) {
+                dialog.dismiss();
+
+                if (res == null) {
+                    // TODO: !!!! Exécuté dans le thread UI
+                    Toast.makeText(MainActivity.this, "Unable to reach URL: " + url, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Log.i(this.getClass().getName(), "Webservice response: " + res);
 
                 try {
@@ -621,21 +635,21 @@ public class MainActivity extends AppCompatActivity
                     JSONObject jsonObservation = jsonObject.getJSONObject("weatherObservation");
                     String condition = jsonObservation.getString("weatherCondition");
                     String cloud = jsonObservation.getString("cloudsCode");
-                    Location location = new Location("");
-                    location.setLatitude(Double.valueOf(jsonObservation.getString("lat")));
-                    location.setLongitude(Double.valueOf(jsonObservation.getString("lng")));
+                    LatLng location = new LatLng(
+                            Double.valueOf(jsonObservation.getString("lat")),
+                            Double.valueOf(jsonObservation.getString("lng")));
                     int temperature = Integer.valueOf(jsonObservation.getString("temperature"));
                     int windSpeed = Integer.valueOf(jsonObservation.getString("windSpeed"));
 
-                    // find codes here: http://forum.geonames.org/gforum/posts/list/28.page
                     WeatherObservation weatherObservation = new WeatherObservation(location, condition, cloud, temperature, windSpeed);
                     Log.i(this.getClass().getName(), "Weather observation: " + weatherObservation.toString());
+
+                    mapsFragment.applyWeather(weatherObservation);
 
                 } catch (JSONException e) {
                     Log.e(MainActivity.this.getClass().getName(), "Unable to parse JSON string " + res);
                     e.printStackTrace();
                 }
-                dialog.dismiss();
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, currentLocation);
 

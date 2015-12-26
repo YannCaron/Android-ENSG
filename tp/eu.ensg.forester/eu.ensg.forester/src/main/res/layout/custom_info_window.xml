@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2">
+
+    <ImageView
+        android:id="@+id/info_image"
+        android:src="@drawable/ic_add_location_black_24dp"
+        android:layout_margin="10dp"
+        android:layout_rowSpan="2" />
+
+    <TextView
+        android:id="@+id/info_title"
+        android:layout_margin="10dp"
+        android:text="title"
+        android:textSize="20dp"
+        android:textColor="#ff00760f" />
+
+    <TextView
+        android:id="@+id/info_snippet"
+        android:text="description"
+        android:layout_margin="10dp"
+        android:textSize="15dp"
+        android:textColor="#ff303030" />
+
+</GridLayout>

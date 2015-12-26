@@ -6,13 +6,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 
@@ -30,23 +34,56 @@ public class MapsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_maps, container, false);
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+        View view = inflater.inflate(R.layout.fragment_maps, container, false);
+
+
 
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.maps);
         fragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 MapsFragment.this.googleMap = googleMap;
+
+                googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                    @Override
+                    public View getInfoWindow(Marker marker) {
+                        return null;
+                    }
+
+                    @Override
+                    public View getInfoContents(Marker marker) {
+                        View v = inflater.inflate(R.layout.custom_info_window, null);
+
+                        WeatherObservation.Condition condition = WeatherObservation.Condition.failSafeValueOf(marker.getTitle());
+
+                        if (condition != null) {
+                            ImageView image = (ImageView) v.findViewById(R.id.info_image);
+                            image.setImageResource(getWeatherImageRessource(condition));
+                        }
+
+                        TextView title = (TextView) v.findViewById(R.id.info_title);
+                        title.setText(marker.getTitle().toLowerCase());
+
+                        TextView snippet = (TextView) v.findViewById(R.id.info_snippet);
+                        snippet.setText(marker.getSnippet());
+
+                        return v;
+                    }
+                });
+
                 fireMapReady(googleMap);
             }
         });
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     public void setMapReadyListener(MapReadyListener mapReadyListener) {
@@ -121,6 +158,42 @@ public class MapsFragment extends Fragment {
         googleMap.clear();
     }
 
+    public void applyWeather(WeatherObservation weather) {
+        String weatherFormat = "Temperature: %d °C\nWind: %d knots";
+        String weatherDescription = String.format(weatherFormat, weather.getTemperature(), weather.getWindSpeed());
+
+        int resImage;
+
+
+        googleMap.addMarker(
+                new MarkerOptions()
+                        .position(weather.getLocation())
+                        .title(weather.getCondition().name())
+                        .snippet(weatherDescription)
+                        .icon(BitmapDescriptorFactory.fromResource(getWeatherImageRessource(weather.getCondition())))
+        );
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(weather.getLocation()));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10f));
+    }
+
+    private int getWeatherImageRessource(WeatherObservation.Condition condition) {
+        switch (condition) {
+            case SUN:
+                return R.mipmap.sun;
+            case CLOUD:
+                return R.mipmap.cloud;
+            case MIST:
+            default:
+                return R.mipmap.mist;
+            case RAIN:
+                return R.mipmap.rain;
+            case SNOW:
+                return R.mipmap.snow;
+            case STORM:
+                return R.mipmap.storm;
+        }
+    }
 
     public interface MapReadyListener {
 
