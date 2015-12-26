@@ -27,9 +27,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -59,9 +61,9 @@ public class MainActivity extends AppCompatActivity
 
     public static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     public static final int PERMISSIONS_REQUEST_COARSE_LOCATION = 2;
+    private static final String METEO_URL = "http://api.geonames.org/findNearByWeatherJSON?lat=%.4f&lng=%.4f&username=cyann";
     // TODO mettre dans une class à part
     Database database;
-
     // view
     SpatialiteOpenHelper helper;
     // manager
@@ -74,11 +76,11 @@ public class MainActivity extends AppCompatActivity
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
     private Location currentLocation;
-
     // region GPS management (API23)
     private Polygon shape;
+
+    // endregion
 
     private boolean checkGPSPermission() {
 
@@ -91,8 +93,6 @@ public class MainActivity extends AppCompatActivity
 
         return true;
     }
-
-    // endregion
 
     private boolean checkPermission(String permission, int code) {
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -128,7 +128,6 @@ public class MainActivity extends AppCompatActivity
             // permissions this app might request
         }
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,6 +216,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    // region application manager
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -231,8 +232,6 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-    // region application manager
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -282,7 +281,7 @@ public class MainActivity extends AppCompatActivity
                         }
 
                         try {
-                            String query = "Delete from " + MySpatialiteHelper.TABLE_INTEREST + ";";
+                            String query = "Delete from " + MySpatialiteHelper.TABLE_SECTOR + ";";
                             helper.exec(query);
 
                         } catch (Exception e) {
@@ -314,6 +313,8 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this, String.format("Database copied to: %s", sdcard), Toast.LENGTH_LONG).show();
     }
 
+    // endregion
+
     @Override
     public void onStart() {
         super.onStart();
@@ -336,8 +337,6 @@ public class MainActivity extends AppCompatActivity
         AppIndex.AppIndexApi.start(client, viewAction);
     }
 
-    // endregion
-
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
 
@@ -346,6 +345,8 @@ public class MainActivity extends AppCompatActivity
         stopGPS();
         super.onSaveInstanceState(outState, outPersistentState);
     }
+
+    // region location
 
     @Override
     public void onStop() {
@@ -366,8 +367,6 @@ public class MainActivity extends AppCompatActivity
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
-
-    // region location
 
     private Location getLastLocation() {
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -390,30 +389,61 @@ public class MainActivity extends AppCompatActivity
 
         database.insert(MySpatialiteHelper.TABLE_INTEREST, null, values);*/
 
-        // TODO: Custom dialog for title and comment http://examples.javacodegeeks.com/android/core/ui/alertdialog/android-prompt-user-input-dialog-example/
+        // TODO: Custom dialog http://examples.javacodegeeks.com/android/core/ui/alertdialog/android-prompt-user-input-dialog-example/
+        // get prompts.xml view
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
 
-        try {
-            if (currentLocation == null) {
-                Toast.makeText(this, "Position not available !", Toast.LENGTH_LONG).show();
-                Log.e(this.getClass().getName(), "GPS does not work or is not authorized, current position not available !");
-                return;
-            }
+        final View promptView = layoutInflater.inflate(R.layout.prompt_name_comment, null);
 
-            mapsFragment.addMarker(currentLocation, "My coord");
-            mapsFragment.moveTo(currentLocation, 15f);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-            Point point = new Point(MySpatialiteHelper.coordFactory(currentLocation));
-            helper.exec(
-                    "insert into " + MySpatialiteHelper.TABLE_INTEREST +
-                            "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ") " +
-                            " values ('" + "My coord" + "', " + point.toSpatialiteQuery(MySpatialiteHelper.GPS_SRID) + ");");
+        // set prompts.xml to be the layout file of the alertdialog builder
+        alertDialogBuilder.setView(promptView);
 
-            Toast.makeText(this, "Point of interest saved successfully !", Toast.LENGTH_SHORT).show();
+        // setup a dialog window
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
 
-        } catch (jsqlite.Exception e) {
-            e.printStackTrace();
-        }
+                        EditText name = (EditText) promptView.findViewById(R.id.txt_name);
+                        EditText comment = (EditText) promptView.findViewById(R.id.txt_comment);
 
+                        try {
+                            if (currentLocation == null) {
+                                Toast.makeText(MainActivity.this, "Position not available !", Toast.LENGTH_LONG).show();
+                                Log.e(this.getClass().getName(), "GPS does not work or is not authorized, current position not available !");
+                                return;
+                            }
+
+                            mapsFragment.addMarker(currentLocation, name.getText().toString(), comment.getText().toString());
+                            mapsFragment.moveTo(currentLocation, 15f);
+
+                            Point point = new Point(MySpatialiteHelper.coordFactory(currentLocation));
+                            helper.exec(
+                                    "insert into " + MySpatialiteHelper.TABLE_INTEREST +
+                                            "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ") " +
+                                            " values ('" + name.getText() + "', '" + comment.getText() + "', " + point.toSpatialiteQuery(MySpatialiteHelper.GPS_SRID) + ");");
+
+                            Toast.makeText(MainActivity.this, "Point of interest saved successfully !", Toast.LENGTH_SHORT).show();
+
+                        } catch (jsqlite.Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+
+        alert.show();
 
     }
 
@@ -456,14 +486,14 @@ public class MainActivity extends AppCompatActivity
 
             while (stmt.step()) {
                 String name = stmt.column_string(0);
-                // String comment = stmt.column_string(1);
+                String comment = stmt.column_string(1);
                 String coordStr = stmt.column_string(2);
 
                 if (coordStr != null) {
                     Point coord = Point.unMarshall(new StringBuilder(coordStr));
-                    Log.w(this.getClass().getName(), "Coordinate: " + stmt.column_string(2));
+                    Log.w(this.getClass().getName(), "Coordinate: " + coordStr);
 
-                    mapsFragment.addMarker(coord, name);
+                    mapsFragment.addMarker(coord, name, comment);
                 }
             }
 
@@ -562,32 +592,63 @@ public class MainActivity extends AppCompatActivity
     public void recordSave(View view) {
         recordControl.setVisibility(View.INVISIBLE);
 
-        try {
-            helper.exec(
-                    "insert into " + MySpatialiteHelper.TABLE_SECTOR +
-                            "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ")" +
-                            " values ('" + "My Sector" + "', " + shape.toSpatialiteQuery(MySpatialiteHelper.GPS_SRID) + ");");
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
 
-            Toast.makeText(this, "Shape saved successfully !", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        final View promptView = layoutInflater.inflate(R.layout.prompt_name_comment, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set prompts.xml to be the layout file of the alertdialog builder
+        alertDialogBuilder.setView(promptView);
+
+        // setup a dialog window
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        if (shape == null) {
+                            Toast.makeText(MainActivity.this, "No area was recorded !", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        EditText name = (EditText) promptView.findViewById(R.id.txt_name);
+                        EditText comment = (EditText) promptView.findViewById(R.id.txt_comment);
+
+                        try {
+
+                            helper.exec(
+                                    "insert into " + MySpatialiteHelper.TABLE_SECTOR +
+                                            "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ")" +
+                                            " values ('" + name.getText() + "', '" + comment.getText() + "', " + shape.toSpatialiteQuery(MySpatialiteHelper.GPS_SRID) + ");");
+
+                            Toast.makeText(MainActivity.this, "Shape saved successfully !", Toast.LENGTH_SHORT).show();
+
+                        } catch (jsqlite.Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+
+        alert.show();
 
         shape = null;
 
-    }
-
-    public void recordAbort(View view) {
-        recordControl.setVisibility(View.INVISIBLE);
-        shape = null;
-        mapsFragment.clearPolygon();
     }
 
     // endregion
 
     // region meteo
 
-    private static final String METEO_URL = "http://api.geonames.org/findNearByWeatherJSON?lat=%.4f&lng=%.4f&username=cyann";
+    public void recordAbort(View view) {
+        recordControl.setVisibility(View.INVISIBLE);
+        shape = null;
+        mapsFragment.clearPolygon();
+    }
 
     private void requestMeteo() {
 

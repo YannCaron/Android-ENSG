@@ -39,8 +39,6 @@ public class MapsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
 
-
-
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.maps);
         fragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -108,22 +106,28 @@ public class MapsFragment extends Fragment {
         }
     }
 
-    public void addMarker(Location location, String name) {
+    public void addMarker(Location location, String name, String comment) {
         if (googleMap != null) {
             LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
 
-            googleMap.addMarker(new MarkerOptions().position(position).title(name));
+            googleMap.addMarker(new MarkerOptions()
+                    .position(position)
+                    .title(name)
+                    .snippet(comment));
 
         } else {
             Toast.makeText(getContext(), "Google maps not yet initialized !", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void addMarker(Point location, String name) {
+    public void addMarker(Point location, String name, String comment) {
         if (googleMap != null) {
             LatLng position = new LatLng(location.getCoordinate().getY(), location.getCoordinate().getX());
 
-            googleMap.addMarker(new MarkerOptions().position(position).title(name));
+            googleMap.addMarker(new MarkerOptions()
+                    .position(position)
+                    .title(name)
+                    .snippet(comment));
 
         } else {
             Toast.makeText(getContext(), "Google maps not yet initialized !", Toast.LENGTH_LONG).show();
