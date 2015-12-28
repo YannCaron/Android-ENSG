@@ -71,11 +71,18 @@ public class DataBrowser extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        loadData();
+
+        return view;
+    }
+
+    private void loadData() {
+
+
         // specify an adapter (see also next example)
         adapter = new StmtAdapter();
         recyclerView.setAdapter(adapter);
 
-        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

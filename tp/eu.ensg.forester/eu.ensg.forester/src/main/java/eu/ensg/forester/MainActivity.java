@@ -695,7 +695,7 @@ public class MainActivity extends AppCompatActivity
                     JSONObject jsonObject = new JSONObject(res);
                     JSONObject jsonObservation = jsonObject.getJSONObject("weatherObservation");
                     String condition = jsonObservation.getString("weatherCondition");
-                    String cloud = jsonObservation.getString("cloudsCode");
+                    String cloud = jsonObservation.getString("clouds");
                     LatLng location = new LatLng(
                             Double.valueOf(jsonObservation.getString("lat")),
                             Double.valueOf(jsonObservation.getString("lng")));
