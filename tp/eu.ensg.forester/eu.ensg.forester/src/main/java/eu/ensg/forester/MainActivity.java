@@ -32,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity
     private NavigationManager navigationManager;
     private LocationManager locationManager;
     private MapsFragment mapsFragment;
+    private TextView coordLabel;
     private LinearLayoutCompat recordControl;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -163,6 +165,7 @@ public class MainActivity extends AppCompatActivity
         recordControl = (LinearLayoutCompat) this.findViewById(R.id.record_control);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+        coordLabel = (TextView)this.findViewById(R.id.coord_label);
 
         Log.e(this.getClass().getName(), "Maps Fragment: " + mapsFragment);
 
@@ -571,12 +574,13 @@ public class MainActivity extends AppCompatActivity
             mapsFragment.moveTo(location, 15);
         }
 
-        Toast.makeText(MainActivity.this, "GPS Location changed: " + new Point(MySpatialiteHelper.coordFactory(location)).toString(), Toast.LENGTH_SHORT).show();
+        coordLabel.setText(new Point(MySpatialiteHelper.coordFactory(location)).toString());
+        //Toast.makeText(MainActivity.this, "GPS Location changed: " + new Point(MySpatialiteHelper.coordFactory(location)).toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        Toast.makeText(MainActivity.this, "GPS status changed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, "GPS status changed", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -10,6 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
+
+import eu.ensg.spatialite.SpatialiteOpenHelper;
+import jsqlite.Stmt;
+
 
 public class DataBrowser extends Fragment {
 
@@ -22,6 +27,7 @@ public class DataBrowser extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private SpatialiteOpenHelper helper;
 
     // event
     //private OnFragmentInteractionListener mListener;
@@ -71,17 +77,32 @@ public class DataBrowser extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        loadData();
+        try {
+            helper = new MySpatialiteHelper(view.getContext());
+            loadData();
+        } catch (jsqlite.Exception e) {
+            //Toast.makeText(view.getContext(), "Cannot ")
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
 
     private void loadData() {
 
+        try {
+            Stmt stmt = helper.getDatabase().prepare(query);
 
-        // specify an adapter (see also next example)
-        adapter = new StmtAdapter();
-        recyclerView.setAdapter(adapter);
+            // specify an adapter (see also next example)
+            adapter = new StmtAdapter();
+            recyclerView.setAdapter(adapter);
+
+        } catch (jsqlite.Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 

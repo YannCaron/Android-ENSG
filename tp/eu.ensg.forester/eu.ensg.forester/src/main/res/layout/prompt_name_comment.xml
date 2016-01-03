@@ -32,7 +32,7 @@
         android:id="@+id/txt_comment"
         android:layout_width="match_parent"
         android:inputType="text"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:minLines="5">
 
     </EditText>

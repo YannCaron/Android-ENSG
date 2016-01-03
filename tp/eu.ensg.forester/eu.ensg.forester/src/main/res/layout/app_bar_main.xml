@@ -32,6 +32,16 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_add_location_white_24dp" />
 
+    <android.widget.TextView
+        android:id="@+id/coord_label"
+        android:layout_width="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="75dp"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_height="wrap_content"
+        android:text="coordinates"
+        android:textStyle="bold" />
+
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/record_control"
         android:layout_width="wrap_content"
