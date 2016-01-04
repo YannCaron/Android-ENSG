@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity
         recordControl = (LinearLayoutCompat) this.findViewById(R.id.record_control);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
-        coordLabel = (TextView)this.findViewById(R.id.coord_label);
+        coordLabel = (TextView) this.findViewById(R.id.coord_label);
 
         Log.e(this.getClass().getName(), "Maps Fragment: " + mapsFragment);
 
@@ -173,25 +173,66 @@ public class MainActivity extends AppCompatActivity
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        try {
-            helper = new MySpatialiteHelper(this);
-            database = helper.getDatabase();
-        } catch (jsqlite.Exception | IOException e) {
-            e.printStackTrace();
-        }
-        Toast.makeText(getApplicationContext(), database.dbversion(), Toast.LENGTH_LONG).show();
 
-        mapsFragment.setMapReadyListener(new MapsFragment.MapReadyListener() {
+        new AsyncTask<Void, Void, String>() {
+            boolean isDbInitialized = false, isMapInitialized = false;
+            ProgressDialog dialog;
+            String url = null;
+
             @Override
-            public void onMapReady(GoogleMap googleMap) {
-                googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-                queryPointOfInterest();
-                querySector();
-                mapsFragment.moveTo(currentLocation, 12f);
+            protected void onPreExecute() {
+                dialog = ProgressDialog.show(MainActivity.this, "Spatialite initializing", "Please wait ...", true, true);
+
+                mapsFragment.setMapReadyListener(new MapsFragment.MapReadyListener() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
+                        isDbInitialized = true;
+                        tryToInitMap();
+                    }
+                });
             }
-        });
+
+            @Override
+            protected String doInBackground(Void... params) {
+                // TODO: !!!! Exécuté dans un autre thread
+
+                try {
+                    helper = new MySpatialiteHelper(MainActivity.this);
+                    database = helper.getDatabase();
+                } catch (jsqlite.Exception | IOException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String res) {
+                dialog.dismiss();
+
+                Toast.makeText(getApplicationContext(), database.dbversion(), Toast.LENGTH_LONG).show();
+                isDbInitialized = true;
+                tryToInitMap();
+
+            }
+
+            private void tryToInitMap() {
+                if (isDbInitialized && isMapInitialized) {
+                    queryPointOfInterest();
+                    querySector();
+                    if (currentLocation != null) {
+                        mapsFragment.moveTo(currentLocation, 12f);
+                    }
+                }
+            }
+
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
 
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -662,7 +703,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected void onPreExecute() {
-                dialog = ProgressDialog.show(MainActivity.this, "Load in dialog", "Wait ...", true, true);
+                dialog = ProgressDialog.show(MainActivity.this, "Querying meteo !", "Please wait ...", true, true);
             }
 
             @Override
