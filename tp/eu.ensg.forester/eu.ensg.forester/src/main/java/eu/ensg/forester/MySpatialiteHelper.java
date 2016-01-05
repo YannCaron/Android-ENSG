@@ -24,15 +24,18 @@ public class MySpatialiteHelper extends SpatialiteOpenHelper {
     public static final String TABLE_SECTOR = "Sector";
 
     public static final String COLUMN_ID = "id";
+    public static final String COLUMN_MASTER_DB_ID = "masterDBid";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_COMMENT = "comment";
     public static final String COLUMN_COORDINATE = "coordinate";
 
+    // TODO: !!!! MasterDBID pour synchroniser avec la master DB
     public static final String CREATE_INTEREST =
             "create table " + TABLE_INTEREST +
                     "(" + COLUMN_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_NAME + " string NOT NULL, " +
-                    COLUMN_COMMENT + " string" + ");";
+                    COLUMN_COMMENT + " string, " +
+                    COLUMN_MASTER_DB_ID + " integer" + ");";
 
     public static final String CREATE_INTEREST_COORDINATE =
             "SELECT AddGeometryColumn('" + TABLE_INTEREST + "', '" + COLUMN_COORDINATE + "', " + GPS_SRID + ", 'POINT', 'XY', 0);";
@@ -41,7 +44,8 @@ public class MySpatialiteHelper extends SpatialiteOpenHelper {
             "create table " + TABLE_SECTOR +
                     "(" + COLUMN_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_NAME + " string NOT NULL, " +
-                    COLUMN_COMMENT + " string" + ");";
+                    COLUMN_COMMENT + " string, " +
+                    COLUMN_MASTER_DB_ID + " integer" + ");";
 
     public static final String CREATE_SECTOR_COORDINATE =
             "SELECT AddGeometryColumn('" + TABLE_SECTOR + "', '" + COLUMN_COORDINATE + "', " + GPS_SRID + ", 'POLYGON', 'XY', 0);";

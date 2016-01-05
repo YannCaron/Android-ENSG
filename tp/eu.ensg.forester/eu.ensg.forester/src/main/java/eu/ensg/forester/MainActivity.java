@@ -673,6 +673,9 @@ public class MainActivity extends AppCompatActivity
                             e.printStackTrace();
                         }
 
+
+                        shape = null;
+
                     }
                 });
 
@@ -680,20 +683,17 @@ public class MainActivity extends AppCompatActivity
         AlertDialog alert = alertDialogBuilder.create();
 
         alert.show();
-
-        shape = null;
-
     }
-
-    // endregion
-
-    // region meteo
 
     public void recordAbort(View view) {
         recordControl.setVisibility(View.INVISIBLE);
         shape = null;
         mapsFragment.clearPolygon();
     }
+
+    // endregion
+
+    // region meteo
 
     private void requestMeteo() {
 
