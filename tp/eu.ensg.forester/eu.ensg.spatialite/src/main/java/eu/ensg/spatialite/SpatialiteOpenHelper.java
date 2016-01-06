@@ -49,6 +49,7 @@ public abstract class SpatialiteOpenHelper {
         if (oldVersion == -1) {
             // !!!! Initialiser les metadata spacial, sinon ne fonctionne pas.
             exec(INIT_SPATIAL_METADATA);
+
             // !!!! basé sur le pattern "Template method" du GoF
             onCreate(database);
             Log.w(this.getClass().getName(), "Spatialite first installation, database created.");
