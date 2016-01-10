@@ -38,6 +38,9 @@
                 android:id="@+id/nav_save"
                 android:icon="@drawable/ic_backup_black_24dp"
                 android:title="@string/title_save" />
+            <item
+                android:id="@+id/nav_load"
+                android:title="@string/title_load" />
         </menu>
     </item>
 

@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity
                     public void onMapReady(GoogleMap googleMap) {
                         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
-                        isDbInitialized = true;
+                        isMapInitialized = true;
                         tryToInitMap();
                     }
                 });
@@ -231,8 +231,6 @@ public class MainActivity extends AppCompatActivity
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
 
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -300,6 +298,8 @@ public class MainActivity extends AppCompatActivity
             clearDatabase();
         } else if (id == R.id.nav_save) {
             saveDatabase();
+        } else if (id == R.id.nav_load) {
+            overwriteDatabase();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -333,7 +333,12 @@ public class MainActivity extends AppCompatActivity
                         }
 
                         Toast.makeText(MainActivity.this, "Data cleared !", Toast.LENGTH_SHORT).show();
+
+                        // reload database
                         mapsFragment.clear();
+
+                        queryPointOfInterest();
+                        querySector();
 
                     }
                 })
@@ -355,6 +360,36 @@ public class MainActivity extends AppCompatActivity
         }
 
         Toast.makeText(this, String.format("Database copied to: %s", sdcard), Toast.LENGTH_LONG).show();
+    }
+
+    private void overwriteDatabase() {
+
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(R.string.title_overwrite)
+                .setMessage(getString(R.string.msg_overwrite))
+                .setPositiveButton(getString(R.string.btn_yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        File database = helper.getDatabaseFile();
+                        File sdcard = new File(Environment.getExternalStorageDirectory(), helper.getDatabaseName());
+
+                        Log.i(this.getClass().getName(), String.format("Copy file [%s] to [%s].", sdcard, database));
+
+                        try {
+                            FileSystem.copyFile(sdcard, database);
+                        } catch (IOException e) {
+                            Log.e(this.getClass().getName(), String.format("Error during file copy [%s] to [%s].", sdcard, database));
+                            e.printStackTrace();
+                        }
+
+                        Toast.makeText(MainActivity.this, String.format("Database copied to: %s", database), Toast.LENGTH_LONG).show();
+
+                        mapsFragment.clear();
+                    }
+                })
+                .setCancelable(true).show();
     }
 
     // endregion
