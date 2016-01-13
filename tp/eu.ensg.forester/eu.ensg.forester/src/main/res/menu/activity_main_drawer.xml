@@ -30,17 +30,7 @@
                 android:id="@+id/nav_weather"
                 android:icon="@drawable/ic_satellite_black_24dp"
                 android:title="@string/title_weather" />
-            <item
-                android:id="@+id/nav_clear"
-                android:icon="@drawable/ic_delete_black_24dp"
-                android:title="@string/title_clear" />
-            <item
-                android:id="@+id/nav_save"
-                android:icon="@drawable/ic_backup_black_24dp"
-                android:title="@string/title_save" />
-            <item
-                android:id="@+id/nav_load"
-                android:title="@string/title_load" />
+
         </menu>
     </item>
 

@@ -270,6 +270,12 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_clear) {
+            clearDatabase();
+        } else if (id == R.id.action_save) {
+            saveDatabase();
+        } else if (id == R.id.action_load) {
+            overwriteDatabase();
         }
 
         return super.onOptionsItemSelected(item);
@@ -294,12 +300,6 @@ public class MainActivity extends AppCompatActivity
             startRecordShape();
         } else if (id == R.id.nav_weather) {
             requestMeteo();
-        } else if (id == R.id.nav_clear) {
-            clearDatabase();
-        } else if (id == R.id.nav_save) {
-            saveDatabase();
-        } else if (id == R.id.nav_load) {
-            overwriteDatabase();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
