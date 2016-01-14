@@ -58,6 +58,7 @@ public class MySpatialiteHelper extends SpatialiteOpenHelper {
         return new XY(location.getLongitude(), location.getLatitude());
     }
 
+
     @Override
     public void onCreate(Database db) throws jsqlite.Exception {
         super.exec(CREATE_INTEREST);

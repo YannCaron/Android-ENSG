@@ -556,8 +556,11 @@ public class MainActivity extends AppCompatActivity
     public void queryPointOfInterest() {
 
         //String query = "select * from " + MySpatialiteHelper.TABLE_INTEREST + ";";
-        String query = "select " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT + ", AsText(" + MySpatialiteHelper.COLUMN_COORDINATE + ") as coord from " + MySpatialiteHelper.TABLE_INTEREST + ";";
         //String query = "PRAGMA table_info(" + MySpatialiteHelper.TABLE_INTEREST + ");";
+
+        String query = "select " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT +
+                ", AsText(" + MySpatialiteHelper.COLUMN_COORDINATE + ") as coord from " +
+                MySpatialiteHelper.TABLE_INTEREST + ";";
 
         Stmt stmt = null;
         try {
