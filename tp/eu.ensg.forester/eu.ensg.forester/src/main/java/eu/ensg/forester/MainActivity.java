@@ -49,6 +49,8 @@ import java.io.IOException;
 import java.util.Locale;
 
 import eu.ensg.commons.io.FileSystem;
+import eu.ensg.commons.io.WebServices;
+import eu.ensg.forester.data.WeatherObservation;
 import eu.ensg.spatialite.SpatialiteOpenHelper;
 import eu.ensg.spatialite.geom.Point;
 import eu.ensg.spatialite.geom.Polygon;
@@ -78,11 +80,10 @@ public class MainActivity extends AppCompatActivity
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    private Location currentLocation;
-    // region GPS management (API23)
-    private Polygon shape;
 
-    // endregion
+    // Geo
+    private Location currentLocation;
+    private Polygon shape;
 
     private boolean checkGPSPermission() {
 
@@ -731,7 +732,7 @@ public class MainActivity extends AppCompatActivity
 
     // endregion
 
-    // region meteo
+    // region weather
 
     private void requestMeteo() {
 
@@ -780,10 +781,10 @@ public class MainActivity extends AppCompatActivity
                     String condition = jsonObservation.getString("weatherCondition");
                     String cloud = jsonObservation.getString("clouds");
                     LatLng location = new LatLng(
-                            Double.valueOf(jsonObservation.getString("lat")),
-                            Double.valueOf(jsonObservation.getString("lng")));
-                    int temperature = Integer.valueOf(jsonObservation.getString("temperature"));
-                    int windSpeed = Integer.valueOf(jsonObservation.getString("windSpeed"));
+                            jsonObservation.getDouble("lat"),
+                            jsonObservation.getDouble("lng"));
+                    int temperature = jsonObservation.getInt("temperature");
+                    int windSpeed = jsonObservation.getInt("windSpeed");
 
                     WeatherObservation weatherObservation = new WeatherObservation(location, condition, cloud, temperature, windSpeed);
                     Log.i(this.getClass().getName(), "Weather observation: " + weatherObservation.toString());
