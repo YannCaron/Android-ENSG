@@ -26,6 +26,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -66,15 +67,16 @@ public class MainActivity extends AppCompatActivity
     public static final int PERMISSIONS_REQUEST_COARSE_LOCATION = 2;
     private static final String METEO_URL = "http://api.geonames.org/findNearByWeatherJSON?lat=%.4f&lng=%.4f&username=cyann";
     // TODO mettre dans une class à part
-    Database database;
-    // view
-    SpatialiteOpenHelper helper;
     // manager
-    private NavigationManager navigationManager;
     private LocationManager locationManager;
-    private MapsFragment mapsFragment;
+    private NavigationManager navigationManager;
+    // view
+    private MyMapFragment mapFragment;
     private TextView coordLabel;
     private LinearLayoutCompat recordControl;
+    // database
+    private Database database;
+    private SpatialiteOpenHelper helper;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -133,6 +135,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        return super.onCreateView(parent, name, context, attrs);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -165,15 +172,14 @@ public class MainActivity extends AppCompatActivity
         // TODO: récupérer les controles
         recordControl = (LinearLayoutCompat) this.findViewById(R.id.record_control);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
-        coordLabel = (TextView) this.findViewById(R.id.coord_label);
 
-        Log.e(this.getClass().getName(), "Maps Fragment: " + mapsFragment);
+        mapFragment = (MyMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+
+        coordLabel = (TextView) this.findViewById(R.id.coord_label);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
 
         new AsyncTask<Void, Void, String>() {
             boolean isDbInitialized = false, isMapInitialized = false;
@@ -184,7 +190,7 @@ public class MainActivity extends AppCompatActivity
             protected void onPreExecute() {
                 dialog = ProgressDialog.show(MainActivity.this, "Spatialite initializing", "Please wait ...", true, true);
 
-                mapsFragment.setMapReadyListener(new MapsFragment.MapReadyListener() {
+                mapFragment.setMapReadyListener(new MyMapFragment.MapReadyListener() {
                     @Override
                     public void onMapReady(GoogleMap googleMap) {
                         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
@@ -224,7 +230,7 @@ public class MainActivity extends AppCompatActivity
                     queryPointOfInterest();
                     querySector();
                     if (currentLocation != null) {
-                        mapsFragment.moveTo(currentLocation, 12f);
+                        mapFragment.moveTo(currentLocation, 12f);
                     }
                 }
             }
@@ -336,7 +342,7 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(MainActivity.this, "Data cleared !", Toast.LENGTH_SHORT).show();
 
                         // reload database
-                        mapsFragment.clear();
+                        mapFragment.clear();
 
                         queryPointOfInterest();
                         querySector();
@@ -387,7 +393,7 @@ public class MainActivity extends AppCompatActivity
 
                         Toast.makeText(MainActivity.this, String.format("Database copied to: %s", database), Toast.LENGTH_LONG).show();
 
-                        mapsFragment.clear();
+                        mapFragment.clear();
                     }
                 })
                 .setCancelable(true).show();
@@ -496,8 +502,8 @@ public class MainActivity extends AppCompatActivity
                                 return;
                             }
 
-                            mapsFragment.addMarker(currentLocation, name.getText().toString(), comment.getText().toString());
-                            mapsFragment.moveTo(currentLocation, 15f);
+                            mapFragment.addMarker(currentLocation, name.getText().toString(), comment.getText().toString());
+                            mapFragment.moveTo(currentLocation, 15f);
 
                             Point point = new Point(MySpatialiteHelper.coordFactory(currentLocation));
                             helper.exec(
@@ -576,7 +582,7 @@ public class MainActivity extends AppCompatActivity
                     Point coord = Point.unMarshall(new StringBuilder(coordStr));
                     Log.w(this.getClass().getName(), "Coordinate: " + coordStr);
 
-                    mapsFragment.addMarker(coord, name, comment);
+                    mapFragment.addMarker(coord, name, comment);
                 }
             }
 
@@ -606,7 +612,7 @@ public class MainActivity extends AppCompatActivity
                     Polygon coord = Polygon.unMarshall(new StringBuilder(coordStr));
                     Log.w(this.getClass().getName(), "Coordinate: " + coord.toString());
 
-                    mapsFragment.addPolygon(coord,
+                    mapFragment.addPolygon(coord,
                             getResources().getColor(R.color.colorStrokePolygon),
                             getResources().getColor(R.color.colorFillPolygon));
                 }
@@ -648,10 +654,10 @@ public class MainActivity extends AppCompatActivity
 
         if (shape != null) {
             shape.addCoordinate(new XY(location.getLongitude(), location.getLatitude()));
-            mapsFragment.drawPolygon(shape,
+            mapFragment.drawPolygon(shape,
                     getResources().getColor(R.color.colorStrokePolygon),
                     getResources().getColor(R.color.colorFillPolygon));
-            mapsFragment.moveTo(location, 15);
+            mapFragment.moveTo(location, 15);
         }
 
         coordLabel.setText(new Point(MySpatialiteHelper.coordFactory(location)).toString());
@@ -727,7 +733,7 @@ public class MainActivity extends AppCompatActivity
     public void recordAbort(View view) {
         recordControl.setVisibility(View.INVISIBLE);
         shape = null;
-        mapsFragment.clearPolygon();
+        mapFragment.clearPolygon();
     }
 
     // endregion
@@ -789,7 +795,7 @@ public class MainActivity extends AppCompatActivity
                     WeatherObservation weatherObservation = new WeatherObservation(location, condition, cloud, temperature, windSpeed);
                     Log.i(this.getClass().getName(), "Weather observation: " + weatherObservation.toString());
 
-                    mapsFragment.applyWeather(weatherObservation);
+                    mapFragment.applyWeather(weatherObservation);
 
                 } catch (JSONException e) {
                     Log.e(MainActivity.this.getClass().getName(), "Unable to parse JSON string " + res);
