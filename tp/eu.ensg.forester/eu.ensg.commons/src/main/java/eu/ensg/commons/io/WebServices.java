@@ -30,10 +30,15 @@ public class WebServices {
 
     }
 
-    public static String convertStreamToString(InputStream is) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+    public static String convertStreamToString(InputStream in) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         StringBuilder sb = new StringBuilder();
         String line = null;
+
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+            sb.append('\n');
+        }
 
         try {
             while ((line = reader.readLine()) != null) {
@@ -42,7 +47,7 @@ public class WebServices {
         } catch (IOException e) {
         } finally {
             try {
-                is.close();
+                in.close();
             } catch (IOException e) {
             }
         }
