@@ -35,6 +35,9 @@ http://www.tracegps.com/fr/reccircuit.htm
 http://www.geonames.org/export/ws-overview.html
 http://api.geonames.org/findNearByWeatherJSON?lat=43&lng=-2&username=demo
 
+Reference:
+https://github.com/typicode/json-server
+
 # Misc
 Android file system // TODO
 http://android.stackexchange.com/questions/46926/android-folder-hierarchy/46934#46934
