@@ -802,6 +802,8 @@ public class MainActivity extends AppCompatActivity
                     e.printStackTrace();
                 }
             }
+
+            
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, currentLocation);
 
     }
