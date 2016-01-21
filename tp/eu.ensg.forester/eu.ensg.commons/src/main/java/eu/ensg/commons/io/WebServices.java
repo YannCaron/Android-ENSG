@@ -35,11 +35,6 @@ public class WebServices {
         StringBuilder sb = new StringBuilder();
         String line = null;
 
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-            sb.append('\n');
-        }
-
         try {
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
