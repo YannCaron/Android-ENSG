@@ -742,12 +742,15 @@ public class MainActivity extends AppCompatActivity
 
     private void requestMeteo() {
 
+        // TODO : Classe interne, locale et anonyme
+        // Classe locale et anonyme
         new AsyncTask<Location, Void, String>() {
             ProgressDialog dialog;
             String url = null;
 
             @Override
             protected void onPreExecute() {
+                // UI thread
                 dialog = ProgressDialog.show(MainActivity.this, "Querying meteo !", "Please wait ...", true, true);
             }
 
@@ -755,6 +758,7 @@ public class MainActivity extends AppCompatActivity
             protected String doInBackground(Location... params) {
                 // TODO: !!!! Exécuté dans un autre thread
 
+                // Autre thread
                 if (params.length != 1) return null;
                 Location location = params[0];
                 url = String.format(new Locale("en", "US"), METEO_URL, location.getLatitude(), location.getLongitude());
@@ -771,6 +775,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected void onPostExecute(String res) {
+                // UI thread
                 dialog.dismiss();
 
                 if (res == null) {
