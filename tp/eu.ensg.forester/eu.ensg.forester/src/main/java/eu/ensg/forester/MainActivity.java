@@ -28,6 +28,7 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
 
 import java.io.File;
 import java.io.IOException;
@@ -745,6 +747,7 @@ public class MainActivity extends AppCompatActivity
         // TODO : Classe interne, locale et anonyme
         // Classe locale et anonyme
         new AsyncTask<Location, Void, String>() {
+
             ProgressDialog dialog;
             String url = null;
 
@@ -779,6 +782,7 @@ public class MainActivity extends AppCompatActivity
                 dialog.dismiss();
 
                 if (res == null) {
+                    XmlPullParser parser = Xml.newPullParser();
                     // TODO: !!!! Exécuté dans le thread UI
                     Toast.makeText(MainActivity.this, "Unable to reach URL: " + url, Toast.LENGTH_LONG).show();
                     return;
