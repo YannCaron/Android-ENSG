@@ -1,0 +1,61 @@
+import com.android.build.gradle.tasks.PackageApplication
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "eu.ensg.forester"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile project(':eu.ensg.commons')
+    compile project(':eu.ensg.spatialite')
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
+}
+
+// for spatialite db driver JNI
+task copyNativeLibs(type: Copy) {
+    from(new File(project(':..:Spatialite-Database-Driver:spatialite-db-driver').projectDir, 'src/main/java/jniLibs')) {
+        include 'armeabi/libjsqlite.so'
+        include 'armeabi-v7a/libjsqlite.so'
+        include 'x86/libjsqlite.so' // for emulator x86
+    }
+    into new File(buildDir, 'native-libs')
+}
+tasks.withType(JavaCompile) { compileTask -> compileTask.dependsOn copyNativeLibs }
+clean.dependsOn 'cleanCopyNativeLibs'
+
+
+tasks.withType(PackageApplication) { pkgTask ->
+    //pkgTask.jniDir new File(buildDir, 'native-libs')
+
+    // !!!! Nécéssite la version 1.3.1 de gradle
+    pkgTask.jniFolders = new HashSet<File>()
+    pkgTask.jniFolders.add(new File(buildDir, 'native-libs'))
+}
