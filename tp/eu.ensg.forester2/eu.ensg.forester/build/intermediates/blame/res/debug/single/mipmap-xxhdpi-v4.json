@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/cyann/projects/course/Android-ENSG-2016/tp/eu.ensg.forester2/eu.ensg.forester/build/intermediates/res/merged/debug/mipmap-xxhdpi-v4/ic_launcher.png",
+        "source": "/home/cyann/projects/course/Android-ENSG-2016/tp/eu.ensg.forester2/eu.ensg.forester/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/cyann/projects/course/Android-ENSG-2016/tp/eu.ensg.forester2/app/build/intermediates/res/merged/debug/mipmap-xxhdpi-v4/ic_launcher.png",
+        "source": "/home/cyann/projects/course/Android-ENSG-2016/tp/eu.ensg.forester2/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    }
+]

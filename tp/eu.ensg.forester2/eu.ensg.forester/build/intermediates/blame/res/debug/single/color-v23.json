@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/cyann/projects/course/Android-ENSG-2016/tp/eu.ensg.forester2/app/build/intermediates/res/merged/debug/color-v23/abc_color_highlight_material.xml",
+        "source": "/home/cyann/projects/course/Android-ENSG-2016/tp/eu.ensg.forester2/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color-v23/abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/course/Android-ENSG-2016/tp/eu.ensg.forester2/eu.ensg.forester/build/intermediates/res/merged/debug/color-v23/abc_color_highlight_material.xml",
+        "source": "/home/cyann/projects/course/Android-ENSG-2016/tp/eu.ensg.forester2/eu.ensg.forester/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color-v23/abc_color_highlight_material.xml"
+    }
+]
