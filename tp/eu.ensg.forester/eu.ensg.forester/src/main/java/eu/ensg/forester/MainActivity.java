@@ -711,8 +711,11 @@ public class MainActivity extends AppCompatActivity
 
                             helper.exec(
                                     "insert into " + MySpatialiteHelper.TABLE_SECTOR +
-                                            "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ")" +
-                                            " values ('" + name.getText() + "', '" + comment.getText() + "', " + shape.toSpatialiteQuery(MySpatialiteHelper.GPS_SRID) + ");");
+                                            "(" + MySpatialiteHelper.COLUMN_NAME + ", "
+                                            + MySpatialiteHelper.COLUMN_COORDINATE + ")" +
+                                            " values ('" + name.getText() + "', '"
+                                            + comment.getText() + "', "
+                                            + shape.toSpatialiteQuery(MySpatialiteHelper.GPS_SRID) + ");");
 
                             Toast.makeText(MainActivity.this, "Shape saved successfully !", Toast.LENGTH_SHORT).show();
 

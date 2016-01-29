@@ -19,6 +19,10 @@ public class Point extends Geometry {
         this.coordinate = coordinate;
     }
 
+    public Point(double x, double y) {
+        this.coordinate = new XY(x, y);
+    }
+
     public static Point unMarshall(StringBuilder string) {
         Parse.removeBlanks(string);
         if (!Parse.consumeSymbol(string, "POINT")) return null;

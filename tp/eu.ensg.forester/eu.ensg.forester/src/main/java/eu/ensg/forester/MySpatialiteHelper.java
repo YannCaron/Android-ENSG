@@ -72,14 +72,17 @@ public class MySpatialiteHelper extends SpatialiteOpenHelper {
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
 
-        int delta = newVersion - oldVersion;
+        switch(oldVersion) {
 
-        if (newVersion == 2) {
-            if (delta <= 1) {
+            case 1:
+                // mise à jour de 1 -> 2
                 super.exec(CREATE_SECTOR);
                 super.exec(CREATE_SECTOR_COORDINATE);
-
-            }
+                break;
+            default:
+                throw new IllegalStateException(
+                        "onUpgrade() with unknown oldVersion" + oldVersion+ " to " + newVersion);
         }
+
     }
 }
