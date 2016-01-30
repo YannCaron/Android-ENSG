@@ -472,7 +472,7 @@ public class MainActivity extends AppCompatActivity
     private void recordPoi() {
         /*ContentValues values = new ContentValues();
         values.put(MySpatialiteHelper.COLUMN_NAME, "My first point");
-        values.put(MySpatialiteHelper.COLUMN_COMMENT, "A comment");
+        values.put(MySpatialiteHelper.COLUMN_DESCRIPTION, "A comment");
         values.put(MySpatialiteHelper.COLUMN_COORDINATE, "GeomFromText('POINT(1.01 2.02)', 4326)");
 
         database.insert(MySpatialiteHelper.TABLE_INTEREST, null, values);*/
@@ -510,7 +510,7 @@ public class MainActivity extends AppCompatActivity
                             Point point = new Point(MySpatialiteHelper.coordFactory(currentLocation));
                             helper.exec(
                                     "insert into " + MySpatialiteHelper.TABLE_INTEREST +
-                                            "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ") " +
+                                            "(" + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_DESCRIPTION + ", " + MySpatialiteHelper.COLUMN_COORDINATE + ") " +
                                             " values ('" + name.getText() + "', '" + comment.getText() + "', " + point.toSpatialiteQuery(MySpatialiteHelper.GPS_SRID) + ");");
 
                             Toast.makeText(MainActivity.this, "Point of interest saved successfully !", Toast.LENGTH_SHORT).show();
@@ -567,7 +567,7 @@ public class MainActivity extends AppCompatActivity
         //String query = "select * from " + MySpatialiteHelper.TABLE_INTEREST + ";";
         //String query = "PRAGMA table_info(" + MySpatialiteHelper.TABLE_INTEREST + ");";
 
-        String query = "select " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT +
+        String query = "select " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_DESCRIPTION +
                 ", AsText(" + MySpatialiteHelper.COLUMN_COORDINATE + ") as coord from " +
                 MySpatialiteHelper.TABLE_INTEREST + ";";
 
@@ -599,7 +599,7 @@ public class MainActivity extends AppCompatActivity
 
         // select * from districts where within(ST_Transform(GeomFromText('POINT(-97.837543 30.418986)', 4326), 2277),districts.Geometry);
         //String query = "select * from " + MySpatialiteHelper.TABLE_INTEREST + ";";
-        String query = "select " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_COMMENT + ", AsText(" + MySpatialiteHelper.COLUMN_COORDINATE + ") as coord from " + MySpatialiteHelper.TABLE_SECTOR + ";";
+        String query = "select " + MySpatialiteHelper.COLUMN_NAME + ", " + MySpatialiteHelper.COLUMN_DESCRIPTION + ", AsText(" + MySpatialiteHelper.COLUMN_COORDINATE + ") as coord from " + MySpatialiteHelper.TABLE_SECTOR + ";";
 
         Stmt stmt = null;
         try {
