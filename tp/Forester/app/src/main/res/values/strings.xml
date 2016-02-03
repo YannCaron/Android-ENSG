@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Forester</string>
+    <string name="label_serial_number">Serial Number</string>
+    <string name="button_login">Login</string>
+    <string name="button_create_new">Create new User</string>
+    <string name="label_first_name">First Name</string>
+    <string name="label_last_name">Last Name</string>
+</resources>

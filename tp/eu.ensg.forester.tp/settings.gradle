@@ -1,1 +1,0 @@
-include ':eu.ensg.forester', ':eu.ensg.commons', ':eu.ensg.spatialite', '..:Spatialite-Database-Driver:spatialite-db-driver'

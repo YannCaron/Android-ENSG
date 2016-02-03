@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">forester</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="info_poi">Store point of interest</string>
+    <string name="info_not_authorized">Without authorisations, the application will run partially !</string>
+    <string name="info_restart">Authorisation was granted, start you action again !</string>
+    <string name="title_map">Map</string>
+    <string name="title_poi">Point of interest</string>
+    <string name="title_area">Record area</string>
+    <string name="title_poi_table">Point of interest table</string>
+    <string name="title_manage">Manage</string>
+    <string name="title_save">Copy database to sdcard</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_clear">Clear database</string>
+    <string name="title_delete">Delete</string>
+    <string name="msg_delete">Are you sure you want to delete all database\'s data ?</string>
+    <string name="title_overwrite">Overwrite</string>
+    <string name="msg_overwrite">Are you sure you want to overwrite the database\'s ? Data will be lost data ?</string>
+    <string name="btn_yes">yes</string>
+    <string name="btn_no">No</string>
+    <string name="info_record">Shape record started</string>
+    <string name="title_action">Action</string>
+    <string name="title_sector_table">Sector table</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_data">DataActivity</string>
+    <string name="title_weather">Weather</string>
+    <string name="msg_no_gps">GPS not working</string>
+    <string name="title_comment">eu.ensg.forester</string>
+    <string name="title_name">Forester</string>
+    <string name="title_load">load database</string>
+
+</resources>
