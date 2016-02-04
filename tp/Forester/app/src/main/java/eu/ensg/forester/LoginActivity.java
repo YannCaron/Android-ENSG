@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements Constants {
         String s = intent.getStringExtra(EXTRA_SERIAL);
         Log.w(this.getClass().getName(), "EXTRA " + s);
 
-        if (!"".equals(s)) {
+        if (s != null) {
             editSerial.setText(s);
         } else {
             editSerial.setText(preferences.getString(KEY_SERIAL, ""));
@@ -69,6 +69,9 @@ public class LoginActivity extends AppCompatActivity implements Constants {
         editor.commit();
         editor.apply();
 
+        // appel la map
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 
     private void create_onClick(View view) {

@@ -8,6 +8,8 @@ package eu.ensg.spatialite.geom; /**
  **/
 
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * The eu.ensg.spatialite.geom.Point definition.
  */
@@ -21,6 +23,14 @@ public class Point extends Geometry {
 
     public Point(double x, double y) {
         this.coordinate = new XY(x, y);
+    }
+
+    public Point(LatLng latLng) {
+        this(latLng.longitude, latLng.latitude);
+    }
+
+    public LatLng toLatLng() {
+        return new LatLng(coordinate.getY(), coordinate.getX());
     }
 
     public static Point unMarshall(StringBuilder string) {
