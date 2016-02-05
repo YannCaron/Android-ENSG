@@ -4,10 +4,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+
+import com.example.cyann.euensgspatialite.R;
 
 /**
  * Created by cyann on 04/02/16.
@@ -28,7 +31,10 @@ public class GPSUtils {
             return;
         }
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, listener);
+        // Notez que les paramètres sont placés dans le fichier /res/values/constants.xml de la librairie
+        // Peuvent être surchargés dans le projet (à vérifier)
+        Resources res = activity.getResources();
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, res.getInteger(R.integer.gps_refresh_min_time_ms), res.getInteger(R.integer.gps_refresh_min_dist_m), listener);
     }
 
     public static void removeUpdates(Activity activity, LocationListener listener) {
