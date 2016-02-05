@@ -26,4 +26,30 @@
         android:alpha="0.75"
         android:background="#ffffff"/>
 
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/record_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="5dp"
+        android:paddingBottom="15dp"
+        android:alpha="0.75"
+        android:background="#ffffff"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/record_save"
+            android:text="@string/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/record_abort"
+            android:text="@string/button_abort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+
 </FrameLayout>

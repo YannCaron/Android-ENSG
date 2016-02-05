@@ -1,16 +1,13 @@
 package eu.ensg.forester;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,23 +17,30 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import org.w3c.dom.Text;
+import com.google.android.gms.maps.model.PolygonOptions;
 
 import eu.ensg.spatialite.GPSUtils;
 import eu.ensg.spatialite.geom.Point;
+import eu.ensg.spatialite.geom.Polygon;
+import eu.ensg.spatialite.geom.XY;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
     // views
     private TextView positionLabel;
     private GoogleMap mMap;
+    private View recordLayout;
+    private Button recordSave;
+    private Button recordAbort;
 
     // attributs
     private Point currentPosition = new Point(6.2341579, 46.193253);
+    private boolean isRecording = false;
+    private Polygon currentSector;
+    private com.google.android.gms.maps.model.Polygon currentPolygon;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
@@ -46,9 +50,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         // récupère les vues
-        positionLabel = (TextView)findViewById(R.id.position);
-    }
+        positionLabel = (TextView) findViewById(R.id.position);
+        recordLayout = findViewById(R.id.record_layout);
+        recordSave = (Button) findViewById(R.id.record_save);
+        recordAbort = (Button) findViewById(R.id.record_abort);
 
+        recordSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save_onClick(v);
+            }
+        });
+
+        recordAbort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abort_onClick(v);
+            }
+        });
+    }
 
     // callback lorsque la map est chargée
     @Override
@@ -61,6 +81,35 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Evénement GPS
         GPSUtils.requestLocationUpdates(this, this);
 
+    }
+
+    @Override
+    protected void onPause() {
+        // Attention, doit être placé avant l'appel à la méthode surchargée
+        GPSUtils.removeUpdates(this, this);
+
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        GPSUtils.requestLocationUpdates(this, this);
+    }
+
+    // quand on touche le bouton save
+    private void save_onClick(View v) {
+        isRecording = false;
+        recordLayout.setVisibility(View.GONE);
+
+        // TODO : do something
+    }
+
+    // quand on touche le bouton abort
+    private void abort_onClick(View v) {
+        isRecording = false;
+        recordLayout.setVisibility(View.GONE);
     }
 
     // region menu
@@ -99,7 +148,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void addSector_onMenu(MenuItem item) {
-
+        isRecording = true;
+        currentSector = new Polygon();
+        recordLayout.setVisibility(View.VISIBLE);
     }
 
     // endregion
@@ -136,14 +187,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         );
     }
 
+    public void drawPolygon(Polygon geom) {
+        // efface le dernier polygone dessiné et le retrace
+        if (currentPolygon != null) currentPolygon.remove();
+        currentPolygon = addPolygon(geom);
+    }
+
+    public com.google.android.gms.maps.model.Polygon addPolygon(Polygon geom) {
+
+        PolygonOptions options = new PolygonOptions();
+
+        XY first = null;
+        for (XY xy : geom.getCoordinates().getCoords()) {
+            if (first == null) first = xy;
+            options.add(new LatLng(xy.getY(), xy.getX()));
+        }
+
+        options.strokeColor(R.color.color_stroke_polygon)
+                .fillColor(R.color.color_fill_polygon).geodesic(true);
+
+        return mMap.addPolygon(options);
+    }
+
     // endregion
 
     // region LocationListener
 
     @Override
     public void onLocationChanged(Location location) {
-        currentPosition = new Point(location.getLongitude(), location.getLatitude());
+        currentPosition = new Point(new XY(location));
         positionLabel.setText(currentPosition.toString());
+
+        if (isRecording == true) {
+            currentSector.addCoordinate(new XY(location));
+            drawPolygon(currentSector);
+        }
     }
 
     @Override

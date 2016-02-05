@@ -45,6 +45,10 @@ public class LineString extends Geometry {
         coordinates.add(coordinate);
     }
 
+    public void addCoordinate(float x, float y) {
+        coordinates.add(new XY(x, y));
+    }
+
     @Override
     public void marshall(StringBuilder string) {
         string.append("LINESTRING");

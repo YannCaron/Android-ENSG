@@ -25,10 +25,6 @@ public class Point extends Geometry {
         this.coordinate = new XY(x, y);
     }
 
-    public Point(LatLng latLng) {
-        this(latLng.longitude, latLng.latitude);
-    }
-
     public LatLng toLatLng() {
         return new LatLng(coordinate.getY(), coordinate.getX());
     }

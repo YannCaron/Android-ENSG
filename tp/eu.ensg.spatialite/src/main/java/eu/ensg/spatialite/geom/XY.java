@@ -7,6 +7,10 @@ package eu.ensg.spatialite.geom; /**
  * ou écrivez à Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
  **/
 
+import android.location.Location;
+
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * The eu.ensg.spatialite.geom.XY definition.
  */
@@ -17,6 +21,16 @@ public class XY implements Marshallable {
     public XY(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public XY(Location location) {
+        this.x = location.getLongitude();
+        this.y = location.getLatitude();
+    }
+
+    public XY(LatLng latlng) {
+        this.x = latlng.longitude;
+        this.y = latlng.latitude;
     }
 
     public static XY unMarshall(StringBuilder string) {

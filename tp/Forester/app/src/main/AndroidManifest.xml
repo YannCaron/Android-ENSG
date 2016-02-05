@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="eu.ensg.forester"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="eu.ensg.forester">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -21,13 +21,12 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateUserActivity">
-        </activity>
+        <activity android:name=".CreateUserActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,12 +37,11 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
+            android:value="@string/google_maps_key_home" />
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-        </activity>
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>

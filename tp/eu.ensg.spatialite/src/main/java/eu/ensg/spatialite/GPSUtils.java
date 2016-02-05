@@ -31,6 +31,20 @@ public class GPSUtils {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, listener);
     }
 
+    public static void removeUpdates(Activity activity, LocationListener listener) {
+        LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            checkGPSPermission(activity);
+            return;
+        }
+
+        locationManager.removeUpdates(listener);
+    }
+
     private static boolean checkGPSPermission(Activity activity) {
 
         // TODO:  Permission management in API 23 see http://stackoverflow.com/questions/33460603/running-targeting-sdk-22-app-in-android-6-sdk-23
