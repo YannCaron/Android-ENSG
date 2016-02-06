@@ -1,11 +1,16 @@
 package eu.ensg.forester;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.io.IOException;
+
+import eu.ensg.forester.data.ForesterSpatialiteOpenHelper;
+import eu.ensg.spatialite.SpatialiteDatabase;
 
 public class CreateUserActivity extends AppCompatActivity implements Constants {
 
@@ -14,6 +19,9 @@ public class CreateUserActivity extends AppCompatActivity implements Constants {
     private EditText editLastName;
     private EditText editSerial;
     private Button buttonCreate;
+
+    // database
+    private SpatialiteDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +42,36 @@ public class CreateUserActivity extends AppCompatActivity implements Constants {
             }
         });
 
+        // database
+        initDatabase();
+
     }
 
     private void create_onClick(View view) {
-        // Appel l'activity login
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra(EXTRA_SERIAL, editSerial.getText().toString());
-        startActivity(intent);
+
+        try {
+            database.exec("INSERT INTO Forester (FirstName, LastName, Serial) " +
+                    "VALUES ('" + editFirstName.getText() + "', '" + editLastName + "', '" + editSerial.getText() + "')");
+
+            // Appel l'activity login
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra(EXTRA_SERIAL, editSerial.getText().toString());
+            startActivity(intent);
+
+        } catch (jsqlite.Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void initDatabase() {
+
+        try {
+            database = new ForesterSpatialiteOpenHelper(this).getDatabase();
+        } catch (jsqlite.Exception | IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

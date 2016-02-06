@@ -25,7 +25,7 @@ import eu.ensg.spatialite.geom.Point;
 import eu.ensg.spatialite.geom.Polygon;
 import eu.ensg.spatialite.geom.XY;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
+public class MapsActivity extends AppCompatActivity implements Constants, OnMapReadyCallback, LocationListener {
 
     // constants
     public static final float ZOOM_INIT = 10f;
@@ -39,6 +39,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button recordAbort;
 
     // attributs
+    private int foresterID;
     private Point currentPosition = new Point(6.2341579, 46.193253);
     private boolean isRecording = false;
     private Polygon currentSector;
@@ -53,6 +54,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // récupère le foresterID
+        foresterID = getIntent().getIntExtra(EXTRA_FORESTER_ID, -1);
 
         // récupère les vues
         positionLabel = (TextView) findViewById(R.id.position);

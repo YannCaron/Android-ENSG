@@ -7,9 +7,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.IOException;
 
-import jsqlite.Callback;
 import jsqlite.Database;
-import jsqlite.Stmt;
 
 /**
  * Created by cyann on 20/12/15.
@@ -22,7 +20,7 @@ public abstract class SpatialiteOpenHelper {
     public static final String INIT_SPATIAL_METADATA = "SELECT InitSpatialMetaData();";
     protected final String name;
     private final Context context;
-    private final Database database;
+    private final SpatialiteDatabase database;
 
     public SpatialiteOpenHelper(Context context, String name, int version) throws jsqlite.Exception, IOException {
         this.context = context;
@@ -41,14 +39,14 @@ public abstract class SpatialiteOpenHelper {
         }
 
         Log.w(this.getClass().getName(), "Spatialite database created on [" + spatialDbFile.getAbsolutePath() + "]");
-        database = new Database();
+        database = new SpatialiteDatabase();
         database.open(spatialDbFile.getAbsolutePath(), jsqlite.Constants.SQLITE_OPEN_READWRITE | jsqlite.Constants.SQLITE_OPEN_CREATE);
 
         int oldVersion = getCurrentVersion();
 
         if (oldVersion == -1) {
             // !!!! Initialiser les metadata spacial, sinon ne fonctionne pas.
-            exec(INIT_SPATIAL_METADATA);
+            database.exec(INIT_SPATIAL_METADATA);
 
             // !!!! basé sur le pattern "Template method" du GoF
             onCreate(database);
@@ -85,60 +83,8 @@ public abstract class SpatialiteOpenHelper {
         return context.getDatabasePath(name);
     }
 
-    public Database getDatabase() {
+    public SpatialiteDatabase getDatabase() {
         return database;
-    }
-
-    public String dumpQuery(String query) throws jsqlite.Exception {
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Execute query: ").append(query).append("\n\n");
-
-        Stmt stmt = database.prepare(query);
-
-        int maxColumns = stmt.column_count();
-
-        for (int i = 0; i < maxColumns; i++) {
-            if (i != 0) stringBuilder.append(" | ");
-            stringBuilder.append(stmt.column_name(i));
-        }
-        stringBuilder.append("\n--------------------------------------------\n");
-
-        int rowIndex = 0;
-        while (stmt.step()) {
-            for (int i = 0; i < maxColumns; i++) {
-                if (i != 0) stringBuilder.append(" | ");
-                stringBuilder.append(stmt.column_string(i));
-            }
-            stringBuilder.append("\n");
-
-            if (rowIndex++ > 100) break;
-        }
-        stringBuilder.append("\n--------------------------------------------\n");
-        stmt.close();
-
-        stringBuilder.append("\ndump done\n");
-
-        return stringBuilder.toString();
-    }
-
-    public void exec(String sql) throws jsqlite.Exception {
-        Log.i(this.getClass().getName(), "Execute query: " + sql);
-        database.exec(sql, new Callback() {
-            @Override
-            public void columns(String[] coldata) {
-            }
-
-            @Override
-            public void types(String[] types) {
-            }
-
-            @Override
-            public boolean newrow(String[] rowdata) {
-                return false;
-            }
-        });
-        Log.i(this.getClass().getName(), "Query executed successfully !");
     }
 
     public void close() throws jsqlite.Exception {
