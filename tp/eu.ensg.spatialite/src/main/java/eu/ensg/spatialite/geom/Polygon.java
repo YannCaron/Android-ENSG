@@ -28,6 +28,10 @@ public class Polygon extends LineString {
         this.interiors = new ArrayList<>();
     }
 
+    public static Polygon unMarshall(String string) {
+        return unMarshall(new StringBuilder(string));
+    }
+
     public static Polygon unMarshall(StringBuilder string) {
 
         // 'POLYGON'

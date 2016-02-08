@@ -10,7 +10,7 @@
         android:title="@string/title_add_poi"/>
 
     <item
-        android:id="@+id/action_add_sector"
-        android:title="@string/title_add_sector"/>
+        android:id="@+id/action_add_district"
+        android:title="@string/title_add_district"/>
 
 </menu>

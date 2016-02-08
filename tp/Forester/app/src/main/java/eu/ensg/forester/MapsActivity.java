@@ -20,10 +20,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 
+import java.io.IOException;
+
+import eu.ensg.forester.data.ForesterSpatialiteOpenHelper;
 import eu.ensg.spatialite.GPSUtils;
+import eu.ensg.spatialite.SpatialiteDatabase;
+import eu.ensg.spatialite.SpatialiteOpenHelper;
 import eu.ensg.spatialite.geom.Point;
 import eu.ensg.spatialite.geom.Polygon;
 import eu.ensg.spatialite.geom.XY;
+import jsqlite.Stmt;
 
 public class MapsActivity extends AppCompatActivity implements Constants, OnMapReadyCallback, LocationListener {
 
@@ -42,8 +48,11 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
     private int foresterID;
     private Point currentPosition = new Point(6.2341579, 46.193253);
     private boolean isRecording = false;
-    private Polygon currentSector;
+    private Polygon currentDistrict;
     private com.google.android.gms.maps.model.Polygon currentPolygon;
+
+    // database
+    private SpatialiteDatabase database;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -77,6 +86,11 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
                 abort_onClick(v);
             }
         });
+
+        // init database
+        initDatabase();
+        loadPointOfInterests();
+        loadDistricts();
     }
 
     // callback lorsque la map est chargée
@@ -113,7 +127,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
         isRecording = false;
         recordLayout.setVisibility(View.GONE);
 
-        // TODO : do something
+        storeDistrict("District", currentDistrict.toString(), currentDistrict);
     }
 
     // quand on touche le bouton abort
@@ -146,8 +160,8 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
             case (R.id.action_add_poi):
                 addPoi_onMenu(item);
                 return true;
-            case (R.id.action_add_sector):
-                addSector_onMenu(item);
+            case (R.id.action_add_district):
+                addDistrict_onMenu(item);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -167,14 +181,16 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
     }
 
     private void addPoi_onMenu(MenuItem item) {
-        addPointOfInterest(currentPosition);
+        addPointOfInterest("Point of interest", currentPosition.toString(), currentPosition);
         moveTo(currentPosition);
         zoomTo(ZOOM_POI);
+
+        storePointOfInterest("Point of interest", currentPosition.toString(), currentPosition);
     }
 
-    private void addSector_onMenu(MenuItem item) {
+    private void addDistrict_onMenu(MenuItem item) {
         isRecording = true;
-        currentSector = new Polygon();
+        currentDistrict = new Polygon();
         recordLayout.setVisibility(View.VISIBLE);
     }
 
@@ -206,14 +222,14 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
         mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom), 2000, null);
     }
 
-    private void addPointOfInterest(Point position) {
+    private void addPointOfInterest(String name, String description, Point position) {
         if (!checkMap()) return;
 
         // ajoute un marqueur
         mMap.addMarker(new MarkerOptions()
                         .position(position.toLatLng())
-                        .title("Point of interest")
-                        .snippet(position.toString())
+                        .title(name)
+                        .snippet(description)
         );
     }
 
@@ -249,8 +265,8 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
         positionLabel.setText(currentPosition.toString());
 
         if (isRecording == true) {
-            currentSector.addCoordinate(new XY(location));
-            drawPolygon(currentSector);
+            currentDistrict.addCoordinate(new XY(location));
+            drawPolygon(currentDistrict);
             moveTo(currentPosition);
         }
     }
@@ -268,6 +284,67 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    // endregion
+
+    // region database
+
+    private void initDatabase() {
+
+        try {
+            SpatialiteOpenHelper helper = new ForesterSpatialiteOpenHelper(this);
+            database = helper.getDatabase();
+        } catch (jsqlite.Exception | IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+    }
+
+    private void loadPointOfInterests() {
+        try {
+            Stmt stmt = database.prepare("SELECT name, description, ST_asText(position) FROM PointOfInterest");
+            while (stmt.step()) {
+                String name = stmt.column_string(0);
+                String description = stmt.column_string(1);
+                Point position = Point.unMarshall(stmt.column_string(2));
+
+                addPointOfInterest(name, description, position);
+            }
+        } catch (jsqlite.Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadDistricts() {
+        try {
+            Stmt stmt = database.prepare("SELECT ST_asText(area) FROM District");
+            while (stmt.step()) {
+                Polygon polygon = Polygon.unMarshall(stmt.column_string(0));
+
+                addPolygon(polygon);
+                //addPointOfInterest(name, description, position);
+            }
+        } catch (jsqlite.Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void storePointOfInterest(String name, String description, Point position) {
+        try {
+            database.exec("INSERT INTO PointOfInterest (name, description, position) VALUE '" + name + "', '" + description + "', ST_GeomFromText('" + position.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + "')");
+        } catch (jsqlite.Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void storeDistrict(String name, String description, Polygon area) {
+        try {
+            database.exec("INSERT INTO District (name, description, position) VALUE '" + name + "', '" + description + "', ST_GeomFromText('" + area.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + "')");
+        } catch (jsqlite.Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // endregion

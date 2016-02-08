@@ -33,6 +33,10 @@ public class GeometryCollection extends Geometry {
         string.append(")");
     }
 
+    public static GeometryCollection unMarshall(String string) {
+        return unMarshall(new StringBuilder(string));
+    }
+
     public static GeometryCollection unMarshall(StringBuilder string) {
 
         // 'GEOMETRYCOLLECTION'

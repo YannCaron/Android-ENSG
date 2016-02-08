@@ -29,6 +29,10 @@ public class Point extends Geometry {
         return new LatLng(coordinate.getY(), coordinate.getX());
     }
 
+    public static Point unMarshall(String string) {
+        return unMarshall(new StringBuilder(string));
+    }
+
     public static Point unMarshall(StringBuilder string) {
         Parse.removeBlanks(string);
         if (!Parse.consumeSymbol(string, "POINT")) return null;
