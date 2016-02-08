@@ -89,8 +89,6 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
         // init database
         initDatabase();
-        loadPointOfInterests();
-        loadDistricts();
     }
 
     // callback lorsque la map est chargée
@@ -104,6 +102,9 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
         // Evénement GPS
         GPSUtils.requestLocationUpdates(this, this);
+
+        loadPointOfInterests();
+        loadDistricts();
 
     }
 
@@ -314,6 +315,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
             }
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
+            Toast.makeText(this, "Sql Error !!!!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -324,26 +326,28 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
                 Polygon polygon = Polygon.unMarshall(stmt.column_string(0));
 
                 addPolygon(polygon);
-                //addPointOfInterest(name, description, position);
             }
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
+            Toast.makeText(this, "Sql Error !!!!", Toast.LENGTH_LONG).show();
         }
     }
 
     private void storePointOfInterest(String name, String description, Point position) {
         try {
-            database.exec("INSERT INTO PointOfInterest (name, description, position) VALUE '" + name + "', '" + description + "', ST_GeomFromText('" + position.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + "')");
+            database.exec("INSERT INTO PointOfInterest (foresterID, name, description, position) VALUES (" + foresterID + ", '" + name + "', '" + description + "', " + position.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
+            Toast.makeText(this, "Sql Error !!!!", Toast.LENGTH_LONG).show();
         }
     }
 
     private void storeDistrict(String name, String description, Polygon area) {
         try {
-            database.exec("INSERT INTO District (name, description, position) VALUE '" + name + "', '" + description + "', ST_GeomFromText('" + area.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + "')");
+            database.exec("INSERT INTO District (foresterID, name, description, position) VALUES (" + foresterID + ", '" + name + "', '" + description + "', " + area.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
+            Toast.makeText(this, "Sql Error !!!!", Toast.LENGTH_LONG).show();
         }
     }
 
