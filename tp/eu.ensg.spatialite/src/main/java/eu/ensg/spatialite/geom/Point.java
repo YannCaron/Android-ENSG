@@ -30,6 +30,7 @@ public class Point extends Geometry {
     }
 
     public static Point unMarshall(String string) {
+        if (string == null) return null;
         return unMarshall(new StringBuilder(string));
     }
 

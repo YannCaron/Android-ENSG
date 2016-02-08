@@ -2,9 +2,7 @@ package eu.ensg.spatialite;
 
 import android.util.Log;
 
-import jsqlite.Callback;
-import jsqlite.Database;
-import jsqlite.Stmt;
+import jsqlite.*;
 
 /**
  * Created by cyann on 06/02/16.
@@ -61,5 +59,13 @@ public class SpatialiteDatabase extends Database {
             }
         });
         Log.i(this.getClass().getName(), "Query executed successfully !");
+    }
+
+    @Override
+    public Stmt prepare(String sql) throws jsqlite.Exception {
+        Log.i(this.getClass().getName(), "Prepare query: " + sql);
+        Stmt stmt = super.prepare(sql);
+        Log.i(this.getClass().getName(), "Query prepared successfully !");
+        return stmt;
     }
 }

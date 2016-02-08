@@ -29,6 +29,7 @@ public class Polygon extends LineString {
     }
 
     public static Polygon unMarshall(String string) {
+        if (string == null) return null;
         return unMarshall(new StringBuilder(string));
     }
 

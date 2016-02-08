@@ -27,6 +27,7 @@ public class LineString extends Geometry {
     }
 
     public static LineString unMarshall(String string) {
+        if (string == null) return null;
         return unMarshall(new StringBuilder(string));
     }
 

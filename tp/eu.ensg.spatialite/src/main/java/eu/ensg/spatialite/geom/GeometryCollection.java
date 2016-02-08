@@ -34,6 +34,7 @@ public class GeometryCollection extends Geometry {
     }
 
     public static GeometryCollection unMarshall(String string) {
+        if (string == null) return null;
         return unMarshall(new StringBuilder(string));
     }
 

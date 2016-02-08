@@ -192,6 +192,8 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
     private void addDistrict_onMenu(MenuItem item) {
         isRecording = true;
         currentDistrict = new Polygon();
+        currentDistrict.addCoordinate(currentPosition.getCoordinate());
+
         recordLayout.setVisibility(View.VISIBLE);
     }
 
@@ -305,7 +307,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
     private void loadPointOfInterests() {
         try {
-            Stmt stmt = database.prepare("SELECT name, description, ST_asText(position) FROM PointOfInterest");
+            Stmt stmt = database.prepare("SELECT name, description, ST_asText(position) FROM PointOfInterest WHERE foresterID = " + foresterID);
             while (stmt.step()) {
                 String name = stmt.column_string(0);
                 String description = stmt.column_string(1);
@@ -321,7 +323,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
     private void loadDistricts() {
         try {
-            Stmt stmt = database.prepare("SELECT ST_asText(area) FROM District");
+            Stmt stmt = database.prepare("SELECT ST_asText(area) FROM District WHERE foresterID = " + foresterID);
             while (stmt.step()) {
                 Polygon polygon = Polygon.unMarshall(stmt.column_string(0));
 
@@ -344,7 +346,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
     private void storeDistrict(String name, String description, Polygon area) {
         try {
-            database.exec("INSERT INTO District (foresterID, name, description, position) VALUES (" + foresterID + ", '" + name + "', '" + description + "', " + area.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
+            database.exec("INSERT INTO District (foresterID, name, description, area) VALUES (" + foresterID + ", '" + name + "', '" + description + "', " + area.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Sql Error !!!!", Toast.LENGTH_LONG).show();
