@@ -257,6 +257,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
         try {
             database.exec("DELETE FROM PointOfInterest where foresterID = " + foresterID);
             database.exec("DELETE FROM District where foresterID = " + foresterID);
+            mMap.clear();
 
             Toast.makeText(this, "Database cleared", Toast.LENGTH_LONG).show();
         } catch (jsqlite.Exception e) {
@@ -467,7 +468,6 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
                     return WebServices.convertStreamToString(in);
                 } catch (IOException e) {
-                    Log.e(this.getClass().getName(), "Unable to reach URL: " + urlString);
                     e.printStackTrace();
                 }
 
@@ -479,32 +479,34 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
                 // UI thread
                 dialog.dismiss();
 
+                String address = currentPosition.toString();;
+
                 if (res == null) {
                     XmlPullParser parser = Xml.newPullParser();
                     // TODO: !!!! Exécuté dans le thread UI
                     Toast.makeText(MapsActivity.this, "Unable to reach URL: " + url, Toast.LENGTH_LONG).show();
-                    return;
+                } else {
+
+                    Log.i(this.getClass().getName(), "Webservice response: " + res);
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(res);
+                        JSONArray array = jsonObject.getJSONArray("results");
+                        address = ((JSONObject) array.get(0)).getString("formatted_address");
+
+                    } catch (JSONException e) {
+                        Log.e(MapsActivity.this.getClass().getName(), "Unable to parse JSON string " + res);
+                        e.printStackTrace();
+                    }
+
                 }
 
-                Log.i(this.getClass().getName(), "Webservice response: " + res);
+                // Refactoring ici
+                addPointOfInterest("Point of interest", address, currentPosition);
+                moveTo(currentPosition);
+                zoomTo(ZOOM_POI);
+                storePointOfInterest("Point of interest", address, currentPosition);
 
-                try {
-                    JSONObject jsonObject = new JSONObject(res);
-                    JSONArray array = jsonObject.getJSONArray("results");
-                    String address = ((JSONObject)array.get(0)).getString("formatted_address");
-
-                    // Refactoring ici
-                    addPointOfInterest("Point of interest", address, currentPosition);
-                    moveTo(currentPosition);
-                    zoomTo(ZOOM_POI);
-
-                    storePointOfInterest("Point of interest", address, currentPosition);
-
-
-                } catch (JSONException e) {
-                    Log.e(MapsActivity.this.getClass().getName(), "Unable to parse JSON string " + res);
-                    e.printStackTrace();
-                }
             }
 
 
