@@ -19,7 +19,7 @@ public class GeometryCollection extends Geometry {
     }
 
     @Override
-    public void marshall(StringBuilder string) {
+    public void marshall(StringBuilder string) throws BadGeometryException {
         string.append("GEOMETRYCOLLECTION ");
         string.append("(");
 

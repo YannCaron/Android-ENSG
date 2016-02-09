@@ -8,11 +8,15 @@ public abstract class Geometry implements Marshallable {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        marshall(string);
+        try {
+            marshall(string);
+        } catch (BadGeometryException e) {
+            e.printStackTrace();
+        }
         return string.toString();
     }
 
-    public String toSpatialiteQuery(int srid) {
+    public String toSpatialiteQuery(int srid) throws BadGeometryException {
         StringBuilder string = new StringBuilder();
         string.append("ST_GeomFromText('");
         marshall(string);

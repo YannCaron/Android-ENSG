@@ -73,6 +73,6 @@ public interface Marshallable {
 	 * see at http://www.gaia-gis.it/gaia-sins/spatialite-cookbook/html/wkt-wkb.html
 	 * @param string
 	 */
-	void marshall(StringBuilder string);
+	void marshall(StringBuilder string) throws BadGeometryException;
 
 }

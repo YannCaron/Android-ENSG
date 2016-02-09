@@ -93,13 +93,13 @@ public class Polygon extends LineString {
     }
 
     @Override
-    public void marshall(StringBuilder string) {
+    public void marshall(StringBuilder string) throws BadGeometryException {
         string.append("POLYGON");
         string.append(' ');
         string.append('(');
-        getCoordinates().marshall(string);
 
-        if (interiors.size() < 4) throw new RuntimeException("POLYGON geometry should hava at least 4 coordinates!");
+        if (getCoordinates().size() < 4) throw new BadGeometryException("POLYGON geometry should hava at least 4 coordinates!");
+        getCoordinates().marshall(string);
 
         for (XYList interior : interiors) {
             string.append(", ");
