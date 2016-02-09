@@ -13,4 +13,7 @@
     <string name="button_save">Save</string>
     <string name="button_abort">Abort</string>
     <string name="title_map_switch_type">Switch map type</string>
+    <string name="title_backup">Database backup</string>
+    <string name="title_restore">Database restore</string>
+    <string name="title_clear">Database clear</string>
 </resources>

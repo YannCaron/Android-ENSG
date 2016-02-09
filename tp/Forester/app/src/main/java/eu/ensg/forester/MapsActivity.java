@@ -3,8 +3,10 @@ package eu.ensg.forester;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +22,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 
+import java.io.File;
 import java.io.IOException;
 
+import eu.ensg.commons.io.FileSystem;
 import eu.ensg.forester.data.ForesterSpatialiteOpenHelper;
 import eu.ensg.spatialite.GPSUtils;
 import eu.ensg.spatialite.SpatialiteDatabase;
@@ -52,6 +56,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
     private com.google.android.gms.maps.model.Polygon currentPolygon;
 
     // database
+    private SpatialiteOpenHelper helper;
     private SpatialiteDatabase database;
 
     @Override
@@ -89,6 +94,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
         // init database
         initDatabase();
+        databaseBackup_onMenu(null);
     }
 
     // callback lorsque la map est chargée
@@ -164,6 +170,15 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
             case (R.id.action_add_district):
                 addDistrict_onMenu(item);
                 return true;
+            case R.id.database_backup:
+                databaseBackup_onMenu(item);
+                return true;
+            case R.id.database_restore:
+                databaseRestore_onMenu(item);
+                return true;
+            case R.id.database_clear:
+                databaseClear_onMenu(item);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -195,6 +210,42 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
         currentDistrict.addCoordinate(currentPosition.getCoordinate());
 
         recordLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void copyFiles(File from, File to) {
+        Log.i(this.getClass().getName(), String.format("Copy file [%s] to [%s].", from, to));
+
+        try {
+            FileSystem.copyFile(from, to);
+        } catch (IOException e) {
+            Log.e(this.getClass().getName(), String.format("Error during file copy [%s] to [%s].", from, to));
+            e.printStackTrace();
+        }
+
+        Toast.makeText(this, String.format("Database copied to: %s", to), Toast.LENGTH_LONG).show();
+    }
+
+    private void databaseBackup_onMenu(MenuItem item) {
+        File database = helper.getDatabaseFile();
+        File sdcard = new File(Environment.getExternalStorageDirectory(), helper.getDatabaseName());
+
+        copyFiles(database, sdcard);
+    }
+
+    private void databaseRestore_onMenu(MenuItem item) {
+        File database = helper.getDatabaseFile();
+        File sdcard = new File(Environment.getExternalStorageDirectory(), helper.getDatabaseName());
+
+        copyFiles(sdcard, database);
+    }
+
+    private void databaseClear_onMenu(MenuItem item) {
+        try {
+            database.exec("DELETE FROM PointOfInterest where foresterID = " + foresterID);
+            database.exec("DELETE FROM District where foresterID = " + foresterID);
+        } catch (jsqlite.Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // endregion
@@ -246,9 +297,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
         PolygonOptions options = new PolygonOptions();
 
-        XY first = null;
         for (XY xy : geom.getCoordinates().getCoords()) {
-            if (first == null) first = xy;
             options.add(new LatLng(xy.getY(), xy.getX()));
         }
 
@@ -296,7 +345,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
     private void initDatabase() {
 
         try {
-            SpatialiteOpenHelper helper = new ForesterSpatialiteOpenHelper(this);
+            helper = new ForesterSpatialiteOpenHelper(this);
             database = helper.getDatabase();
         } catch (jsqlite.Exception | IOException e) {
             e.printStackTrace();
@@ -323,9 +372,14 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
     private void loadDistricts() {
         try {
-            Stmt stmt = database.prepare("SELECT ST_asText(area) FROM District WHERE foresterID = " + foresterID);
+            Stmt stmt = database.prepare("SELECT name, ST_asText(area) as area FROM District WHERE foresterID = " + foresterID);
             while (stmt.step()) {
-                Polygon polygon = Polygon.unMarshall(stmt.column_string(0));
+
+                Log.w(Polygon.class.getName(), "LOAD POLYGON " + stmt.column_string(1));
+
+                Polygon polygon = Polygon.unMarshall(stmt.column_string(1));
+
+                Log.w(Polygon.class.getName(), "PARSE POLYGON " + polygon);
 
                 addPolygon(polygon);
             }

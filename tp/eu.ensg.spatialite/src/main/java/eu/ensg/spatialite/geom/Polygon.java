@@ -7,6 +7,8 @@ package eu.ensg.spatialite.geom; /**
  * ou écrivez à Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
  **/
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -39,14 +41,20 @@ public class Polygon extends LineString {
         Parse.removeBlanks(string);
         if (!Parse.consumeSymbol(string, "POLYGON")) return null;
 
+        Log.w(Polygon.class.getName(), "POLYGON");
+
         // '('
         Parse.removeBlanks(string);
         if (!Parse.consumeSymbol(string, "(")) return null;
+
+        Log.w(Polygon.class.getName(), "(");
 
         // <exterior>
         XYList exterior = XYList.unMarshall(string, true);
         if (exterior == null) return null;
         Polygon polygon = new Polygon(exterior);
+
+        Log.w(Polygon.class.getName(), "new polygon");
 
         // <interior>*
         while (string.length() > 0 && Parse.nextSymbol(string, ",")) {
@@ -58,6 +66,7 @@ public class Polygon extends LineString {
             // <interior>
             Parse.removeBlanks(string);
             XYList interior = XYList.unMarshall(string, true);
+            Log.w(Polygon.class.getName(), "XYList");
             if (interior == null) return null;
             polygon.addInterior(interior);
 
@@ -66,6 +75,8 @@ public class Polygon extends LineString {
         // ')'
         Parse.removeBlanks(string);
         if (!Parse.consumeSymbol(string, ")")) return null;
+        Log.w(Polygon.class.getName(), ")");
+
         return polygon;
     }
 

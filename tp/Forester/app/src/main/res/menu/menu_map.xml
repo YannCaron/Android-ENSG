@@ -3,14 +3,28 @@
 
     <item
         android:id="@+id/action_switch_type"
-        android:title="@string/title_map_switch_type"/>
+        android:title="@string/title_map_switch_type" />
 
     <item
         android:id="@+id/action_add_poi"
-        android:title="@string/title_add_poi"/>
+        android:title="@string/title_add_poi" />
 
     <item
         android:id="@+id/action_add_district"
-        android:title="@string/title_add_district"/>
+        android:title="@string/title_add_district" />
 
+    <menu android:id="@+id/sousmenu">
+        <item
+            android:id="@+id/database_backup"
+            android:title="@string/title_backup" />
+
+        <item
+            android:id="@+id/database_restore"
+            android:title="@string/title_restore" />
+
+        <item
+            android:id="@+id/database_clear"
+            android:title="@string/title_clear" />
+
+    </menu>
 </menu>
