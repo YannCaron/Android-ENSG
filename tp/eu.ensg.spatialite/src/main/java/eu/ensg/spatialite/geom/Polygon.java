@@ -99,6 +99,8 @@ public class Polygon extends LineString {
         string.append('(');
         getCoordinates().marshall(string);
 
+        if (interiors.size() < 4) throw new RuntimeException("POLYGON geometry should hava at least 4 coordinates!");
+
         for (XYList interior : interiors) {
             string.append(", ");
             interior.marshall(string);

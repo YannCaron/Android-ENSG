@@ -14,7 +14,7 @@ public abstract class Geometry implements Marshallable {
 
     public String toSpatialiteQuery(int srid) {
         StringBuilder string = new StringBuilder();
-        string.append("GeomFromText('");
+        string.append("ST_GeomFromText('");
         marshall(string);
         string.append("', " + srid + ")");
         return string.toString();

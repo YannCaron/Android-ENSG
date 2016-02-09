@@ -42,7 +42,7 @@ public class ForesterSpatialiteOpenHelper extends SpatialiteOpenHelper {
                 "   REFERENCES forester (id)\n" +
                 ");");
 
-        getDatabase().exec("SELECT AddGeometryColumn('PointOfInterest', 'Position', " + GPS_SRID + ", 'POINT', 'XY', 0);");
+        getDatabase().exec("SELECT AddGeometryColumn('PointOfInterest', 'Position', " + GPS_SRID + ", 'POINT', 'XY', 1);");
 
         // table district
         getDatabase().exec("CREATE TABLE District (\n" +
@@ -55,7 +55,7 @@ public class ForesterSpatialiteOpenHelper extends SpatialiteOpenHelper {
                 "   REFERENCES forester (id)\n" +
                 ");");
 
-        getDatabase().exec("SELECT AddGeometryColumn('District', 'Area', " + GPS_SRID + ", 'POLYGON', 'XY', 0);");
+        getDatabase().exec("SELECT AddGeometryColumn('District', 'Area', " + GPS_SRID + ", 'POLYGON', 'XY', 1);");
     }
 
     @Override
