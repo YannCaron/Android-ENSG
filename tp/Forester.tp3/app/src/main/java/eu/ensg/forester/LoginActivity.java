@@ -3,6 +3,7 @@ package eu.ensg.forester;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -76,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements Constants {
 
         // requête sql
         try {
-            Stmt stmt = database.prepare("SELECT * FROM Forester where Serial = '" + serial + "'");
+            Stmt stmt = database.prepare("SELECT * FROM Forester where Serial = " + DatabaseUtils.sqlEscapeString(serial));
 
             if (stmt.step()) {
                 int foresterID = stmt.column_int(0);

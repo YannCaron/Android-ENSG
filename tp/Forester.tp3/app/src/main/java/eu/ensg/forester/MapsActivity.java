@@ -1,12 +1,16 @@
 package eu.ensg.forester;
 
+import android.app.ProgressDialog;
+import android.database.DatabaseUtils;
 import android.location.Location;
 import android.location.LocationListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Xml;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,10 +26,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Locale;
 
 import eu.ensg.commons.io.FileSystem;
+import eu.ensg.commons.io.WebServices;
 import eu.ensg.forester.data.ForesterSpatialiteOpenHelper;
 import eu.ensg.spatialite.GPSUtils;
 import eu.ensg.spatialite.SpatialiteDatabase;
@@ -396,7 +411,8 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
     private void storePointOfInterest(String name, String description, Point position) {
         try {
-            database.exec("INSERT INTO PointOfInterest (foresterID, name, description, position) VALUES (" + foresterID + ", '" + name + "', '" + description + "', " + position.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
+
+            database.exec("INSERT INTO PointOfInterest (foresterID, name, description, position) VALUES (" + foresterID + ", " + DatabaseUtils.sqlEscapeString(name) + ", " + DatabaseUtils.sqlEscapeString(description) + ", " + position.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Sql Error !!!!", Toast.LENGTH_LONG).show();
@@ -408,7 +424,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
     private void storeDistrict(String name, String description, Polygon area) {
         try {
-            database.exec("INSERT INTO District (foresterID, name, description, area) VALUES (" + foresterID + ", '" + name + "', '" + description + "', " + area.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
+            database.exec("INSERT INTO District (foresterID, name, description, area) VALUES (" + foresterID + ", " + DatabaseUtils.sqlEscapeString(name) + ", " + DatabaseUtils.sqlEscapeString(description) + ", " + area.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Sql Error !!!!", Toast.LENGTH_LONG).show();

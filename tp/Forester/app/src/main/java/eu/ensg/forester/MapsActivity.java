@@ -1,12 +1,16 @@
 package eu.ensg.forester;
 
+import android.app.ProgressDialog;
+import android.database.DatabaseUtils;
 import android.location.Location;
 import android.location.LocationListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Xml;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,10 +26,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Locale;
 
 import eu.ensg.commons.io.FileSystem;
+import eu.ensg.commons.io.WebServices;
 import eu.ensg.forester.data.ForesterSpatialiteOpenHelper;
 import eu.ensg.spatialite.GPSUtils;
 import eu.ensg.spatialite.SpatialiteDatabase;
@@ -197,11 +212,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
     }
 
     private void addPoi_onMenu(MenuItem item) {
-        addPointOfInterest("Point of interest", currentPosition.toString(), currentPosition);
-        moveTo(currentPosition);
-        zoomTo(ZOOM_POI);
-
-        storePointOfInterest("Point of interest", currentPosition.toString(), currentPosition);
+        requestGeocoding();
     }
 
     private void addDistrict_onMenu(MenuItem item) {
@@ -396,7 +407,8 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
     private void storePointOfInterest(String name, String description, Point position) {
         try {
-            database.exec("INSERT INTO PointOfInterest (foresterID, name, description, position) VALUES (" + foresterID + ", '" + name + "', '" + description + "', " + position.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
+
+            database.exec("INSERT INTO PointOfInterest (foresterID, name, description, position) VALUES (" + foresterID + ", " + DatabaseUtils.sqlEscapeString(name) + ", " + DatabaseUtils.sqlEscapeString(description) + ", " + position.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Sql Error !!!!", Toast.LENGTH_LONG).show();
@@ -408,7 +420,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
     private void storeDistrict(String name, String description, Polygon area) {
         try {
-            database.exec("INSERT INTO District (foresterID, name, description, area) VALUES (" + foresterID + ", '" + name + "', '" + description + "', " + area.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
+            database.exec("INSERT INTO District (foresterID, name, description, area) VALUES (" + foresterID + ", " + DatabaseUtils.sqlEscapeString(name) + ", " + DatabaseUtils.sqlEscapeString(description) + ", " + area.toSpatialiteQuery(ForesterSpatialiteOpenHelper.GPS_SRID) + ")");
         } catch (jsqlite.Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Sql Error !!!!", Toast.LENGTH_LONG).show();
@@ -416,6 +428,88 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
             e.printStackTrace();
             Toast.makeText(this, "Polygon marshalling Error !!!!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    // endregion
+
+    // region webservice
+
+    private void requestGeocoding() {
+
+        // TODO : Classe interne, locale et anonyme
+        // Classe locale et anonyme
+        new AsyncTask<Point, Void, String>() {
+
+            ProgressDialog dialog;
+            String url = null;
+
+            @Override
+            protected void onPreExecute() {
+                // UI thread
+                dialog = ProgressDialog.show(MapsActivity.this, "Querying geocoding !", "Please wait ...", true, true);
+            }
+
+            @Override
+            protected String doInBackground(Point... params) {
+                // TODO: !!!! Exécuté dans un autre thread
+
+                String urlFormat = "https://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&key=%s";
+                String urlString = String.format(new Locale("en", "US"), urlFormat,
+                        currentPosition.getCoordinate().getY(), currentPosition.getCoordinate().getX(),
+                        getResources().getString(R.string.google_api_server_key));
+                Log.i(this.getClass().getName(), "Query URL: " + urlString);
+
+                try {
+                    URL url = new URL(urlString);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+                    return WebServices.convertStreamToString(in);
+                } catch (IOException e) {
+                    Log.e(this.getClass().getName(), "Unable to reach URL: " + urlString);
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String res) {
+                // UI thread
+                dialog.dismiss();
+
+                if (res == null) {
+                    XmlPullParser parser = Xml.newPullParser();
+                    // TODO: !!!! Exécuté dans le thread UI
+                    Toast.makeText(MapsActivity.this, "Unable to reach URL: " + url, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                Log.i(this.getClass().getName(), "Webservice response: " + res);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(res);
+                    JSONArray array = jsonObject.getJSONArray("results");
+                    String address = ((JSONObject)array.get(0)).getString("formatted_address");
+
+                    // Refactoring ici
+                    addPointOfInterest("Point of interest", address, currentPosition);
+                    moveTo(currentPosition);
+                    zoomTo(ZOOM_POI);
+
+                    storePointOfInterest("Point of interest", address, currentPosition);
+
+
+                } catch (JSONException e) {
+                    Log.e(MapsActivity.this.getClass().getName(), "Unable to parse JSON string " + res);
+                    e.printStackTrace();
+                }
+            }
+
+
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, currentPosition);
+
     }
 
     // endregion

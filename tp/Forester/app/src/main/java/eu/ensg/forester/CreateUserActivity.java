@@ -1,6 +1,7 @@
 package eu.ensg.forester;
 
 import android.content.Intent;
+import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -51,7 +52,9 @@ public class CreateUserActivity extends AppCompatActivity implements Constants {
 
         try {
             database.exec("INSERT INTO Forester (FirstName, LastName, Serial) " +
-                    "VALUES ('" + editFirstName.getText() + "', '" + editLastName + "', '" + editSerial.getText() + "')");
+                    "VALUES (" + DatabaseUtils.sqlEscapeString(editFirstName.getText().toString()) + ", " +
+                    DatabaseUtils.sqlEscapeString(editLastName.getText().toString()) + ", " +
+                    DatabaseUtils.sqlEscapeString(editSerial.getText().toString()) + ")");
 
             // Appel l'activity login
             Intent intent = new Intent(this, LoginActivity.class);
