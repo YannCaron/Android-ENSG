@@ -1,6 +1,7 @@
 package eu.ensg.forester;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.database.DatabaseUtils;
 import android.location.Location;
 import android.location.LocationListener;
@@ -8,9 +9,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Xml;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -254,15 +257,7 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
     }
 
     private void databaseClear_onMenu(MenuItem item) {
-        try {
-            database.exec("DELETE FROM PointOfInterest where foresterID = " + foresterID);
-            database.exec("DELETE FROM District where foresterID = " + foresterID);
-            mMap.clear();
-
-            Toast.makeText(this, "Database cleared", Toast.LENGTH_LONG).show();
-        } catch (jsqlite.Exception e) {
-            e.printStackTrace();
-        }
+        clearDatabase();
     }
 
     // endregion
@@ -431,6 +426,39 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
         }
     }
 
+    private void clearDatabase() {
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setMessage("All data will be lost ! Are you sure to continue ?");
+
+        // setup a dialog window
+        alertDialogBuilder
+                .setCancelable(true)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        try {
+                            database.exec("DELETE FROM PointOfInterest where foresterID = " + foresterID);
+                            database.exec("DELETE FROM District where foresterID = " + foresterID);
+                            mMap.clear();
+
+                            Toast.makeText(MapsActivity.this, "Database cleared", Toast.LENGTH_LONG).show();
+                        } catch (jsqlite.Exception e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+
+        alert.show();
+    }
+
     // endregion
 
     // region webservice
@@ -479,7 +507,8 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
                 // UI thread
                 dialog.dismiss();
 
-                String address = currentPosition.toString();;
+                String address = currentPosition.toString();
+                ;
 
                 if (res == null) {
                     XmlPullParser parser = Xml.newPullParser();
