@@ -449,9 +449,9 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
                             e.printStackTrace();
                         }
 
-
                     }
-                });
+                })
+                .setNegativeButton("Cancel", null);
 
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();

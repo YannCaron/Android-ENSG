@@ -24,7 +24,7 @@
         AIzaSyAGHdy-chMJlEHczcI1fDJSpysdkGfUH1s
     </string>
 
-        <string name="google_api_server_key" templateMergeStrategy="preserve" translatable="false">
+    <string name="google_api_server_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyBfsTbWE7s5g6nn_LfegbvnJF1Z_Pcf61s
     </string>
 

@@ -16,7 +16,7 @@ import java.io.IOException;
 import eu.ensg.forester.data.ForesterSpatialiteOpenHelper;
 import eu.ensg.spatialite.SpatialiteDatabase;
 import eu.ensg.spatialite.SpatialiteOpenHelper;
-import jsqlite.*;
+import jsqlite.Stmt;
 
 public class LoginActivity extends AppCompatActivity implements Constants {
 
@@ -70,6 +70,8 @@ public class LoginActivity extends AppCompatActivity implements Constants {
 
         // database
         initDatabase();
+
+        AnalyticsTrackers.initialize(this);
     }
 
     private void login_onClick(View view) {
