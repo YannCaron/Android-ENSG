@@ -17,4 +17,6 @@
     <string name="title_restore">Database restore</string>
     <string name="title_clear">Database clear</string>
     <string name="title_database_tools">Database tools</string>
+    <string name="title_browse_poi">Browser point of interest</string>
+    <string name="title_browse_district">Browser district</string>
 </resources>

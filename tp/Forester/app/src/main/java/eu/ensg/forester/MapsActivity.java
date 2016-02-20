@@ -2,6 +2,7 @@ package eu.ensg.forester;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.DatabaseUtils;
 import android.location.Location;
 import android.location.LocationListener;
@@ -197,6 +198,12 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
             case R.id.database_clear:
                 databaseClear_onMenu(item);
                 return true;
+            case R.id.action_browse_poi:
+                browsePoi_onMenu(item);
+                return true;
+            case R.id.action_browse_district:
+                browseDistrict_onMenu(item);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -258,6 +265,20 @@ public class MapsActivity extends AppCompatActivity implements Constants, OnMapR
 
     private void databaseClear_onMenu(MenuItem item) {
         clearDatabase();
+    }
+
+    private void browsePoi_onMenu(MenuItem item) {
+        // Appel l'activity DataListActivity
+        Intent intent = new Intent(this, DataListActivity.class);
+        intent.putExtra(EXTRA_SQL, "SELECT ID, Name, Description, ST_asText(Position) FROM PointOfInterest");
+        startActivity(intent);
+    }
+
+    private void browseDistrict_onMenu(MenuItem item) {
+        // Appel l'activity DataListActivity
+        Intent intent = new Intent(this, DataListActivity.class);
+        intent.putExtra(EXTRA_SQL, "SELECT ID, Name, Description, ST_asText(Area) FROM District");
+        startActivity(intent);
     }
 
     // endregion

@@ -32,4 +32,12 @@
 
     </item>
 
+    <item
+        android:id="@+id/action_browse_poi"
+        android:title="@string/title_browse_poi" />
+
+    <item
+        android:id="@+id/action_browse_district"
+        android:title="@string/title_browse_district" />
+
 </menu>
