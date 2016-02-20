@@ -71,7 +71,6 @@ public class LoginActivity extends AppCompatActivity implements Constants {
         // database
         initDatabase();
 
-        AnalyticsTrackers.initialize(this);
     }
 
     private void login_onClick(View view) {
