@@ -38,7 +38,9 @@ public interface Marshallable {
 			StringBuilder numString = new StringBuilder();
 			while (string.length() > 0) {
 				String chr = String.valueOf(string.charAt(0));
-				if (!"0123456789.".contains(chr)) break;
+
+				// thanks alkra for finding the bug
+				if (!"-0123456789.".contains(chr)) break;
 				numString.append(chr);
 				string.deleteCharAt(0);
 			}
