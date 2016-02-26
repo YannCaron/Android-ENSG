@@ -22,7 +22,7 @@ public class ForesterSpatialiteOpenHelper extends SpatialiteOpenHelper {
     }
 
     @Override
-    public void onCreate(Database db) throws jsqlite.Exception {
+    public void onCreate(SpatialiteDatabase db) throws jsqlite.Exception {
         // table forester
         getDatabase().exec("CREATE TABLE Forester (\n" +
                 "ID integer PRIMARY KEY AUTOINCREMENT, \n" +
@@ -59,7 +59,7 @@ public class ForesterSpatialiteOpenHelper extends SpatialiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(Database db, int oldVersion, int newVersion) throws Exception {
+    public void onUpgrade(SpatialiteDatabase db, int oldVersion, int newVersion) throws Exception {
 
     }
 }

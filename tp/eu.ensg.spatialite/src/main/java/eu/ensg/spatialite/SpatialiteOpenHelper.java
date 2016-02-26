@@ -97,7 +97,7 @@ public abstract class SpatialiteOpenHelper {
      *
      * @param db The database.
      */
-    public abstract void onCreate(Database db) throws jsqlite.Exception;
+    public abstract void onCreate(SpatialiteDatabase db) throws jsqlite.Exception;
 
     /**
      * Called when the database needs to be upgraded. The implementation
@@ -119,7 +119,7 @@ public abstract class SpatialiteOpenHelper {
      * @param oldVersion The old database version.
      * @param newVersion The new database version.
      */
-    public abstract void onUpgrade(Database db, int oldVersion, int newVersion) throws jsqlite.Exception;
+    public abstract void onUpgrade(SpatialiteDatabase db, int oldVersion, int newVersion) throws jsqlite.Exception;
 
 
 }
