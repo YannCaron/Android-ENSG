@@ -28,3 +28,5 @@ Thumbs.db
 # virtual machine crash
 hs_err_pid*
 
+# open office
+*.odb
