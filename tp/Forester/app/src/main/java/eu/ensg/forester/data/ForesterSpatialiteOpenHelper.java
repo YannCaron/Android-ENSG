@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.io.IOException;
 
+import eu.ensg.spatialite.SpatialiteDatabase;
 import eu.ensg.spatialite.SpatialiteOpenHelper;
 import jsqlite.Database;
 import jsqlite.Exception;
