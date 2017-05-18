@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/src/main/jniLibs"/></dataSet><dataSet config="release"><source path="/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/src/release/jniLibs"/></dataSet></merger>

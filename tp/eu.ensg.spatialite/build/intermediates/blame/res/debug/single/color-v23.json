@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/debug/color-v23/abc_tint_btn_checkable.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/color-v23/abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_thumb.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/color-v23/abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_text_material.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/color-v23/abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/debug/color-v23/abc_tint_spinner.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/color-v23/abc_tint_spinner.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/debug/color-v23/abc_tint_default.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/color-v23/abc_tint_default.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_track.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/color-v23/abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/debug/color-v23/abc_tint_edittext.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/color-v23/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_borderless_text_material.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/color-v23/abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/debug/color-v23/abc_color_highlight_material.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/color-v23/abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/debug/color-v23/abc_tint_seek_thumb.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/color-v23/abc_tint_seek_thumb.xml"
+    }
+]

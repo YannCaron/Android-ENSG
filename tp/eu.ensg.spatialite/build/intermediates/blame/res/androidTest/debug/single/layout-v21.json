@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/layout-v21/notification_action_tombstone.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/layout-v21/notification_template_icon_group.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/layout-v21/notification_action.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/layout-v21/notification_template_custom_big.xml",
+        "source": "/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/res/layout-v21/notification_template_custom_big.xml"
+    }
+]

@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/12d09b40f21053cd8d59ef1ad0d3cf763c2c465c/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_4936f52dad9d53b3af9bb0d2f95cae584af57c7f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/bce6ea372dd9bf9bed0d92cd1852bbd72f3b94e0/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_e1cc8cb16f5579b65e4f5d959f2eed472db75c03.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.1_3ad9c4af2bf1c43d500a31b240fb768d36f32f29/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/ebcbc6d1a8d10b174ef3c40672491714d0407147/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_8151cbafa4bc1af019af8c44eab35026d481efb8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/a87956e53201afc3daf30054518311dcecdc9824/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_aaf751bdcc6b2ff11cd61dee4204610dae21820a.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/8f38dff44236d1793bb3beed9118b97ee1bb4441/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6a4cdd3c18d7720637e845862ea196e1943f98c0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/74529e7d9bf998fbdd614f68d24ae5a37d5683c3/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_18882687e8d37a0ccf4b3cf7a65f9dbbc6af1aab/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/8b45a2afa374ee1b65ef7d8402380f7a18a71a06/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5fbcc90b65335107747c5f78158c5487bdc8083d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/20d7562aa4351ed7b2cb110885d40dfdd78630db/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_40c6f8e92b237c900c90d3e19e5dcb3d817b0be3/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_8fac50d3c79757c40f6cd86269ec79fcaa2531a8.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/5f9c08359f3329c3c9b17ede62e2bd617143d43a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c6af8346251234f4be56aa19d60a2003d267a6ab/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/b907f18f3408b06f93be4362c82aa7e767cd934a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_a7dcd535271e2a95e7538ca1e56883a66e98ea56.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/d1ba96b73a5810b7ebfc3d2215f14034b2b5d974/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_d16bb66ae913edfbe6c06364bf99ad0b39393c49.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/35418d7ca5e190c51dd7e32ea0f58e4d3d877657/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_c0015ee1d7944a2963045b76c0efc0ba786973b1.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4325fcf466273b15f127cf291c03683652edff96/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/be3ce0bbf717cad3a269c73528415eb6f4149f22/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ca75261719ea124eb0a187ebb7151741044c82c0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/15884c00581978a5cc7737e23f9f3d9361fc9ad4/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_683bb4f7fe5e9471febb01a042174b75a2b62c95/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/f9cec13b91c6e34d7c9b3602b1ded567cbaa76a7/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_246ddf09ac26157d91a1735b1fe5460d49308374/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/b12c7e18f22dba748fccc254a48a2cd7cc97c881/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7f4f14bb32ff6b8c0d5aa0dc5c8b83b81dad52e0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/56f8d5a1f14b3e2c90d433ea43f4e918dffa4fb5/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7e93feede1c63adc2a7c3dde3a174dfc80979a2b/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/projects/courses/Android-ENSG/tp/spatialite-db-driver/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bbe69df2510ef985d2a915792f9771249b2c2408">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_2601b5610b4ec766cdef9bab64c34001f710b0d0.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/35418d7ca5e190c51dd7e32ea0f58e4d3d877657/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c0015ee1d7944a2963045b76c0efc0ba786973b1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/32b5ef7c644c28fc57221857be0b43af8cb1f77d/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_65c1e4c09af86f2b9edd1423cfc8c6176056778d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="97d1d4a34f4014f9be518febed3df06037a1e219">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_91efaba009499a42cb9c43b0a5b33b02683a1059/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/f329331400e60286926449d80d9bb43ef38da0f8/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_5276a0d6bb52e987e06682a307a1dd9916b1ab90.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/2e10efbf9103b2c534e4301c87130f484d9b5947/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_d9427029dd919fb5a5b7f2c547e60303fea56d86.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/4a47e4d966ed42a7359d15f46ca0da29549a672a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e24f9796b6b27b3edbe36a91328fbfe13b8b74f1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/d28e442a6822ad9929333a1b706ebeb06f2e813d/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0c2e613054578d7d95b3c47f3aef841f2e7f1706/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/39d87b43cb131d8e44cfad9ad0a8f91e90259149/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_c60c9cbe4dd5db35125712c2c405d5d05e230b0b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/eabb341e540bd3fc0e280b53ba498f1ae826c8ab/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_9d0d42a53c7a06cb3eeb25dfe1a151b253bf4e13.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/2d440770399564bc4c40cb0dc7eb25bf47a45c7a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_665dcb9ccb98f2ec3ec8b06eb439856817ae0f29/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/1f0f69636c4799ef2090c4ad7bc54628e95671e2/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7845edefeb8489b284ad2aac9ec7fb66ffdc0b76/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/0fb1fdadcf75effbf1d85d74141d4d6592377355/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_d14535b12f77ba2538728a29abb73e3a264f79f4.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/39b49933762e727797587398843c9f8b1cf4e7b5/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_aaef960f846129f927e886010e75820eaac36fc1/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/a7b6013463c250851c6298e1ed00fa1a3cb2736a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_a85fd1d0f8f4562deb5ac186dd9c93aa6e596bac.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/f1bbfd2b29554327021a6c103e346f1039d94397/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1286f4707b181a4e36bf498e17f68bad22040b03/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/28f0863d814dc47852d7f8eaf6054827c3523dbb/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_3da5ef85e565fa74451e56351ec0270f3951a3ab.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8db2919af0351fb25cdfe8f6520f41e8a4d28a13">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_4dededaf7d271776282b818dd16018f61e8f8535.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/eabb341e540bd3fc0e280b53ba498f1ae826c8ab/output/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0_2a727675b94d6fe30d786491127bbae469a1608f.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/12d09b40f21053cd8d59ef1ad0d3cf763c2c465c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4936f52dad9d53b3af9bb0d2f95cae584af57c7f/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/8f38dff44236d1793bb3beed9118b97ee1bb4441/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_6a4cdd3c18d7720637e845862ea196e1943f98c0.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/bce6ea372dd9bf9bed0d92cd1852bbd72f3b94e0/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e1cc8cb16f5579b65e4f5d959f2eed472db75c03/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/support-annotations-25.1.1_3ad9c4af2bf1c43d500a31b240fb768d36f32f29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.commons/build/libs/eu.ensg.commons.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6b702897c2ecc96ab744081132129a3a6c0391dc">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/eu.ensg.commons_d2cb484dcde9684e1fe3840772f20098d2933772.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/74529e7d9bf998fbdd614f68d24ae5a37d5683c3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_18882687e8d37a0ccf4b3cf7a65f9dbbc6af1aab.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/ebcbc6d1a8d10b174ef3c40672491714d0407147/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8151cbafa4bc1af019af8c44eab35026d481efb8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_f3a37815b3f29be6ec250b768b5e8d2790dde5e0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/a87956e53201afc3daf30054518311dcecdc9824/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_aaf751bdcc6b2ff11cd61dee4204610dae21820a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8fac50d3c79757c40f6cd86269ec79fcaa2531a8/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/be3ce0bbf717cad3a269c73528415eb6f4149f22/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_ca75261719ea124eb0a187ebb7151741044c82c0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/20d7562aa4351ed7b2cb110885d40dfdd78630db/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_40c6f8e92b237c900c90d3e19e5dcb3d817b0be3.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/b907f18f3408b06f93be4362c82aa7e767cd934a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a7dcd535271e2a95e7538ca1e56883a66e98ea56/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/d1ba96b73a5810b7ebfc3d2215f14034b2b5d974/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d16bb66ae913edfbe6c06364bf99ad0b39393c49/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/5f9c08359f3329c3c9b17ede62e2bd617143d43a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_c6af8346251234f4be56aa19d60a2003d267a6ab.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/b12c7e18f22dba748fccc254a48a2cd7cc97c881/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_7f4f14bb32ff6b8c0d5aa0dc5c8b83b81dad52e0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/15884c00581978a5cc7737e23f9f3d9361fc9ad4/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_683bb4f7fe5e9471febb01a042174b75a2b62c95.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/f9cec13b91c6e34d7c9b3602b1ded567cbaa76a7/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_246ddf09ac26157d91a1735b1fe5460d49308374.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/fbb5e64de13a37f996397cb7ecb8b24565b5792f/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_4325fcf466273b15f127cf291c03683652edff96.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/8b45a2afa374ee1b65ef7d8402380f7a18a71a06/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_5fbcc90b65335107747c5f78158c5487bdc8083d.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/39d87b43cb131d8e44cfad9ad0a8f91e90259149/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c60c9cbe4dd5db35125712c2c405d5d05e230b0b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/f329331400e60286926449d80d9bb43ef38da0f8/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5276a0d6bb52e987e06682a307a1dd9916b1ab90/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/32b5ef7c644c28fc57221857be0b43af8cb1f77d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_65c1e4c09af86f2b9edd1423cfc8c6176056778d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/1f0f69636c4799ef2090c4ad7bc54628e95671e2/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_7845edefeb8489b284ad2aac9ec7fb66ffdc0b76.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/4a47e4d966ed42a7359d15f46ca0da29549a672a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_e24f9796b6b27b3edbe36a91328fbfe13b8b74f1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/2d440770399564bc4c40cb0dc7eb25bf47a45c7a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_665dcb9ccb98f2ec3ec8b06eb439856817ae0f29.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/2e10efbf9103b2c534e4301c87130f484d9b5947/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d9427029dd919fb5a5b7f2c547e60303fea56d86/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/eabb341e540bd3fc0e280b53ba498f1ae826c8ab/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9d0d42a53c7a06cb3eeb25dfe1a151b253bf4e13/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/d28e442a6822ad9929333a1b706ebeb06f2e813d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_0c2e613054578d7d95b3c47f3aef841f2e7f1706.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/0fb1fdadcf75effbf1d85d74141d4d6592377355/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d14535b12f77ba2538728a29abb73e3a264f79f4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/a7b6013463c250851c6298e1ed00fa1a3cb2736a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a85fd1d0f8f4562deb5ac186dd9c93aa6e596bac/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/f1bbfd2b29554327021a6c103e346f1039d94397/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_1286f4707b181a4e36bf498e17f68bad22040b03.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/28f0863d814dc47852d7f8eaf6054827c3523dbb/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_3da5ef85e565fa74451e56351ec0270f3951a3ab/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/cyann/.android/build-cache/eabb341e540bd3fc0e280b53ba498f1ae826c8ab/output/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.0.0_2a727675b94d6fe30d786491127bbae469a1608f/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/39b49933762e727797587398843c9f8b1cf4e7b5/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_aaef960f846129f927e886010e75820eaac36fc1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/cyann/.android/build-cache/56f8d5a1f14b3e2c90d433ea43f4e918dffa4fb5/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG/tp/Forester/app/build/intermediates/pre-dexed/debug/classes_7e93feede1c63adc2a7c3dde3a174dfc80979a2b.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-7c353e6701ec7023a5ddf22890a5110619ac8ab4.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-b45cb219ab26d0a4ded7c39677175a90fa755d14.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-ee31d955aefe0ec7d516278c613a89aaaf9102e6.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-b07663665607a220959ea1a49342c76dd502c952.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-4f77fea4405dd728e4b0f3192b3ea07123f45b60.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/Forester@@@/eu.ensg.spatialite/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="24b2b9f543425212ff535b47d43df7ba37ec53b5">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-ed2d2b18d37f2eec7bb66d74501041c78ffa47fe.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-9674205b5aa1410d12813ed261b8a2f50c494974.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-5d3601648e9d2c1cc5ddb42931e2a7d060971275.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-823f61ce2bce0a84fdd4104ca0421f88d3a4335d.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-70da185ebf9279e3044f51acca608286c6098c4d.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-6602c2f51d7bf6d752de326ce39a5ba7567e0363.jar" />
+    </item>
+    <item
+        jar="/home/cyann/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1-ed7e6f1b1411d6fc7d79840dd6be7aa5ad1e044d.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-d54d844f0350a08617ee8e95312431897994a66e.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-88058b0874bdcb8d02fd2f6e844e1336391100b8.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/Forester....Spatialite-Database-Driver/spatialite-db-driver/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="9ca28b2212c01f30ad4d11c6e37d089c918848d2">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-f1d4d5725af0363060be4050c1a67ee82bad1cfb.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/eu.ensg.commons/build/libs/eu.ensg.commons.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="aa021e46f99ac043d98e394bc70d12ea46f1f515">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/eu.ensg.commons-51b5add935edba9d9b5bce45c191d905152fcab8.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-cf863a7441fd39b1c13d43e4a95133a25e40c272.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1-b53c545c7a0b9f0d0a80ce8819d907d534f465aa.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-577edbb8099118e1398ab0fd9987cd9c58cf5f4e.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-3ab50ae4cc40820080504a67c89a0728ad5b6b87.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-fb156e359e9abf6de7a19c222b46b96374563e5c.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-2a8f9f4feba1e0bb8143d853cabb9ff86634d5c2.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-13e73e59389c01fe90b43468139eebdb9644a04e.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-c6339b60302c1cb3233bd16d02fd3a0fb41aae74.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-be9eefecb7b222abb373220f5f02fb07bcad756b.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-58a51554b7ba4a3cad84a53cc17e0f60cd7ef41d.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-fc96279c2fd0c7a57245bac72c9be0161826b33c.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-2114240e201f29b60e3b8b522bc9751fd82eaae2.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-20f274ddc3fecc19ae297d4a8f3aed12707e278a.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-e7c1416d94c1623a89d1e6619381bc939496fa61.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-0b22f3c4559a2faca315381b2d3c67af94b64364.jar" />
+    </item>
+    <item
+        jar="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/home/cyann/projects/courses/Android-ENSG-2016/tp/Forester/app/build/intermediates/pre-dexed/debug/classes-3ae6ebee5dbd16e83b1eb6077060c8135ec56f9b.jar" />
+    </item>
+
+</items>

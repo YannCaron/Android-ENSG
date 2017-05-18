@@ -1,0 +1,134 @@
+[
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_icon_light_normal.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_icon_light_normal.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_text_dark_pressed.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_text_dark_pressed.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_icon_light_pressed.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_icon_light_pressed.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_icon_light_pressed.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_icon_light_pressed.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_text_dark_disabled.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_text_dark_disabled.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_text_dark_normal.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_text_dark_normal.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_text_light_pressed.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_text_light_pressed.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_text_light_normal.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_text_light_normal.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_text_dark_disabled.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_text_dark_disabled.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_icon_dark_normal.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_icon_dark_normal.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_text_light_pressed.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_text_light_pressed.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_icon_light_focused.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_icon_light_focused.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_icon_light_focused.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_icon_light_focused.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_icon_dark_pressed.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_icon_dark_pressed.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_text_light_disabled.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_text_light_disabled.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_text_light_focused.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_text_light_focused.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_icon_dark_normal.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_icon_dark_normal.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_icon_dark_disabled.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_icon_dark_disabled.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_icon_dark_disabled.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_icon_dark_disabled.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_text_dark_focused.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_text_dark_focused.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_full_open_on_phone.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_full_open_on_phone.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_icon_dark_focused.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_icon_dark_focused.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_icon_light_disabled.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_icon_light_disabled.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_icon_dark_pressed.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_icon_dark_pressed.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_text_light_normal.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_text_light_normal.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_text_light_focused.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_text_light_focused.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_icon_dark_focused.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_icon_dark_focused.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_icon_light_normal.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_icon_light_normal.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_text_light_disabled.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_text_light_disabled.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_icon_light_disabled.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_icon_light_disabled.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_google_signin_btn_text_dark_normal.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_google_signin_btn_text_dark_normal.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_text_dark_focused.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_text_dark_focused.9.png"
+    },
+    {
+        "merged": "/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/build/intermediates/res/merged/androidTest/debug/drawable-mdpi/common_plus_signin_btn_text_dark_pressed.9.png",
+        "source": "/home/cyann/.android/build-cache/b606b59cd0e9e7e0ad161f8f0be4211248c76fcb/output/res/drawable-mdpi/common_plus_signin_btn_text_dark_pressed.9.png"
+    }
+]

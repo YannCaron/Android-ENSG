@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/home/cyann/projects/courses/Android-ENSG/tp/eu.ensg.spatialite/src/debug/shaders"/></dataSet></merger>

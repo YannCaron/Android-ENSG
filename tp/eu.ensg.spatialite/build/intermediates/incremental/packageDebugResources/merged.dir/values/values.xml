@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="gps_refresh_min_dist_m">1</integer>
+    <integer name="gps_refresh_min_time_ms">1000</integer>
+    <string name="app_name">eu.ensg.spatialite</string>
+</resources>
