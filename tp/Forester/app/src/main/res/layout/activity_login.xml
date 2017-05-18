@@ -13,35 +13,4 @@
     android:gravity="center_vertical"
     tools:context="eu.ensg.forester.LoginActivity">
 
-    <TextView
-        android:text="@string/label_serial_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.Large"/>
-
-    <EditText
-        android:id="@+id/serial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/login"
-            android:text="@string/button_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/create"
-            android:text="@string/button_create_new"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
 </LinearLayout>

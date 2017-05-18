@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Criteria;
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
@@ -20,12 +22,31 @@ public class GPSUtils {
     public static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     public static final int PERMISSIONS_REQUEST_COARSE_LOCATION = 2;
 
+    public static Location getLastLocation(Activity activity) {
+        LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            checkGPSPermission(activity);
+            return null;
+        }
+
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setCostAllowed(true);
+
+        String provider = locationManager.getBestProvider(criteria, true);
+
+        return locationManager.getLastKnownLocation(provider);
+    }
+
     public static void requestLocationUpdates(Activity activity, LocationListener listener) {
         LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(activity,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                || ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             checkGPSPermission(activity);
             return;

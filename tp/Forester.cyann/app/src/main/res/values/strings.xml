@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Forester</string>
+    <string name="label_serial_number">Serial Number</string>
+    <string name="button_login">Login</string>
+    <string name="button_create_new">Create new User</string>
+    <string name="label_first_name">First Name</string>
+    <string name="label_last_name">Last Name</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_add_poi">Add point of interest</string>
+    <string name="title_add_district">Add district</string>
+    <string name="toast_google_map_unavailable">Google map still not available !</string>
+    <string name="title_activity_maps2">Map</string>
+    <string name="button_save">Save</string>
+    <string name="button_abort">Abort</string>
+    <string name="title_map_switch_type">Switch map type</string>
+    <string name="title_backup">Database backup</string>
+    <string name="title_restore">Database restore</string>
+    <string name="title_clear">Database clear</string>
+    <string name="title_database_tools">Database tools</string>
+    <string name="title_browse_poi">Browser point of interest</string>
+    <string name="title_browse_district">Browser district</string>
+</resources>

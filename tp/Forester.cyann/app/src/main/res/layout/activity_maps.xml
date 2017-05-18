@@ -1,0 +1,55 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".MapActivity">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="eu.ensg.forester.MapsActivity"/>
+
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GPS still not available !"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:padding="5dp"
+        android:alpha="0.75"
+        android:background="#ffffff"/>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/record_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="5dp"
+        android:paddingBottom="15dp"
+        android:alpha="0.75"
+        android:background="#ffffff"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/record_save"
+            android:text="@string/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/record_abort"
+            android:text="@string/button_abort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+
+</FrameLayout>

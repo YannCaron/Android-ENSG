@@ -5,7 +5,7 @@ package eu.ensg.forester;
  */
 public interface Constants {
 
-
+    public static final int DEFAULT_SRID = 4326;
     public static final String PREFERENCE_NAME = "eu.ensg.forester";
     public static final String PREFERENCE_SERIAL = "Serial";
     public static final String EXTRA_FORESTER_ID = "ForesterID";
