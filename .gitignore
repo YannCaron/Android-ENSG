@@ -10,6 +10,7 @@
 *.iws
 *.keystore
 *.gradle
+/gradle/
 
 # Backup, tmp and logs
 log/
